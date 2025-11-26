@@ -18,4 +18,10 @@ app.use(express.urlencoded(
 ))
 app.use(express.static("public"))
 
+
+// routes import
+import noteRouter from "./routes/note.routes.js";
+
+app.use("/api/v1/addNote", noteRouter)
+
 export { app }
