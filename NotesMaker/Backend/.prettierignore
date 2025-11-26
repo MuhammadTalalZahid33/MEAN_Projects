@@ -1,0 +1,22 @@
+# Ignore build and output directories
+/dist
+/build
+/out
+/public
+/coverage
+node_modules
+
+# Ignore log files
+*.log
+
+# Ignore package manager lock files (if not already ignored by default)
+pnpm-lock.yaml
+yarn.lock
+
+# Ignore editor-specific files or temporary files
+.vscode/
+.idea/
+*.tmp
+.env
+*.env
+.env*
