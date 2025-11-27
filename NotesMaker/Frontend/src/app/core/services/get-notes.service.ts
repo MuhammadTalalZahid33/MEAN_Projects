@@ -11,7 +11,6 @@ export class GetNotesService {
   http = inject(HttpClient)
 
   getNotes() : Observable<any> {
-    
     return this.http.get(`${this.url}/allNotes`);
   }
 }
