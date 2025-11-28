@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterModule } from "@angular/router";
-import { NotesListComponent } from "../../components/notes-list/notes-list.component";
+import { NotesListComponent } from "../../components/notes/notes-list/notes-list.component";
 
 @Component({
   selector: 'app-home',
