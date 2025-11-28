@@ -1,13 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notes List</title>
 </head>
-<body>
-    <p>Welcome to the world of Notes</p>
-    <p>{{noteObj}}</p>
-</body>
-</html>
 
+<body>
+    <h3>Welcome to the world of Notes</h3>
+    <div class="notes-container">
+        @if(noteObj.length != 0){
+            @for (note of noteObj; track note.id) {
+                @let contentLength = note.content.length;
+                <div class="noteStyle">
+                    <p class="title">{{note.title}} </p>
+                    @if(contentLength > 15){
+                    <p class="content">{{note.content.substring(0, 15) + "..."}} </p>
+                    }@else{
+                    <p class="content">{{note.content}}</p>   
+                    }
+                </div>
+            }
+        }
+    </div>
+</body>
+
+</html>

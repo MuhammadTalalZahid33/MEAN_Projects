@@ -10,21 +10,23 @@ import { catchError } from 'rxjs';
   templateUrl: './notes-list.component.html',
   styleUrl: './notes-list.component.scss'
 })
-export class NotesListComponent implements OnInit{
-  noteObj: any[] = []
+export class NotesListComponent implements OnInit {
+  noteObj: Array<Note> = []
   notes = signal<Array<Note>>
   noteObject = inject(GetNotesService);
 
-  ngOnInit() : void {
+  contentLength = signal('');
+
+  ngOnInit(): void {
     this.noteObject.getNotes()
-    .pipe(catchError((err) => {
-      console.log("error getting note list")
-      throw(err)
-    }))
-    .subscribe((note) => {
-      this.noteObj = note;
-      console.log(this.noteObj);
-      // this.notes.set()
-    })
+      .pipe(catchError((err) => {
+        console.log("error getting note list")
+        throw (err)
+      }))
+      .subscribe((note) => {
+        this.noteObj = note.allNotes;
+        console.log(this.noteObj);
+        // this.notes.set(this.noteObject);
+      })
   }
 }
