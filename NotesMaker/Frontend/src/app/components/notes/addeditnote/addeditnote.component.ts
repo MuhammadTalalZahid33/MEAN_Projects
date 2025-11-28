@@ -19,7 +19,7 @@ export class AddeditnoteComponent {
 
   onSave(form:any){
     if (form.valid) {
-      this.noteObj.saveNotes(this.note);    
+      this.noteObj.saveNotes(this.note).subscribe();
       console.log('Form submitted:', this.note);
     } else {
       alert('Please fill all required fields correctly.');

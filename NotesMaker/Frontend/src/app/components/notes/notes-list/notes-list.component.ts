@@ -42,4 +42,8 @@ export class NotesListComponent implements OnInit {
   openDialog() {
     this.dialogRef.open(AddeditnoteComponent)
   }
+
+  EditNote(){
+    this.dialogRef.open(AddeditnoteComponent)
+  }
 }
