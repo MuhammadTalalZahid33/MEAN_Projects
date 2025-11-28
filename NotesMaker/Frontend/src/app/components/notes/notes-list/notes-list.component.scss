@@ -63,3 +63,30 @@ body{
         transform:  scale(1.1);
     }
 }
+
+.Edit-button{
+  margin-bottom: 20px;
+    padding: 8px;
+    border-radius: 6px;
+    color: white;
+    background-color: #0c5b31;
+    border: none;
+    &:hover{
+        cursor: pointer;
+        transform:  scale(1.1);
+    }
+    margin: 0.5rem;
+}
+
+.Del-button{
+  margin-bottom: 20px;
+    padding: 8px;
+    border-radius: 6px;
+    color: white;
+    background-color: #7a1515;
+    border: none;
+    &:hover{
+        cursor: pointer;
+        transform:  scale(1.1);
+    }
+}

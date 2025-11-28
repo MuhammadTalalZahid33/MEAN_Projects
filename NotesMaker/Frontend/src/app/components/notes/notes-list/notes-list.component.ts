@@ -3,11 +3,19 @@ import { Note } from '../../../core/models/note.type';
 import { GetNotesService } from '../../../core/services/get-notes.service';
 import { catchError } from 'rxjs';
 import { AddeditnoteComponent } from "../addeditnote/addeditnote.component";
+import {
+  MatDialog,
+  MatDialogActions,
+  MatDialogClose,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle,
+} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-notes-list',
   standalone: true,
-  imports: [AddeditnoteComponent],
+  imports: [],
   templateUrl: './notes-list.component.html',
   styleUrl: './notes-list.component.scss'
 })
@@ -15,6 +23,8 @@ export class NotesListComponent implements OnInit {
   noteObj: Array<Note> = []
   notes = signal<Array<Note>>
   noteObject = inject(GetNotesService);
+
+  constructor(private dialogRef: MatDialog) { }
 
   // Hook to get the Note Array...
   ngOnInit(): void {
@@ -29,7 +39,7 @@ export class NotesListComponent implements OnInit {
       })
   }
 
-  openDialog(){
-    // const dialogRef = this.
+  openDialog() {
+    this.dialogRef.open(AddeditnoteComponent)
   }
 }

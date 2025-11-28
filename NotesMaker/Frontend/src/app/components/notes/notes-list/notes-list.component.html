@@ -9,7 +9,7 @@
 
 <body>
     <h3>Welcome to the world of Notes</h3>
-    <button class="Add-button" (click)="openDialog()">Add Note</button>
+    <button class="Add-button" (click)="openDialog()">+ Add Note</button>
     <div class="notes-container">
         @if(noteObj.length != 0){
             @for (note of noteObj; track note.id) {
@@ -21,7 +21,10 @@
                     }@else{
                     <p class="content">{{note.content}}</p>   
                     }
+                    <button class="Edit-button">Edit</button>
+                    <button class="Del-button">Delete</button>
                 </div>
+                
             }
         }
     </div>
