@@ -2,7 +2,7 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { Note } from '../../../core/models/note.type';
 import { GetNotesService } from '../../../core/services/get-notes.service';
 import { catchError } from 'rxjs';
-import { AddeditnoteComponent } from "../addeditnote/addeditnote.component";
+import { AddeditnoteComponent } from "../noteDialogues/addeditnote.component";
 import {
   MatDialog,
   MatDialogActions,
@@ -11,6 +11,7 @@ import {
   MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
+import { VerificationdialogueComponent } from '../verificationdialog/verificationdialog.component';
 
 @Component({
   selector: 'app-notes-list',
@@ -40,10 +41,29 @@ export class NotesListComponent implements OnInit {
   }
 
   openDialog() {
-    this.dialogRef.open(AddeditnoteComponent)
+    this.dialogRef.open(AddeditnoteComponent, {
+      data: {
+        mode: 'add'
+      }
+    })
   }
 
-  EditNote(){
-    this.dialogRef.open(AddeditnoteComponent)
+  EditNote(note: any) {
+    console.log("note obj", note);
+    this.dialogRef.open(AddeditnoteComponent, {
+      data: {
+        noteData: note,
+        mode: 'edit'
+      }
+    })
+  }
+
+  DeleteNote(note: any){
+    console.log("note obj", note);
+    this.dialogRef.open(VerificationdialogueComponent,{
+      data:{
+        mode: 'delete'
+      }
+    })
   }
 }

@@ -21,8 +21,8 @@
                     }@else{
                     <p class="content">{{note.content}}</p>   
                     }
-                    <button class="Edit-button" (click)="EditNote()">Edit</button>
-                    <button class="Del-button">Delete</button>
+                    <button class="Edit-button" (click)="EditNote(note)">Edit</button>
+                    <button class="Del-button" (click)="DeleteNote(note)">Delete</button>
                 </div>
                 
             }

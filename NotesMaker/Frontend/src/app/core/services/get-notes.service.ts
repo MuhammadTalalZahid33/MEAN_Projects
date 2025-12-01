@@ -2,13 +2,18 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
 import { backendURL } from '../constants';
-import { AENote } from '../models/addEditNote.model';
+import { AENote } from '../models/addEditNote.type';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GetNotesService {
   private url = backendURL;
+  // note object for edit note api 
+  note = {
+    title: '',
+    content: '',
+  }
 
   constructor(private http: HttpClient) { }
 
@@ -25,11 +30,15 @@ export class GetNotesService {
       }))
   }
 
-  editNotes(Note:AENote): Observable<any>{
-    return this.http.put(`${this.url}/update/:id`, Note)
-    .pipe(catchError((err) => {
-      console.log("unable to edit note...");
-      throw(err);
-    }))
+  editNotes(Note: any): Observable<any> {
+    this.note.title = Note.title;
+    this.note.content = Note.content;
+    console.log("id:, title ", Note.id, this.note);
+
+    return this.http.put(`${this.url}/update/${Note.id}`, this.note)
+      .pipe(catchError((err) => {
+        console.log("unable to edit note...");
+        throw (err);
+      }))
   }
 }
