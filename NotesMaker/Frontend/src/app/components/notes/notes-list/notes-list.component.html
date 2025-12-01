@@ -15,14 +15,14 @@
             @for (note of noteObj; track note.id) {
                 @let contentLength = note.content.length;
                 <div class="noteStyle">
-                    <p class="title">{{note.title}} </p>
-                    <button
+                   
+                    <p class="title"> <button
                             matButton="elevated"
                             [matTooltip]="getTooltipData(note)"
                             aria-label="Detailed Info about Note..."
                             matTooltipClass="multi-line-tooltip">
                             📋
-                    </button>
+                    </button> {{note.title}} </p>
                     @if(contentLength > 30){
                     <p class="content">{{note.content.substring(0, 30) + "..."}} </p>
                     }@else{
