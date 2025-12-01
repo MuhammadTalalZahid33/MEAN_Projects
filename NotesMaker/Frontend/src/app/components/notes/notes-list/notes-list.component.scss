@@ -90,3 +90,13 @@ body{
         transform:  scale(1.1);
     }
 }
+
+  ::ng-deep .multi-line-tooltip {
+    white-space: pre-line; /* preserves line breaks */
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 8px;
+    background-color: rgba(144, 140, 140, 0.85);
+    border-radius: 4px;
+    max-width: 350px; /* optional */
+}

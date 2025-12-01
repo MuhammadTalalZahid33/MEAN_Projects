@@ -16,13 +16,15 @@
                 @let contentLength = note.content.length;
                 <div class="noteStyle">
                     <p class="title">{{note.title}} </p>
-                    <button matButton="elevated"
-                            matTooltip="Info about the action"
-                            aria-label="Button that displays a tooltip when focused or hovered over">
-                            Action
+                    <button
+                            matButton="elevated"
+                            [matTooltip]="getTooltipData(note)"
+                            aria-label="Detailed Info about Note..."
+                            matTooltipClass="multi-line-tooltip">
+                            📋
                     </button>
-                    @if(contentLength > 15){
-                    <p class="content">{{note.content.substring(0, 15) + "..."}} </p>
+                    @if(contentLength > 30){
+                    <p class="content">{{note.content.substring(0, 30) + "..."}} </p>
                     }@else{
                     <p class="content">{{note.content}}</p>   
                     }

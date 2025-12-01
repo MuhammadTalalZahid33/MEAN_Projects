@@ -3,7 +3,7 @@ import { Note } from '../../../core/models/note.type';
 import { GetNotesService } from '../../../core/services/get-notes.service';
 import { catchError } from 'rxjs';
 import { AddeditnoteComponent } from "../noteDialogues/addeditnote.component";
-import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatTooltipModule, } from '@angular/material/tooltip';
 import {MatButtonModule} from '@angular/material/button';
 import {
   MatDialog,
@@ -68,5 +68,14 @@ export class NotesListComponent implements OnInit {
         mode: 'delete'
       }
     })
+  }
+
+  getTooltipData(note: any){
+    console.log("note is:", note);
+    return `Id: ${note._id}
+            Title: ${note.title} 
+            cotent: ${note.content}
+            Created At: ${note.createdAt}
+            Updated At: ${note.updatedAt}`;
   }
 }
