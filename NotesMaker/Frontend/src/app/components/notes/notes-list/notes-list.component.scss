@@ -64,6 +64,39 @@ body{
     }
 }
 
+.AddSearch{
+  display: flex;
+  gap: 2rem;
+}
+
+.search-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.search-input {
+  width: 60%;
+  padding: 6px 14px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 2px solid #d3d3d3;
+  background: #fafafa;
+  transition: all 0.25s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #4a90e2;
+  background: #ffffff;
+  box-shadow: 0 0 6px rgba(74, 144, 226, 0.4);
+}
+
+.search-input:hover {
+  border-color: #b5b5b5;
+}
+
 .Edit-button{
   margin-bottom: 20px;
     padding: 8px;

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { Note } from '../../../core/models/note.type';
 import { GetNotesService } from '../../../core/services/get-notes.service';
 import { catchError } from 'rxjs';
@@ -14,18 +14,23 @@ import {
   MatDialogTitle,
 } from '@angular/material/dialog';
 import { VerificationdialogueComponent } from '../verificationdialog/verificationdialog.component';
+import { FormsModule } from '@angular/forms';
+import { FilternotesPipe } from '../../../pipes/filternotes.pipe';
 
 @Component({
   selector: 'app-notes-list',
   standalone: true,
-  imports: [MatTooltipModule, MatButtonModule],
+  imports: [MatTooltipModule, MatButtonModule, FormsModule, FilternotesPipe],
   templateUrl: './notes-list.component.html',
   styleUrl: './notes-list.component.scss'
 })
 export class NotesListComponent implements OnInit {
   noteObj: Array<Note> = []
   notes = signal<Array<Note>>
+  //Service for Apis
   noteObject = inject(GetNotesService);
+  // Search Term for Notes...
+  searchTerm = signal('');
 
   constructor(private dialogRef: MatDialog) { }
 
@@ -71,7 +76,7 @@ export class NotesListComponent implements OnInit {
   }
 
   getTooltipData(note: any){
-    console.log("note is:", note);
+    // console.log("note is:", note);
     return `Id: ${note._id}
             Title: ${note.title} 
             cotent: ${note.content}

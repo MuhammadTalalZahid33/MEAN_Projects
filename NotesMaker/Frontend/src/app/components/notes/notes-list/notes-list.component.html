@@ -9,13 +9,23 @@
 
 <body>
     <h3>Welcome to the world of Notes</h3>
+    <div class="AddSearch">
     <button class="Add-button" (click)="openDialog()">+ Add Note</button>
+    <form>
+        <label for="search"></label>
+        <input 
+            name="searchTerm"
+            placeholder="Search Notes..."
+            [(ngModel)] = "searchTerm"
+            class="search-input"
+            >
+    </form>
+    </div>
     <div class="notes-container">
         @if(noteObj.length != 0){
-            @for (note of noteObj; track note.id) {
+            @for (note of noteObj | filternotes: searchTerm(); track note.id) {
                 @let contentLength = note.content.length;
                 <div class="noteStyle">
-                   
                     <p class="title"> <button
                             matButton="elevated"
                             [matTooltip]="getTooltipData(note)"
