@@ -12,7 +12,6 @@ export class FilternotesPipe implements PipeTransform {
       return notes;
     }
     const searchText = searchTerm.toLowerCase();
-    debugger
     return notes.filter(notes => {
       console.log(notes.title)
       return notes.title.toLowerCase().includes(searchText) ||
