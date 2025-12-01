@@ -3,6 +3,8 @@ import { Note } from '../../../core/models/note.type';
 import { GetNotesService } from '../../../core/services/get-notes.service';
 import { catchError } from 'rxjs';
 import { AddeditnoteComponent } from "../noteDialogues/addeditnote.component";
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatButtonModule} from '@angular/material/button';
 import {
   MatDialog,
   MatDialogActions,
@@ -16,7 +18,7 @@ import { VerificationdialogueComponent } from '../verificationdialog/verificatio
 @Component({
   selector: 'app-notes-list',
   standalone: true,
-  imports: [],
+  imports: [MatTooltipModule, MatButtonModule],
   templateUrl: './notes-list.component.html',
   styleUrl: './notes-list.component.scss'
 })
@@ -49,7 +51,7 @@ export class NotesListComponent implements OnInit {
   }
 
   EditNote(note: any) {
-    console.log("note obj", note);
+    // console.log("note obj", note);
     this.dialogRef.open(AddeditnoteComponent, {
       data: {
         noteData: note,
@@ -59,9 +61,10 @@ export class NotesListComponent implements OnInit {
   }
 
   DeleteNote(note: any){
-    console.log("note obj", note);
+    // console.log("note obj", note);
     this.dialogRef.open(VerificationdialogueComponent,{
       data:{
+        noteData: note,
         mode: 'delete'
       }
     })

@@ -13,7 +13,7 @@ import { tick } from '@angular/core/testing';
 })
 export class AddeditnoteComponent {
   // Receiving data using MAT_DIALOG_DATA property for Editing
-  data = inject(MAT_DIALOG_DATA) || null;
+  data = inject(MAT_DIALOG_DATA);
   IsEdit = false
 
   note = {

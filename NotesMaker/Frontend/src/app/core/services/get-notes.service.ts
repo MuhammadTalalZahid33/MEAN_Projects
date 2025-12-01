@@ -41,4 +41,12 @@ export class GetNotesService {
         throw (err);
       }))
   }
+
+  deleteNote(id:any): Observable<any>{
+    return this.http.delete(`${this.url}/delete/${id}`)
+    .pipe(catchError((err)=>{
+      console.log("error deleting note...");
+      throw(err);
+    }))
+  }
 }

@@ -16,6 +16,11 @@
                 @let contentLength = note.content.length;
                 <div class="noteStyle">
                     <p class="title">{{note.title}} </p>
+                    <button matButton="elevated"
+                            matTooltip="Info about the action"
+                            aria-label="Button that displays a tooltip when focused or hovered over">
+                            Action
+                    </button>
                     @if(contentLength > 15){
                     <p class="content">{{note.content.substring(0, 15) + "..."}} </p>
                     }@else{
