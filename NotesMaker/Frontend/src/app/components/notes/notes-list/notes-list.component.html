@@ -27,21 +27,21 @@
             <p class="empty">Loading notes... or no notes found!</p>
         }@else{
             @for (note of noteObj | filternotes: searchTerm(); track note.id) {
-                <!-- <p>{{searchTerm()}}</p> -->
-                <!-- <p>{{note.title}}</p> -->
                 @let contentLength = note.content.length;
                 <div class="noteStyle">
-                    <p class="title"> <button
+                        <button
                             matButton="elevated"
                             [matTooltip]="getTooltipData(note)" 
                             aria-label="Detailed Info about Note..."
                             matTooltipClass="multi-line-tooltip">
                             📋
-                    </button> {{note.title}} </p>
+                        </button> 
+                    <p class="title" appHighlighttext [highLightText]="searchTerm()"> 
+                    {{note.title }} </p>
                     @if(contentLength > 30){
-                    <p class="content">{{note.content.substring(0, 30) + "..."}} </p>
+                    <p class="content" appHighlighttext [highLightText]="searchTerm()">{{note.content.substring(0, 30) + "..."}} </p>
                     }@else{
-                    <p class="content">{{note.content}}</p>   
+                    <p class="content" appHighlighttext [highLightText]="searchTerm()">{{note.content}}</p>   
                     }
                     <button class="Edit-button" (click)="EditNote(note)">Edit</button>
                     <button class="Del-button" (click)="DeleteNote(note)">Delete</button>
