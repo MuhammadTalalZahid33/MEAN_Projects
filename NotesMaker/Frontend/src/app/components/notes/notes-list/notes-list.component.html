@@ -22,13 +22,18 @@
     </form>
     </div>
     <div class="notes-container">
-        @if(noteObj.length != 0){
+        @if(noteObj.length == 0){
+            <div class="loader"></div>
+            <p class="empty">Loading notes... or no notes found!</p>
+        }@else{
             @for (note of noteObj | filternotes: searchTerm(); track note.id) {
+                <!-- <p>{{searchTerm()}}</p> -->
+                <!-- <p>{{note.title}}</p> -->
                 @let contentLength = note.content.length;
                 <div class="noteStyle">
                     <p class="title"> <button
                             matButton="elevated"
-                            [matTooltip]="getTooltipData(note)"
+                            [matTooltip]="getTooltipData(note)" 
                             aria-label="Detailed Info about Note..."
                             matTooltipClass="multi-line-tooltip">
                             📋
@@ -42,6 +47,8 @@
                     <button class="Del-button" (click)="DeleteNote(note)">Delete</button>
                 </div>
                 
+            }@empty{
+                 <p class="empty">No Notes Found!</p>
             }
         }
     </div>

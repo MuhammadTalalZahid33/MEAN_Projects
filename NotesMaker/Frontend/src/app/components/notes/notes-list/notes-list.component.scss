@@ -1,40 +1,42 @@
-h3{
-    text-align: center;
-    margin-bottom: 2rem;
-    color: #918e8e;
+h3 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #918e8e;
 }
 
-body{
-    width: 70%;
-    margin: auto;
-    margin-top: 2rem;
-    padding: 0;
-    box-sizing: border-box;
+body {
+  width: 70%;
+  margin: auto;
+  margin-top: 2rem;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .notes-container {
-    align-content: center;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    &:hover{
-        cursor: pointer;
-    }
-    gap: 1rem;
+  align-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  gap: 1rem;
 }
 
 .noteStyle {
   background: #f1eaea;
   border-radius: 12px;
   padding: 1rem 1.3rem;
-  box-shadow: 0px 3px 10px rgba(0,0,0,0.10);
+  box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.10);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   border-left: 6px solid #4a90e2;
-  margin-bottom: 2rem;  
+  margin-bottom: 2rem;
 }
 
 .noteStyle:hover {
   transform: translateY(-3px);
-  box-shadow: 0px 6px 14px rgba(0,0,0,0.15);
+  box-shadow: 0px 6px 14px rgba(0, 0, 0, 0.15);
 }
 
 .title {
@@ -51,20 +53,21 @@ body{
   word-break: break-word;
 }
 
-.Add-button{
-    margin-bottom: 20px;
-    padding: 8px;
-    border-radius: 6px;
-    color: white;
-    background-color: #6868ee;
-    border: none;
-    &:hover{
-        cursor: pointer;
-        transform:  scale(1.1);
-    }
+.Add-button {
+  margin-bottom: 20px;
+  padding: 8px;
+  border-radius: 6px;
+  color: white;
+  background-color: #6868ee;
+  border: none;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
 }
 
-.AddSearch{
+.AddSearch {
   display: flex;
   gap: 2rem;
 }
@@ -97,39 +100,71 @@ body{
   border-color: #b5b5b5;
 }
 
-.Edit-button{
-  margin-bottom: 20px;
-    padding: 8px;
-    border-radius: 6px;
-    color: white;
-    background-color: #0c5b31;
-    border: none;
-    &:hover{
-        cursor: pointer;
-        transform:  scale(1.1);
-    }
-    margin: 0.5rem;
+.loader {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #1976d2;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  animation: spin 0.8s linear infinite;
+  margin: 2rem auto;
 }
 
-.Del-button{
-  margin-bottom: 20px;
-    padding: 8px;
-    border-radius: 6px;
-    color: white;
-    background-color: #7a1515;
-    border: none;
-    &:hover{
-        cursor: pointer;
-        transform:  scale(1.1);
-    }
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
-  ::ng-deep .multi-line-tooltip {
-    white-space: pre-line; /* preserves line breaks */
-    font-size: 14px;
-    line-height: 1.5;
-    padding: 8px;
-    background-color: rgba(144, 140, 140, 0.85);
-    border-radius: 4px;
-    max-width: 350px; /* optional */
+.empty {
+  color: #777;
+  font-style: italic;
+  margin-top: 2rem;
+}
+
+
+.Edit-button {
+  margin-bottom: 20px;
+  padding: 8px;
+  border-radius: 6px;
+  color: white;
+  background-color: #0c5b31;
+  border: none;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+
+  margin: 0.5rem;
+}
+
+.Del-button {
+  margin-bottom: 20px;
+  padding: 8px;
+  border-radius: 6px;
+  color: white;
+  background-color: #7a1515;
+  border: none;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+}
+
+::ng-deep .multi-line-tooltip {
+  white-space: pre-line;
+  /* preserves line breaks */
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 8px;
+  background-color: rgba(144, 140, 140, 0.85);
+  border-radius: 4px;
+  max-width: 350px;
+  /* optional */
 }

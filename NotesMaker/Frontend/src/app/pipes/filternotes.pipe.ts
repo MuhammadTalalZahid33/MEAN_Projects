@@ -12,10 +12,20 @@ export class FilternotesPipe implements PipeTransform {
       return notes;
     }
     const searchText = searchTerm.toLowerCase();
+    // return notes.filter(notes => {
+    //    let note = notes.title.toLowerCase().includes(searchText) || notes.content.toLowerCase().includes(searchText)
+    //    console.log("notes found",note)
+    //    if(note){
+    //       // console.log(notes)
+    //       return note
+    //     }else{
+    //       return note;
+    //     }
+    // })
+
     return notes.filter(notes => {
-      console.log(notes.title)
-      return notes.title.toLowerCase().includes(searchText) ||
-        notes.content.toLowerCase().includes(searchText);
+      return notes.title.toLocaleLowerCase().includes(searchText) ||
+        notes.content.toLocaleLowerCase().includes(searchText)
     })
   }
 }

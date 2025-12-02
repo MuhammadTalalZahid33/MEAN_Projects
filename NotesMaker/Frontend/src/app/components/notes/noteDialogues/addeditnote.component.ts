@@ -42,7 +42,7 @@ export class AddeditnoteComponent {
       } else {
         this.noteObj.saveNotes(this.note).subscribe();
       }
-
+      window.location.reload();
       console.log('Form submitted:', this.note);
     } else {
       alert('Please fill all required fields correctly.');
