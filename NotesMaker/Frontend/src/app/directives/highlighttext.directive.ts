@@ -17,7 +17,7 @@ export class HighlighttextDirective implements OnChanges, AfterViewInit {
     this.originalHtml = this.el.nativeElement.innerHTML;
     this.viewReady = true;
 
-    // Apply highlight if input already has value
+    // Apply highlight if input already has valuea
     if (this.highLightText) {
       this.applyHighlight();
     }
@@ -32,19 +32,22 @@ export class HighlighttextDirective implements OnChanges, AfterViewInit {
   }
 
   private applyHighlight() {
-    let html = this.originalHtml;
+  if (!this.originalHtml) this.originalHtml = this.el.nativeElement.innerHTML;
 
-    if (!this.highLightText || this.highLightText.trim() === '') {
-      this.el.nativeElement.innerHTML = html;
-      return;
-    }
-
-    const regexp = new RegExp(`${this.highLightText}`, 'gi');
-    html = html.replace(
-      regexp,
-      `<span style="background-color: yellow;">${this.highLightText}</span>`
-    );
-
-    this.el.nativeElement.innerHTML = html;
+  const term = (this.highLightText || '').trim();
+  if (!term) {
+    this.el.nativeElement.innerHTML = this.originalHtml;
+    return;
   }
+
+  const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const regexp = new RegExp('(' + escapeRegExp(term) + ')', 'gi');
+
+  this.el.nativeElement.innerHTML = this.originalHtml.replace(
+    regexp,
+    '<span style="background-color: yellow;">$1</span>'
+  );
+}
+
+
 }
