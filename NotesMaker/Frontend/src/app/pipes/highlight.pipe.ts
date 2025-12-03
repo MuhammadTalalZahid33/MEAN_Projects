@@ -13,14 +13,18 @@ export class HighlightPipe implements PipeTransform {
       return value;
     }
     // console.log("search text: ", searchText);
-    const regex = new RegExp(searchText, 'gi');
-    const match = value.match(regex);
+    
+    const escapeRegExp = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const regex = new RegExp('(' + escapeRegExp(searchText) + ')', 'gi');
 
-    if (!match) {
-      return value;
-    }
-  
-    const replacedValue = value.replace(regex, "<mark>" + match + "</mark>")
+    // USING MATCH customly for each value / NOT USING above regexp function  
+    // const match = value.match(regex);
+    // if (!match) {
+    //   return value;
+    // }
+    // const replacedValue = value.replace(regex, "<mark>" + match[0] + "</mark>")
+    
+    const replacedValue = value.replace(regex, '<span style="background-color: yellow;">$1</span>')
     return this.sanitizer.bypassSecurityTrustHtml(replacedValue)
   }
 
