@@ -20,6 +20,7 @@ export class VerificationdialogueComponent {
     if (this.noteId) {
       this.noteObj.deleteNote(this.noteId).subscribe();
       console.log("delete funciton called successfully...")
+      window.location.reload();
     }else{
       console.log("Error getting note Id...");
     }

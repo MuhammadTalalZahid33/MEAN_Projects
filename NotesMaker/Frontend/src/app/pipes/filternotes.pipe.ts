@@ -8,6 +8,7 @@ import { Note } from '../core/models/note.type';
 export class FilternotesPipe implements PipeTransform {
 
   transform(notes: Note[], searchTerm: string): Note[] {
+    if (!notes) return []; 
     if (!searchTerm) {
       return notes;
     }
@@ -24,8 +25,9 @@ export class FilternotesPipe implements PipeTransform {
     // })
 
     return notes.filter(notes => {
+      // console.log("title, content:", notes.title.toLocaleLowerCase().includes(searchText), notes.content.toLocaleLowerCase().includes(searchText) )
       return notes.title.toLocaleLowerCase().includes(searchText) ||
-        notes.content.toLocaleLowerCase().includes(searchText)
+        notes.content.toLocaleLowerCase().includes(searchText) 
     })
   }
 }

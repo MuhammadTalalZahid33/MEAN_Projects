@@ -48,6 +48,4 @@ export class HighlighttextDirective implements OnChanges, AfterViewInit {
     '<span style="background-color: yellow;">$1</span>'
   );
 }
-
-
 }
