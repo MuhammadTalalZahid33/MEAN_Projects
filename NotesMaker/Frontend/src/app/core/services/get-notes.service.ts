@@ -14,12 +14,12 @@ export class GetNotesService {
     title: '',
     content: '',
   }
-
+  searchTerm: any
   constructor(private http: HttpClient) { }
 
-  getNotes(): Observable<any> {
+  getNotes(searchText: any): Observable<any> {
     // fetch(`${this.url}/allNotes`).then((response => response.json)).then(data => console.log(data))
-    return this.http.get(`${this.url}/allNotes`)
+    return this.http.get(`${this.url}/allNotes?searchTerm=${searchText}`)
   }
 
   saveNotes(Note: AENote): Observable<any> {

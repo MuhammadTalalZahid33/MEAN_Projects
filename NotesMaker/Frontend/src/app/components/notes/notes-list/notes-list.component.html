@@ -17,16 +17,17 @@
             name="searchTerm"
             placeholder="Search Notes..."
             [(ngModel)] = "searchTerm"
+            (ngModelChange)="UpdateResult($event)"
             class="search-input"
             >
     </form>
     </div>
     <div class="notes-container">
-        @if(noteObj.length == 0){
+        <!-- @if(noteObj.length == 0){
             <div class="loader"></div>
             <p class="empty">Loading notes... or no notes found!</p>
-        }@else{
-            @for (note of noteObj | filternotes: searchTerm(); track note.id) {
+        }@else{ -->
+            @for (note of noteObj; track note.id) {
                 @let contentLength = note.content.length;
                 <div class="noteStyle">
                         <button
@@ -47,9 +48,11 @@
                 </div>
                 
             }@empty{
-                 <p class="empty">No Notes Found!</p>
+                <!-- <div class="loader"></div>
+                <p class="empty">Loading notes...</p> -->
+                <p class="empty">No Notes Found!</p>
             }
-        }
+        <!-- } -->
     </div>
 </body>
 

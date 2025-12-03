@@ -1,10 +1,10 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { Note } from '../../../core/models/note.type';
 import { GetNotesService } from '../../../core/services/get-notes.service';
-import { catchError } from 'rxjs';
+import { catchError, debounceTime } from 'rxjs';
 import { AddeditnoteComponent } from "../noteDialogues/addeditnote.component";
-import {MatTooltipModule, } from '@angular/material/tooltip';
-import {MatButtonModule} from '@angular/material/button';
+import { MatTooltipModule, } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
 import {
   MatDialog,
   MatDialogActions,
@@ -22,7 +22,7 @@ import { HighlightPipe } from '../../../pipes/highlight.pipe';
 @Component({
   selector: 'app-notes-list',
   standalone: true,
-  imports: [MatTooltipModule, MatButtonModule, FormsModule, FilternotesPipe, HighlightPipe],
+  imports: [MatTooltipModule, MatButtonModule, FormsModule, HighlightPipe],
   templateUrl: './notes-list.component.html',
   styleUrl: './notes-list.component.scss'
 })
@@ -38,7 +38,7 @@ export class NotesListComponent implements OnInit {
 
   // Hook to get the Note Array...
   ngOnInit(): void {
-    this.noteObject.getNotes()
+    this.noteObject.getNotes(this.searchTerm())
       .pipe(catchError((err) => {
         console.log("error getting note list")
         throw (err)
@@ -46,6 +46,16 @@ export class NotesListComponent implements OnInit {
       .subscribe((note) => {
         this.noteObj = note.allNotes;
         // console.log(this.noteObj);
+      })
+  }
+
+  UpdateResult(searchText: string) {
+    this.searchTerm.set(searchText);
+    // console.log("search term: ", this.searchTerm());
+    this.noteObject.getNotes(this.searchTerm())
+      .pipe(debounceTime(500))
+      .subscribe((note) => {
+        this.noteObj = note.allNotes;
       })
   }
 
@@ -67,17 +77,17 @@ export class NotesListComponent implements OnInit {
     })
   }
 
-  DeleteNote(note: any){
+  DeleteNote(note: any) {
     // console.log("note obj", note);
-    this.dialogRef.open(VerificationdialogueComponent,{
-      data:{
+    this.dialogRef.open(VerificationdialogueComponent, {
+      data: {
         noteData: note,
         mode: 'delete'
       }
     })
   }
 
-  getTooltipData(note: any){
+  getTooltipData(note: any) {
     // console.log("note is:", note);
     return `Id: ${note._id}
             Title: ${note.title} 
