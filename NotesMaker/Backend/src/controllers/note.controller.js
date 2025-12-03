@@ -16,16 +16,28 @@ const addNote = asyncHandler(async (req, res) => {
         title,
         content
     });
-    console.log(req.body);
+    // console.log(req.body);
     res.status(201).json({
         success: true,
         message: "note created successfully...",
         note,
     })
 })
-// DISPLAY ALL NOTES
-const displayAllNotes = asyncHandler(async (req, res) => {
-    const allNotes = await Note.find();
+// GET ALL NOTES
+const getAllNotes = asyncHandler(async (req, res) => {
+    const {searchTerm} = req.query;
+    let filter;
+    if(searchTerm){
+        var regex = new RegExp(searchTerm, 'i')
+        filter = {
+            $or: [
+                {title: {$regex: regex}},
+                {content: {$regex: regex}}
+            ]
+        }
+    }
+    // console.log("filter:", filter);
+    const allNotes = await Note.find(filter);
     res.json({
         success: true,
         message: "returning all notes...",
@@ -50,7 +62,12 @@ const updateNote = asyncHandler(async (req, res) => {
             message: "You need to provide both title and content..."
         })
     }
-    const note = await Note.findByIdAndUpdate(req.params.id, { title, content }, { new: true })
+    const note = await Note
+    .findByIdAndUpdate(
+        req.params.id, 
+        { title, content }, 
+        { new: true }
+    )
     return res.json({
         success: true,
         note,
@@ -66,4 +83,4 @@ const deleteNote = asyncHandler(async (req, res) => {
     })
 })
 
-export { addNote, displayAllNotes, getById, updateNote, deleteNote }
+export { addNote, getAllNotes, getById, updateNote, deleteNote }
