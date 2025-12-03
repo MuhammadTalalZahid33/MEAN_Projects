@@ -17,11 +17,12 @@ import { VerificationdialogueComponent } from '../verificationdialog/verificatio
 import { FormsModule } from '@angular/forms';
 import { FilternotesPipe } from '../../../pipes/filternotes.pipe';
 import { HighlighttextDirective } from "../../../directives/highlighttext.directive";
+import { HighlightPipe } from '../../../pipes/highlight.pipe';
 
 @Component({
   selector: 'app-notes-list',
   standalone: true,
-  imports: [MatTooltipModule, MatButtonModule, FormsModule, FilternotesPipe, HighlighttextDirective],
+  imports: [MatTooltipModule, MatButtonModule, FormsModule, FilternotesPipe, HighlightPipe],
   templateUrl: './notes-list.component.html',
   styleUrl: './notes-list.component.scss'
 })

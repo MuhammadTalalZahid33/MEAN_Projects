@@ -36,12 +36,11 @@
                             matTooltipClass="multi-line-tooltip">
                             📋
                         </button> 
-                    <p class="title" appHighlighttext [highLightText]="searchTerm()"> 
-                    {{note.title }} </p>
+                    <p class="title" [innerHTML]="note.title | highlight: searchTerm()"></p>
                     @if(contentLength > 30){
-                    <p class="content" appHighlighttext [highLightText]="searchTerm()">{{note.content.substring(0, 30) + "..."}} </p>
+                    <p class="content" [innerHTML]="note.content.substring(0, 30) | highlight: searchTerm()"></p>
                     }@else{
-                    <p class="content" appHighlighttext [highLightText]="searchTerm()">{{note.content}}</p>   
+                    <p class="content" [innerHTML]="note.content | highlight: searchTerm()"></p>   
                     }
                     <button class="Edit-button" (click)="EditNote(note)">Edit</button>
                     <button class="Del-button" (click)="DeleteNote(note)">Delete</button>

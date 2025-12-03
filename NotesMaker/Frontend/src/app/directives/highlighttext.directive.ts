@@ -15,6 +15,7 @@ export class HighlighttextDirective implements OnChanges, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.originalHtml = this.el.nativeElement.innerHTML;
+    console.log(this.el.nativeElement.innerHTML);
     this.viewReady = true;
 
     // Apply highlight if input already has valuea
@@ -34,6 +35,7 @@ export class HighlighttextDirective implements OnChanges, AfterViewInit {
   private applyHighlight() {
   if (!this.originalHtml) this.originalHtml = this.el.nativeElement.innerHTML;
 
+  console.log(this.el.nativeElement.innerHTML);
   const term = (this.highLightText || '').trim();
   if (!term) {
     this.el.nativeElement.innerHTML = this.originalHtml;
