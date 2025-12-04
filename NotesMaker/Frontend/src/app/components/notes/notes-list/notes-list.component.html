@@ -16,8 +16,7 @@
         <input 
             name="searchTerm"
             placeholder="Search Notes..."
-            [(ngModel)] = "searchTerm"
-            (ngModelChange)="UpdateResult($event)"
+            [formControl] = "searchTerm"
             class="search-input"
             >
     </form>
@@ -37,11 +36,11 @@
                             matTooltipClass="multi-line-tooltip">
                             📋
                         </button> 
-                    <p class="title" [innerHTML]="note.title | highlight: searchTerm()"></p>
+                    <p class="title" [innerHTML]="note.title |  highlight: searchTerm.value"></p>
                     @if(contentLength > 30){
-                    <p class="content" [innerHTML]="note.content.substring(0, 30) | highlight: searchTerm()"></p>
+                    <p class="content" [innerHTML]="note.content.substring(0, 30) | highlight: searchTerm.value"></p>
                     }@else{
-                    <p class="content" [innerHTML]="note.content | highlight: searchTerm()"></p>   
+                    <p class="content" [innerHTML]="note.content | highlight: searchTerm.value"></p>   
                     }
                     <button class="Edit-button" (click)="EditNote(note)">Edit</button>
                     <button class="Del-button" (click)="DeleteNote(note)">Delete</button>
@@ -54,6 +53,17 @@
             }
         <!-- } -->
     </div>
+    @if(nlength != 0){
+    <mat-paginator 
+            [length]="nlength"
+            [pageSize]="pageSize"
+            [pageSizeOptions]="pageSizeOptions"
+            [showFirstLastButtons]="true"
+            [pageIndex]="currentPage"
+            (page)="handlePageEvent($event)"
+            aria-label="Select page">
+    </mat-paginator>
+    }
 </body>
 
 </html>

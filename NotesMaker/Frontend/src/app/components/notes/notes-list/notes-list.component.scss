@@ -15,13 +15,25 @@ body {
 .notes-container {
   align-content: center;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
 
   &:hover {
     cursor: pointer;
   }
 
   gap: 1rem;
+}
+
+@media(min-width: 980px){
+.notes-container {
+  grid-template-columns: repeat(3, 1fr);
+}
+}
+
+@media(max-width: 680px){
+.notes-container {
+  grid-template-columns: repeat(1, 1fr);
+}
 }
 
 .noteStyle {
