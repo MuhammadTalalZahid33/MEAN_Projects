@@ -41,23 +41,25 @@ export class NotesListComponent implements OnInit {
 
   // Hook to get the Note Array...
   ngOnInit(): void {
-    this.initializeSearch();
-    this.loadNotes('');
+    this.initializeSearch(this.currentPage, this.pageSize);
+    this.loadNotes('', this.currentPage + 1, this.pageSize);
 
   }
-  private loadNotes(search: string) {
-    this.noteObject.getNotes(search).subscribe(note => {
+
+  private loadNotes(search: any, currpage: number, limit: number) {
+    this.noteObject.getNotes(search, currpage, limit).subscribe(note => {
       this.noteObj = note.allNotes;
       this.nlength = note.count;
     });
   }
-  initializeSearch() {
+
+  initializeSearch(currpage: number, limit: number) {
+    console.log('search term, current page, limit: ', this.searchTerm, currpage, limit);
     this.searchTerm.valueChanges
       .pipe(
-        debounceTime(1000),
+        debounceTime(500),
         distinctUntilChanged(),
-        // switchMap(searchText => this.noteObject.getNotes(searchText))
-        switchMap(term => this.noteObject.getNotes(term || ''))
+        switchMap(term => this.noteObject.getNotes(term  || '', currpage + 1 || '', limit || ''))
       )
       .subscribe((note) => {
         this.noteObj = note.allNotes;
@@ -65,7 +67,7 @@ export class NotesListComponent implements OnInit {
       })
   }
 
-
+  // for Search term of type Signal
   // UpdateResult(searchText: string) {
   //   this.searchTerm.set(searchText);
   //   // console.log("search term: ", this.searchTerm());
@@ -123,10 +125,11 @@ export class NotesListComponent implements OnInit {
     // console.log('length of note is: ', this.nlength)
   }
   pageSize = 6;
-  pageSizeOptions = [6, 12, 18, 24]
+  pageSizeOptions = [6, 12, 18]
   currentPage = 0
 
-  handlePageEvent(event: PageEvent) {
-    
+  handlePageEvent(pageEvent: PageEvent) {
+    this.currentPage = pageEvent.pageIndex;
+     this.loadNotes(this.searchTerm || '', this.currentPage + 1, this.pageSize);
   }
 }

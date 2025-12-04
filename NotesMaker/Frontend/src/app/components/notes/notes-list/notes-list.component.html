@@ -56,8 +56,8 @@
     @if(nlength != 0){
     <mat-paginator 
             [length]="nlength"
-            [pageSize]="pageSize"
-            [pageSizeOptions]="pageSizeOptions"
+            [pageSize] ="pageSize"
+            [pageSizeOptions] ="pageSizeOptions"
             [showFirstLastButtons]="true"
             [pageIndex]="currentPage"
             (page)="handlePageEvent($event)"

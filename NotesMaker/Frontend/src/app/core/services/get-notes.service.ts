@@ -17,9 +17,9 @@ export class GetNotesService {
   searchTerm: any
   constructor(private http: HttpClient) { }
 
-  getNotes(searchText: any): Observable<any> {
+  getNotes(searchText: any, currpage: any, limit: any): Observable<any> {
     // fetch(`${this.url}/allNotes`).then((response => response.json)).then(data => console.log(data))
-    return this.http.get(`${this.url}/allNotes?searchTerm=${searchText}`)
+    return this.http.get(`${this.url}/allNotes?searchTerm=${searchText}&page=${currpage}&limit=${limit}`);
   }
 
   saveNotes(Note: AENote): Observable<any> {
