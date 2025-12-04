@@ -25,7 +25,7 @@ const addNote = asyncHandler(async (req, res) => {
 })
 // GET ALL NOTES
 const getAllNotes = asyncHandler(async (req, res) => {
-    const {searchTerm} = req.query;
+    const {searchTerm, page = 1, limit = 6} = req.query;
     let filter;
     if(searchTerm){
         var regex = new RegExp(searchTerm, 'i')
@@ -37,11 +37,21 @@ const getAllNotes = asyncHandler(async (req, res) => {
         }
     }
     // console.log("filter:", filter);
-    const allNotes = await Note.find(filter);
+    const allNotes = await Note.find(filter)
+                            .limit(limit * 1)
+                            .skip((page - 1) * limit)
+                            .exec();
+
+    // total record/data (based on filter)
+    const count = await Note.countDocuments(filter);
+
     res.json({
         success: true,
         message: "returning all notes...",
         allNotes,
+        count,
+        totalPages: Math.ceil(count/limit),
+        currentPage: page
     })
 })
 // Get Note by Id

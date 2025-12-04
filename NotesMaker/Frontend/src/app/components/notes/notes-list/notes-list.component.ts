@@ -46,9 +46,9 @@ export class NotesListComponent implements OnInit {
 
   }
   private loadNotes(search: string) {
-    this.noteObject.getNotes(search).subscribe(res => {
-      this.noteObj = res.allNotes;
-      this.nlength = this.noteObj.length;
+    this.noteObject.getNotes(search).subscribe(note => {
+      this.noteObj = note.allNotes;
+      this.nlength = note.count;
     });
   }
   initializeSearch() {
@@ -61,7 +61,7 @@ export class NotesListComponent implements OnInit {
       )
       .subscribe((note) => {
         this.noteObj = note.allNotes;
-        this.setLength(this.noteObj.length)
+        this.setLength(note.count)
       })
   }
 
@@ -124,9 +124,9 @@ export class NotesListComponent implements OnInit {
   }
   pageSize = 6;
   pageSizeOptions = [6, 12, 18, 24]
-  currentPage = 1
+  currentPage = 0
 
-  handlePageEvent(pageEvent: PageEvent) {
-
+  handlePageEvent(event: PageEvent) {
+    
   }
 }
