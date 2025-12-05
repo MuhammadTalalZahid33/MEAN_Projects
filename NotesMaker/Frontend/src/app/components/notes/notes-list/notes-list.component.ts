@@ -33,6 +33,7 @@ export class NotesListComponent implements OnInit {
   noteObject = inject(GetNotesService);
   // Search Term for Notes...
   // searchTerm = signal('');
+  // search term type changes to formControl(Observable) to make the debouncetime functional
   searchTerm = new FormControl()
   // noteObj length for pagination
   nlength = 0
@@ -41,9 +42,8 @@ export class NotesListComponent implements OnInit {
 
   // Hook to get the Note Array...
   ngOnInit(): void {
-    this.initializeSearch(this.currentPage, this.pageSize);
+    this.initializeSearch();
     this.loadNotes('', this.currentPage + 1, this.pageSize);
-
   }
 
   private loadNotes(search: any, currpage: number, limit: number) {
@@ -53,18 +53,19 @@ export class NotesListComponent implements OnInit {
     });
   }
 
-  initializeSearch(currpage: number, limit: number) {
-    console.log('search term, current page, limit: ', this.searchTerm, currpage, limit);
+  initializeSearch() {
+    
     this.searchTerm.valueChanges
       .pipe(
         debounceTime(500),
         distinctUntilChanged(),
-        switchMap(term => this.noteObject.getNotes(term  || '', currpage + 1 || '', limit || ''))
+        switchMap(term => this.noteObject.getNotes(term  || '', this.currentPage + 1 || '', this.pageSize || ''))
       )
       .subscribe((note) => {
         this.noteObj = note.allNotes;
         this.setLength(note.count)
       })
+      
   }
 
   // for Search term of type Signal
@@ -130,6 +131,7 @@ export class NotesListComponent implements OnInit {
 
   handlePageEvent(pageEvent: PageEvent) {
     this.currentPage = pageEvent.pageIndex;
-     this.loadNotes(this.searchTerm || '', this.currentPage + 1, this.pageSize);
+    this.pageSize = pageEvent.pageSize;
+     this.loadNotes(this.searchTerm.value || '', this.currentPage + 1, this.pageSize);
   }
 }
