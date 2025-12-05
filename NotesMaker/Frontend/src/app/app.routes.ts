@@ -6,5 +6,11 @@ export const routes: Routes = [
         loadComponent: () => {
             return import('./pages/home/home.component').then(m => m.HomeComponent);
         }
+    },
+    {
+        path: 'nothing',
+        loadComponent: () => {
+            return import('./components/nothing/nothing.component').then(m => m.NothingComponent);
+        }
     }
 ];

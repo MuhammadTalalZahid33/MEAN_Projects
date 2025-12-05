@@ -2,12 +2,13 @@ import { Component, inject, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { GetNotesService } from '../../../core/services/get-notes.service';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { tick } from '@angular/core/testing';
+import { Route, Router, RouterLink } from "@angular/router";
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-addeditnote',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink],
   templateUrl: './addeditnote.component.html',
   styleUrl: './addeditnote.component.scss'
 })
@@ -22,6 +23,7 @@ export class AddeditnoteComponent {
     content: ''
   }
 
+  constructor(public router: Router){}
 
   ngOnInit() {
     this.note.id = this.data.noteData._id || null;
@@ -43,6 +45,10 @@ export class AddeditnoteComponent {
         this.noteObj.saveNotes(this.note).subscribe();
       }
       window.location.reload();
+      // this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=> this.router.navigate(['/'])).then(()=> {
+      //   console.log("navigating...")
+      // })
+      // this.router.navigate(['/']);
       console.log('Form submitted:', this.note);
     } else {
       alert('Please fill all required fields correctly.');
