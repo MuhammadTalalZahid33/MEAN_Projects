@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal, ViewChild, viewChild } from '@angular/core';
 import { Note } from '../../../core/models/note.type';
 import { GetNotesService } from '../../../core/services/get-notes.service';
 import { catchError, debounceTime, distinctUntilChanged, switchMap } from 'rxjs';
@@ -18,7 +18,8 @@ import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FilternotesPipe } from '../../../pipes/filternotes.pipe';
 import { HighlighttextDirective } from "../../../directives/highlighttext.directive";
 import { HighlightPipe } from '../../../pipes/highlight.pipe';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+
 
 @Component({
   selector: 'app-notes-list',
@@ -28,6 +29,7 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
   styleUrl: './notes-list.component.scss'
 })
 export class NotesListComponent implements OnInit {
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   noteObj: Array<Note> = []
   //Service for Apis
   noteObject = inject(GetNotesService);
@@ -48,20 +50,24 @@ export class NotesListComponent implements OnInit {
 
   private loadNotes(search: any, currpage: number, limit: number) {
     this.noteObject.getNotes(search, currpage, limit).subscribe(note => {
+      // console.log("from load notes function...")
       this.noteObj = note.allNotes;
       this.nlength = note.count;
     });
   }
 
   initializeSearch() {
-    
     this.searchTerm.valueChanges
       .pipe(
         debounceTime(500),
         distinctUntilChanged(),
-        switchMap(term => this.noteObject.getNotes(term  || '', this.currentPage + 1 || '', this.pageSize || ''))
+        switchMap(term => {
+          this.paginator.firstPage(); // (or) this.currentPage = 0;
+          return this.noteObject.getNotes(term  || '', this.currentPage + 1 || '', this.pageSize || '')
+        })     
       )
       .subscribe((note) => {
+        // console.log("from initialize search function...")
         this.noteObj = note.allNotes;
         this.setLength(note.count)
       })

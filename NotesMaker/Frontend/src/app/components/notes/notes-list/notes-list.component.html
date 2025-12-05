@@ -54,7 +54,7 @@
         <!-- } -->
     </div>
     @if(nlength != 0){
-    <mat-paginator 
+    <mat-paginator #paginator
             [length]="nlength"
             [pageSize] ="pageSize"
             [pageSizeOptions] ="pageSizeOptions"
