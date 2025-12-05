@@ -62,7 +62,7 @@ export class NotesListComponent implements OnInit {
         debounceTime(500),
         distinctUntilChanged(),
         switchMap(term => {
-          this.paginator.firstPage(); // (or) this.currentPage = 0;
+          this.currentPage = 0;
           return this.noteObject.getNotes(term  || '', this.currentPage + 1 || '', this.pageSize || '')
         })     
       )
