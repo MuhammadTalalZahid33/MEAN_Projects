@@ -9,7 +9,6 @@ const userSchema = mongoose.Schema({
     },
     lastName:{
         type: String,
-        required: true,
     },
     userName:{
         type: String,
@@ -26,11 +25,14 @@ const userSchema = mongoose.Schema({
 }, {timestamps: true})
 
 userSchema.pre("save", async function (next) {
-    if(!this.isModified("password")) return next();
-    
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-    next(); 
+    if (!this.isModified("password")) return next();
+
+    try {
+        const salt = await bcrypt.genSalt(10); 
+        this.password = await bcrypt.hash(this.password, salt); 
+    } catch (error) {
+        next(error);
+    }
 })
 
 userSchema.methods.isPasswordCorrect = async function (password) {

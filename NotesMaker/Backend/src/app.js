@@ -11,7 +11,9 @@ app.use(express.static("public"))
 
 // routes import
 import noteRouter from "./routes/note.routes.js";
+import userRouter from "./routes/user.routes.js";
 
 app.use("/api/v1/Note", noteRouter)
+app.use("/api/v1/user", userRouter)
 
 export { app }
