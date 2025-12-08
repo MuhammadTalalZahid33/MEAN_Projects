@@ -63,15 +63,15 @@ export class NotesListComponent implements OnInit {
         distinctUntilChanged(),
         switchMap(term => {
           this.currentPage = 0;
-          return this.noteObject.getNotes(term  || '', this.currentPage + 1 || '', this.pageSize || '')
-        })     
+          return this.noteObject.getNotes(term || '', this.currentPage + 1 || '', this.pageSize || '')
+        })
       )
       .subscribe((note) => {
         // console.log("from initialize search function...")
         this.noteObj = note.allNotes;
         this.setLength(note.count)
       })
-      
+
   }
 
   // for Search term of type Signal
@@ -90,29 +90,49 @@ export class NotesListComponent implements OnInit {
   // }
 
   openDialog() {
-    this.dialogRef.open(AddeditnoteComponent, {
+    const dialogref = this.dialogRef.open(AddeditnoteComponent, {
       data: {
         mode: 'add'
+      }
+    })
+    dialogref.afterClosed().subscribe(result => {
+      if (result?.added) {
+        this.loadNotes(this.searchTerm.value || '', this.currentPage + 1, this.pageSize);
       }
     })
   }
 
   EditNote(note: any) {
     // console.log("note obj", note);
-    this.dialogRef.open(AddeditnoteComponent, {
+    const dialogref = this.dialogRef.open(AddeditnoteComponent, {
       data: {
         noteData: note,
         mode: 'edit'
+      }
+    })
+    dialogref.afterClosed().subscribe(result => {
+      if (result?.updated) {
+        // console.log("after close result", result);
+        this.loadNotes(this.searchTerm.value || '', this.currentPage + 1, this.pageSize);
       }
     })
   }
 
   DeleteNote(note: any) {
     // console.log("note obj", note);
-    this.dialogRef.open(VerificationdialogueComponent, {
+    const dialogref = this.dialogRef.open(VerificationdialogueComponent, {
       data: {
         noteData: note,
         mode: 'delete'
+      }
+    })
+    dialogref.afterClosed().subscribe(result => {
+      if (result?.deleted) {
+        if (this.noteObj.length == 1 && this.currentPage > 0) {
+          this.currentPage = this.currentPage - 1;
+          this.paginator.pageIndex = this.currentPage;
+        }
+        this.loadNotes(this.searchTerm.value || '', this.currentPage + 1, this.pageSize);
       }
     })
   }
@@ -138,6 +158,6 @@ export class NotesListComponent implements OnInit {
   handlePageEvent(pageEvent: PageEvent) {
     this.currentPage = pageEvent.pageIndex;
     this.pageSize = pageEvent.pageSize;
-     this.loadNotes(this.searchTerm.value || '', this.currentPage + 1, this.pageSize);
+    this.loadNotes(this.searchTerm.value || '', this.currentPage + 1, this.pageSize);
   }
 }
