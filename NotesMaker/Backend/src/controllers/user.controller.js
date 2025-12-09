@@ -49,8 +49,19 @@ const loginUser = asyncHandler(async (req, res) => {
         })
     }
 
+    const accessToken = await user.generateAccessToken();
+    const data = {
+        user: {
+            _id: user._id,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            userName: user.userName,
+        },
+        token: accessToken
+    }
+
     return res.status(200).json(
-        new ApiResponse(201, user, "user successfully logged-In...")
+        new ApiResponse(201, data, "user successfully logged-In...")
     )
 })
 

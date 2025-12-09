@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
 import { backendURL } from '../constants';
 import { AENote } from '../models/addEditNote.type';
+import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,11 @@ export class GetNotesService {
   constructor(private http: HttpClient) { }
 
   getNotes(searchText: any, currpage: any, limit: any): Observable<any> {
+    const token = localStorage.getItem('token');
+    console.log("token: ", token);
+    const headers = new HttpHeaders().set('Authorization', `Bearer${token}`);
     // fetch(`${this.url}/allNotes`).then((response => response.json)).then(data => console.log(data))
-    return this.http.get(`${this.url}/allNotes?searchTerm=${searchText}&page=${currpage}&limit=${limit}`);
+    return this.http.get(`${this.url}/allNotes?searchTerm=${searchText}&page=${currpage}&limit=${limit}`, { headers });
   }
 
   saveNotes(Note: AENote): Observable<any> {
@@ -42,11 +46,11 @@ export class GetNotesService {
       }))
   }
 
-  deleteNote(id:any): Observable<any>{
+  deleteNote(id: any): Observable<any> {
     return this.http.delete(`${this.url}/delete/${id}`)
-    .pipe(catchError((err)=>{
-      console.log("error deleting note...");
-      throw(err);
-    }))
+      .pipe(catchError((err) => {
+        console.log("error deleting note...");
+        throw (err);
+      }))
   }
 }

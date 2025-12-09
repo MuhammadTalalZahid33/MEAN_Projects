@@ -26,10 +26,11 @@ const addNote = asyncHandler(async (req, res) => {
 // GET ALL NOTES
 const getAllNotes = asyncHandler(async (req, res) => {
     const {searchTerm, page = 1, limit = 6} = req.query;
-    let filter;
+    let filter = {userId: req.user._id}
     if(searchTerm){
         var regex = new RegExp(searchTerm, 'i')
         filter = {
+            ...filter,
             $or: [
                 {title: {$regex: regex}},
                 {content: {$regex: regex}}
