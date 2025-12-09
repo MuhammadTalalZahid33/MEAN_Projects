@@ -1,0 +1,67 @@
+
+h2{
+    // margin-top: 1rem;
+    text-align: center;
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 350px;
+  margin: 2rem auto;
+  gap: 1rem;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+  border: 1px solid grey;
+  padding: 2rem;
+  border-radius: 1rem;
+  background-color: #f0eaea;
+
+  label {
+    font-weight: 600;
+  }
+
+  input,
+  select {
+    padding: 0.6rem;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+
+    &:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    &.ng-invalid.ng-touched {
+      border-color: #dc3545;
+    }
+
+    &.ng-valid.ng-touched {
+      border-color: #28a745;
+    }
+  }
+
+  .error small {
+    color: #dc3545;
+  }
+
+  button {
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.6rem;
+    cursor: pointer;
+    transition: background 0.3s;
+
+    &:disabled {
+      background: #aaa;
+      cursor: not-allowed;
+    }
+
+    &:hover:not(:disabled) {
+      background: #0056b3;
+    }
+  }
+}
