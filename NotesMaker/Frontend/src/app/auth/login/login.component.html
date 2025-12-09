@@ -1,1 +1,22 @@
-<p>login works!</p>
+
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+    <h2>Login Form</h2>
+    <label for="userName"></label>
+    <input type="text" id="userName" placeholder="Enter user name" formControlName = "userName">
+    <div class="error" *ngIf="f['userName'].invalid && f['userName'].touched">
+        <small *ngIf="f['userName'].errors?.['required']">User Name is required</small>
+        <small *ngIf="f['userName'].errors?.['minlength']">user name should have minimum length of 6</small>
+    </div>
+
+    <label for="password"></label>
+    <input type="text" id="password" placeholder="Enter password" formControlName = "password"> 
+    <div class="error" *ngIf="f['password'].invalid && f['password'].touched">
+        <small *ngIf="f['password'].errors?.['required']">password is required</small>
+        <small *ngIf="f['password'].errors?.['minlength']">password should have minimum length of 4</small>
+        <small *ngIf="f['password'].errors?.['maxlength']">password should have maximum length of 8</small>
+    </div>
+
+    <button type="submit" [disabled]="loginForm.invalid">Submit</button>
+    <p>If you don't have account, move to <a (click)="toRegister()">Register</a> page</p>
+    
+</form>
