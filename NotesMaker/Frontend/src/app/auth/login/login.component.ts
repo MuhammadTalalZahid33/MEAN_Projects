@@ -1,7 +1,8 @@
 import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -22,8 +23,18 @@ export class LoginComponent {
     return this.loginForm.controls;
   }
 
-  onSubmit() {
+  auth = inject(AuthService)
 
+  onSubmit() {
+    if(this.loginForm.valid){
+      const loginData = this.loginForm.value
+      this.auth.loginUser(loginData).subscribe(res => {
+        if(res.success){
+          console.log("loginned user",res);
+          this.router.navigate(['/allNotes'])
+        }
+      })
+    }
   }
 
   toRegister(){

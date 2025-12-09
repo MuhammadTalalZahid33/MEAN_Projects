@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
     {
-        path: '',
+        path: 'home',
         loadComponent: () => {
             return import('./pages/home/home.component').then(m => m.HomeComponent);
         }
@@ -14,13 +14,19 @@ export const routes: Routes = [
         }
     },
     {
+        path: 'allNotes',
+        loadComponent: () => {
+            return import('./components/notes/notes-list/notes-list.component').then(m => m.NotesListComponent);
+        }
+    },
+    {
         path: 'register',
         loadComponent: () => {
             return import('./auth/register/register.component').then(m => m.RegisterComponent);
         }
     },
     {
-        path: 'login',
+        path: '',
         loadComponent: () => {
             return import('./auth/login/login.component').then(m => m.LoginComponent);
         }
