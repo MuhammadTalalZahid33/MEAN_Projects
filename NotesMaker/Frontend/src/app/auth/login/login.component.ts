@@ -32,7 +32,7 @@ export class LoginComponent {
         if(res.success){
           localStorage.setItem("token", res.data.token);
           localStorage.setItem("userId", res.data.user._id)
-          console.log("loginned user",res.data.user._id);
+          console.log("logined user",res.data.user._id);
           this.router.navigate(['/allNotes'])
         }
       })
