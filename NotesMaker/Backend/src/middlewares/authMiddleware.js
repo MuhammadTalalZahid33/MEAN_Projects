@@ -23,4 +23,14 @@ const protect = async (req, res, next) => {
     }
 };
 
-export { protect };
+const authorizeRoles = async(...roles) => {
+    return (req, res, next) => {
+        if(!roles.includes(req.user.role)) {
+            return res.status(403).json({
+                message: "you are shown only your notes data..."
+            })
+        }
+        next();
+    }
+}
+export { protect, authorizeRoles };
