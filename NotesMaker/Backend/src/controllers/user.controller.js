@@ -4,9 +4,9 @@ import { ApiResponse } from "../utils/ApiResponse.js"
 import User from "../models/user.model.js"
 
 const registerUser = asyncHandler(async (req, res) => {
-    const { firstName, lastName, userName, password } = req.body;
-    console.log("register credentials:", firstName, lastName, userName, password)
-    if (!firstName || !userName || !password) {
+    const { firstName, lastName, userName, password, role } = req.body;
+    console.log("register credentials:", firstName, lastName, userName, password, role)
+    if (!firstName || !userName || !password || !role) {
         return res.status(400).json({
             message: "provide the needed credentials..."
         })

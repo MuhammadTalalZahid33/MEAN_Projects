@@ -17,7 +17,8 @@ export class RegisterComponent {
       firstName: new FormControl('', [Validators.required, Validators.minLength(4)]),
       lastName: new FormControl(''),
       userName: new FormControl('', [Validators.required, Validators.minLength(6)]),
-      password: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(8)])
+      password: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(8)]),
+      role: new FormControl('', [Validators.required])
     })
 
   get f() {

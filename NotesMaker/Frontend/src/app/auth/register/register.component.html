@@ -27,5 +27,15 @@
         <small *ngIf="f['password'].errors?.['maxlength']">password should have maximum length of 8</small>
     </div>
 
+    <label for="role"></label>
+    <select name="role" id="role" formControlName = "role">
+        <option value="">Select role</option>
+        <option value="admin">Admin</option>
+        <option value="agent">Agent</option>
+    </select>
+    <div class="error" *ngIf="f['role'].invalid && f['role'].touched">
+        <small>Please select role...</small>
+    </div>
+
     <button type="submit" [disabled]="registorForm.invalid">Submit</button>
 </form>
