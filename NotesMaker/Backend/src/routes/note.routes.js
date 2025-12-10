@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { addNote, deleteNote, getAllNotes, getById, updateNote } from "../controllers/note.controller.js";
-import { protect } from "../middlewares/authMiddleware.js";
 
 const router = Router();
 // Create Note

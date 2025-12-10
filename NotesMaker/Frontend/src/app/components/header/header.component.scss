@@ -47,16 +47,15 @@ body {
 }
 
 .logout-button {
-  padding: 8px;
-  border-radius: 6px;
-  color: white;
-  background-color: #0d6370;
-  border: none;
+    margin-left: 0.5rem;
+    padding: 8px;
+    border-radius: 6px;
+    color: white;
+    background-color: #0d6370;
+    border: none;
 
-  &:hover {
-    cursor: pointer;
-    transform: scale(1.1);
-  }
-
-  margin: 0.5rem;
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+    }
 }

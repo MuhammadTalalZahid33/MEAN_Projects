@@ -19,7 +19,7 @@
     </div>
 
     <label for="password"></label>
-    <input type="text" id="password" placeholder="Enter password" formControlName = "password"> 
+    <input type="password" id="password" placeholder="Enter password" formControlName = "password"> 
     <div class="error" *ngIf="f['password'].invalid && f['password'].touched">
         <small *ngIf="f['password'].errors?.['required']">password is required</small>
         <small *ngIf="f['password'].errors?.['minlength']">password should have minimum length of 4</small>
