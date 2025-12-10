@@ -12,7 +12,7 @@ import { AuthService } from '../../core/services/auth.service';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  constructor(private router: Router){}
+  constructor(private router: Router) { }
 
   loginForm = new FormGroup({
     userName: new FormControl('', [Validators.required, Validators.minLength(6)]),
@@ -26,15 +26,22 @@ export class LoginComponent {
   auth = inject(AuthService)
 
   onSubmit() {
-    if(this.loginForm.valid){
+    if (this.loginForm.valid) {
       const loginData = this.loginForm.value
       this.auth.loginUser(loginData).subscribe();
     }
   }
 
-  toRegister(){
-    this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=> this.router.navigate(['/register'])).then(()=> {
-        console.log("navigating...")
-      })
+  toRegister() {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => this.router.navigate(['/register'])).then(() => {
+      console.log("navigating...")
+    })
   }
+
+  showPassword = false;
+
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
+
 }

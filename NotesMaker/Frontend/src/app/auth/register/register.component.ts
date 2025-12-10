@@ -24,19 +24,20 @@ export class RegisterComponent {
     return this.registorForm.controls;
   }
 
-  constructor(private router: Router){}
+  constructor(private router: Router) { }
   auth = inject(AuthService)
 
   onSubmit() {
-    if(this.registorForm.valid){
+    if (this.registorForm.valid) {
       const registerData = this.registorForm.value;
       console.log(" data : ", registerData);
       this.auth.registerUser(registerData).subscribe(res => {
-        if(res.success){
-            this.router.navigate(['/'])
+        if (res.success) {
+          this.router.navigate(['/'])
         }
         // console.log("success message", res.success);
       })
     }
-  } 
+  }
+
 }
