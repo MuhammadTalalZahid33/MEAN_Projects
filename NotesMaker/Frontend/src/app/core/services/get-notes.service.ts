@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable } from 'rxjs';
 import { backendURL } from '../constants';
 import { AENote } from '../models/addEditNote.type';
-import { HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
