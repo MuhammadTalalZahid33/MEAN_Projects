@@ -6,7 +6,6 @@ const app = express();
 app.use(cors())
 app.use(express.json({ limit: "16kb" }))
 app.use(express.urlencoded({ extended: true, limit: "16kb" }))
-app.use(express.static("public"))
 
 
 // routes import
@@ -17,4 +16,6 @@ import { protect } from "./middlewares/authMiddleware.js";
 app.use("/api/v1/Note",protect, noteRouter)
 app.use("/api/v1/user", userRouter)
 
+
+app.use(express.static("public"))
 export { app }

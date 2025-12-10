@@ -27,9 +27,9 @@ export class AddeditnoteComponent {
   private dialogRef = inject(MatDialogRef<AddeditnoteComponent>);
 
   ngOnInit() {
-    this.note.id = this.data.noteData._id || null;
-    this.note.title = this.data.noteData.title || null;
-    this.note.content = this.data.noteData.content || null;
+    this.note.id = this.data.noteData?._id || null;
+    this.note.title = this.data.noteData?.title || null;
+    this.note.content = this.data.noteData?.content || null;
     if (this.data.mode == "edit") {
       this.IsEdit = true
     }

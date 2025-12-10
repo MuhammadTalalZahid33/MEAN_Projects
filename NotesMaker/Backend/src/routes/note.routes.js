@@ -12,11 +12,6 @@ router.route('/getById/:id').get(getById);
 // Update Note
 router.route('/update/:id').put(updateNote);
 // Delete a Note
-// router.route('/delete/:id').delete(deleteNote);
-// router.get('/allNotes',protect, getAllNotes)
-// router.post('/add', protect, addNote),
-// router.get('/getById/:id', protect, getById)
-// router.put('/update/:id', protect, updateNote)
-// router.delete('/delete/:id', protect, deleteNote)
+router.route('/delete/:id').delete(deleteNote);
     
 export default router;

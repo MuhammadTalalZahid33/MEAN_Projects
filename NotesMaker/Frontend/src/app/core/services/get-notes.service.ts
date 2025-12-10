@@ -19,14 +19,15 @@ export class GetNotesService {
   constructor(private http: HttpClient) { }
 
   getNotes(searchText: any, currpage: any, limit: any): Observable<any> {
-    const token = localStorage.getItem('token');
-    console.log("token: ", token);
-    const headers = new HttpHeaders().set('Authorization', `Bearer${token}`);
-    // fetch(`${this.url}/allNotes`).then((response => response.json)).then(data => console.log(data))
-    return this.http.get(`${this.url}/allNotes?searchTerm=${searchText}&page=${currpage}&limit=${limit}`, { headers });
+    // const token = localStorage.getItem('token');
+    // // console.log("token: ", token);
+    // const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get(`${this.url}/allNotes?searchTerm=${searchText}&page=${currpage}&limit=${limit}`);
   }
 
   saveNotes(Note: AENote): Observable<any> {
+    // const token = localStorage.getItem('token');
+    //  const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.post<AENote>(`${this.url}/add`, Note)
       .pipe(catchError((err) => {
         console.log(err)
