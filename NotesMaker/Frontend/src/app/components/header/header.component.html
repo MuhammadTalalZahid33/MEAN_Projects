@@ -18,6 +18,7 @@
                     Home
                 </a>
                 <a routerLink="/nothing" routerLinkActive="active" class="nav-link">Nothing</a>
+                <button class="logout-button" (click)="toggleAuth()">{{auth.isLoggedIn() ? "Logout" : "Login"}}</button>
             </nav>
         </div>
     </header>

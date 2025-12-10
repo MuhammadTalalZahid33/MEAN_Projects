@@ -33,7 +33,7 @@ export class RegisterComponent {
       console.log(" data : ", registerData);
       this.auth.registerUser(registerData).subscribe(res => {
         if(res.success){
-            this.router.navigate(['/allNotes'])
+            this.router.navigate(['/'])
         }
         // console.log("success message", res.success);
       })

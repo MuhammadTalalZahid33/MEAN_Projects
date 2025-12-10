@@ -28,14 +28,7 @@ export class LoginComponent {
   onSubmit() {
     if(this.loginForm.valid){
       const loginData = this.loginForm.value
-      this.auth.loginUser(loginData).subscribe(res => {
-        if(res.success){
-          localStorage.setItem("token", res.data.token);
-          localStorage.setItem("userId", res.data.user._id)
-          console.log("logined user",res.data.user._id);
-          this.router.navigate(['/allNotes'])
-        }
-      })
+      this.auth.loginUser(loginData).subscribe();
     }
   }
 

@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import { LoginGuard } from './core/guards/login.guard';
+import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
     {
@@ -17,7 +19,8 @@ export const routes: Routes = [
         path: 'allNotes',
         loadComponent: () => {
             return import('./components/notes/notes-list/notes-list.component').then(m => m.NotesListComponent);
-        }
+        },
+        canActivate: [AuthGuard]
     },
     {
         path: 'register',
@@ -29,7 +32,9 @@ export const routes: Routes = [
         path: '',
         loadComponent: () => {
             return import('./auth/login/login.component').then(m => m.LoginComponent);
-        }
+        },
+        canActivate: [LoginGuard]
+        
     }
 
 ];
