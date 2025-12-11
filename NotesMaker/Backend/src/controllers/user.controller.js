@@ -69,6 +69,13 @@ const loginUser = asyncHandler(async (req, res) => {
     )
 })
 
+const getAllUsers = asyncHandler(async (req, res)=> {
+    const users = await User.find({role: {$ne: 'admin'}});
+    res.status(200).json(
+        new ApiResponse(201, users, "successfully retreived users...")
+    )
+})
+
 const logoutUser = asyncHandler( async (req, res) => {
     const userId = req.user._id;
     const user = await User.findByIdAndUpdate(userId, {refreshToken: null});
@@ -77,4 +84,4 @@ const logoutUser = asyncHandler( async (req, res) => {
     )
 })
 
-export { registerUser, loginUser, logoutUser }
+export { registerUser, loginUser, getAllUsers, logoutUser }
