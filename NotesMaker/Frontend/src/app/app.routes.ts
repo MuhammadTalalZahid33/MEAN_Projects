@@ -35,6 +35,11 @@ export const routes: Routes = [
         },
         canActivate: [LoginGuard]
         
-    }
-
+    },
+    {
+        path: 'confirmRegistered',
+        loadComponent: () => {
+            return import('./auth/confirmed-register/confirmed-register.component').then(m => m.ConfirmedRegisterComponent);
+        }
+    },
 ];

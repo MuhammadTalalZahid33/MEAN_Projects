@@ -24,7 +24,8 @@ const registerUser = asyncHandler(async (req, res) => {
             firstName,
             lastName,
             userName,
-            password
+            password,
+            role
         });
         return res.status(200).json(
             new ApiResponse(200, user, "ok user successfully created...")
@@ -38,14 +39,16 @@ const loginUser = asyncHandler(async (req, res) => {
     // check if username exist
     if (!user) {
         return res.status(400).json({
-            message: "invalid credentials, username doesn't exist!!!"
+            success: false,
+            message: "invalid credentials, username doesn't exist!!!",
         })
     }
     // check if password matches...
     const isMatch = await user.isPasswordCorrect(password);
     if (!isMatch) {
         return res.status(400).json({
-            message: "invalid credentials, password incorrect"
+            success: false,
+            message: "invalid credentials, password incorrect",
         })
     }
 

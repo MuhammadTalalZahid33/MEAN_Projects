@@ -34,7 +34,7 @@ export class RegisterComponent {
       console.log(" data : ", registerData);
       this.auth.registerUser(registerData).subscribe(res => {
         if (res.success) {
-          this.router.navigate(['/'])
+          this.router.navigate(['/confirmRegistered'])
         }
         // console.log("success message", res.success);
       })

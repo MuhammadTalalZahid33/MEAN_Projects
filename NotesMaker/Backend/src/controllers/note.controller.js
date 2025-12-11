@@ -27,7 +27,11 @@ const addNote = asyncHandler(async (req, res) => {
 // GET ALL NOTES
 const getAllNotes = asyncHandler(async (req, res) => {
     const {searchTerm, page = 1, limit = 6} = req.query;
-    let filter = {userId: req.user._id}
+    let filter = {} 
+    if(req.user.role && req.user.role !== "admin"){
+        filter = {userId: req.user._id}
+    }
+    
     if(searchTerm){
         var regex = new RegExp(searchTerm, 'i')
         filter = {

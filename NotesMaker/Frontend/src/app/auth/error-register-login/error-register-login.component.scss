@@ -1,0 +1,27 @@
+.dialog-container{
+   background-color: rgb(237, 237, 237);
+   padding: 2rem;
+}
+
+h2{
+    text-align: center;
+}
+
+h3{
+    text-align: center;
+}
+
+
+.register-button {
+    margin: 0.5rem;
+    padding: 4px;
+    border-radius: 6px;
+    color: white;
+    background-color: #0d6370;
+    border: none;
+
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+    }
+}
