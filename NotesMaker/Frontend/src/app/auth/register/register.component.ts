@@ -41,4 +41,9 @@ export class RegisterComponent {
     }
   }
 
+  showPassword = false;
+
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
 }

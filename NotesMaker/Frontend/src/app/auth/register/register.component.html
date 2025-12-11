@@ -19,7 +19,14 @@
     </div>
 
     <label for="password"></label>
-    <input type="password" id="password" placeholder="Enter password" formControlName = "password"> 
+    <div class="password-wrapper">
+        <input [type]="showPassword ? 'text' : 'password'" id="password" placeholder="Enter password"
+            formControlName="password">
+
+        <span class="toggle-eye" (click)="togglePassword()">
+            {{ showPassword ? '😑' : '👀' }}
+        </span>
+    </div>
 
     <div class="error" *ngIf="f['password'].invalid && f['password'].touched">
         <small *ngIf="f['password'].errors?.['required']">password is required</small>
