@@ -1,7 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { authURL } from '../constants';
 import { HttpClient } from '@angular/common/http';
-import { catchError, Observable, tap } from 'rxjs';
+import { catchError, Observable, tap, throwIfEmpty } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ErrorRegisterLoginComponent } from '../../auth/error-register-login/error-register-login.component';
@@ -52,15 +52,19 @@ export class AuthService {
         }))
   }
 
-  // getRole(role: any) {
-  //   this.userRole.set(role)
-  // }
+  getUsers(): Observable<any> {
+    return this.http.get(`${this.url}/agents`)
+      .pipe(catchError((err) => {
+        console.log("error getting users...", err);
+        throw (err)
+      }))
+  }
 
   logoutUser() {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
     localStorage.removeItem("role");
-    
+
     this.isLoggedIn.set(false);
     this.userRole.set("agent");
 

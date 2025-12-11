@@ -12,7 +12,11 @@ import { AuthService } from '../../core/services/auth.service';
 })
 export class HeaderComponent{
   isLoggedOut:boolean = false
-  constructor(public router: Router,public auth: AuthService) {}
+  userObj: any
+  constructor(
+    public router: Router,
+    public auth: AuthService
+  ) {}
   
   toggleAuth(){
       this.auth.logoutUser();
