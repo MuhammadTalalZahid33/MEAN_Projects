@@ -42,4 +42,10 @@ export const routes: Routes = [
             return import('./auth/confirmed-register/confirmed-register.component').then(m => m.ConfirmedRegisterComponent);
         }
     },
+    {
+        path: 'users',
+        loadComponent: () => {
+            return import('./pages/users/users.component').then(m => m.UsersComponent);
+        }
+    }
 ];
