@@ -76,12 +76,19 @@ const getAllUsers = asyncHandler(async (req, res)=> {
     )
 })
 
-const logoutUser = asyncHandler( async (req, res) => {
+const logoutUser = asyncHandler( async (req, res) => {  // Currently not using...
     const userId = req.user._id;
     const user = await User.findByIdAndUpdate(userId, {refreshToken: null});
     return res.status(200).json(
         new ApiResponse(200, user, "user logged out successfully")
     )
-})
+})  
+
+const deleteUser = asyncHandler(async (req, res) => {
+    const user = await User.findByIdAndDelete(req.params.id)
+    return res.status(200).json(
+        new ApiResponse(200, user, "user deleted successfully...")
+    )
+})  
 
 export { registerUser, loginUser, getAllUsers, logoutUser }

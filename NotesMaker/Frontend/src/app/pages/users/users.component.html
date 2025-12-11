@@ -26,7 +26,7 @@
             <td>{{user.userName}}</td>
             <td>{{user.createdAt | date:'yyyy-mm-dd' }}</td>
             <td>{{user.updatedAt | date:'yyyy-mm-dd' }}</td>
-            <td><button class="delete-user-button" (click)="Delete()">🗑️</button></td>
+            <td><button class="delete-user-button" (click)="Delete(user)">🗑️</button></td>
         </tr>
         }
     </table>

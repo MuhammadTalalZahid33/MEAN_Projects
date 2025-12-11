@@ -1,6 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
 import { DatePipe } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { VerificationdialogueComponent } from '../../components/notes/verificationdialog/verificationdialog.component';
 
 @Component({
   selector: 'app-users',
@@ -10,7 +12,7 @@ import { DatePipe } from '@angular/common';
   styleUrl: './users.component.scss'
 })
 export class UsersComponent implements OnInit {
-  constructor(){}
+  constructor(private dialogRef: MatDialog){}
   auth = inject(AuthService);
   userObj: Array<any> = []
 
@@ -25,7 +27,13 @@ export class UsersComponent implements OnInit {
     })
   }
 
-  Delete(){
-    
+  Delete(user: any){
+     console.log("user data: ", user);
+    this.dialogRef.open(VerificationdialogueComponent, {
+      data: {
+        userData: user,
+        mode: 'deleteUser'
+      }
+    })
   }
 }
