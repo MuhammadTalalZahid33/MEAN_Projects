@@ -14,10 +14,10 @@
         </div>
         <div class="rightside">
             <nav>
+                <a routerLink="/agents" routerLinkActive="active" class="nav-link">Users</a>
                 <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">
-                    Home
+                    Notes
                 </a>
-                <a routerLink="/nothing" routerLinkActive="active" class="nav-link">Nothing</a>
                 <button class="logout-button" (click)="toggleAuth()">{{auth.isLoggedIn() ? "Logout" : "Login"}}</button>
             </nav>
         </div>

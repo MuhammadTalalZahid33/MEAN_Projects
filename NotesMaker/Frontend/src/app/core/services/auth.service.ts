@@ -35,7 +35,7 @@ export class AuthService {
           if (res.success) {
             localStorage.setItem("token", res.data.token);
             localStorage.setItem("userId", res.data.user._id)
-            // console.log("logged In user",res.data.user._id);
+            console.log("logged In user",res.data.user);
             this.isLoggedIn.set(true);
             this.router.navigate(['/allNotes'])
           }
