@@ -70,7 +70,7 @@ const loginUser = asyncHandler(async (req, res) => {
 })
 
 const getAllUsers = asyncHandler(async (req, res)=> {
-    const allAgents = await User.find({role: {$ne: 'admin'}});
+    const allAgents = await User.find({role: {$ne: 'admin'}}).sort({createdAt: -1});
     res.status(200).json(
         new ApiResponse(201, allAgents, "successfully retreived users...")
     )

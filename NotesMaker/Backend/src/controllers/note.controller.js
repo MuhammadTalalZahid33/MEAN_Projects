@@ -46,7 +46,7 @@ const getAllNotes = asyncHandler(async (req, res) => {
     const allNotes = await Note.find(filter)
                             .limit(limit * 1)
                             .skip((page - 1) * limit)
-                            .exec();
+                            .sort({createdAt: -1})
 
     // total record/data (based on filter)
     const count = await Note.countDocuments(filter);
