@@ -95,15 +95,28 @@ export class NotesListComponent implements OnInit {
         mode: 'add'
       }
     })
+
     dialogref.afterClosed().subscribe(result => {
       if (result?.added) {
-        this.loadNotes(this.searchTerm.value || '', this.currentPage + 1, this.pageSize);
+        if (this.currentPage == 0) {
+          const newNote = result.addedNote
+          // console.log("added note from after dialog closed: ", newNote.note);
+          this.noteObj = [newNote, ...this.noteObj];
+          this.nlength++;
+
+          if (this.noteObj.length > this.pageSize) {
+            this.noteObj.pop();
+          }
+        } else {
+          this.currentPage = 0
+          this.loadNotes(this.searchTerm.value || '', this.currentPage + 1, this.pageSize);
+        }
       }
     })
   }
 
   EditNote(note: any) {
-    // console.log("note obj", note);
+    console.log("note obj", note);
     const dialogref = this.dialogRef.open(AddeditnoteComponent, {
       data: {
         noteData: note,
@@ -112,10 +125,31 @@ export class NotesListComponent implements OnInit {
     })
     dialogref.afterClosed().subscribe(result => {
       if (result?.updated) {
-        // console.log("after close result", result);
-        this.loadNotes(this.searchTerm.value || '', this.currentPage + 1, this.pageSize);
+        if (this.currentPage == 0) {
+          const editedNote = result.updatedNote;
+          // console.log("after close result (updated):", editedNote);
+          const index = this.noteObj.findIndex(n => n._id === editedNote._id)
+          // console.log("found note: ", note);
+          if (index !== -1) {
+            this.noteObj = this.noteObj.filter(n => n._id !== editedNote._id)
+            this.noteObj = [editedNote, ...this.noteObj];
+          } else {
+            console.log("no such note found...");
+          }
+        } else {
+          this.currentPage = 0
+          this.loadNotes(this.searchTerm.value || '', this.currentPage + 1, this.pageSize);
+        }
       }
     })
+  }
+
+  isLastPage(): boolean {
+    const totalPages = Math.ceil(this.nlength / this.pageSize);
+    // console.log("total length:", this.nlength);
+    // console.log("page size: ", this.pageSize)
+    // console.log("current page:", this.currentPage)
+    return this.currentPage === totalPages - 1;
   }
 
   DeleteNote(note: any) {
@@ -127,12 +161,30 @@ export class NotesListComponent implements OnInit {
       }
     })
     dialogref.afterClosed().subscribe(result => {
+      console.log("delete after close..", result);
       if (result?.deleted) {
+        console.log("is last page", result);
+        if(this.isLastPage()){
+        const deletedNoteId = result.dNoteId
+        console.log("deleted note id: ", deletedNoteId);
+        const index = this.noteObj.findIndex(n => n._id === deletedNoteId)
+        console.log("found note: ", index);
+        if (index !== -1) {
+          this.noteObj = this.noteObj.filter(n => n._id !== deletedNoteId)
+          // or
+          // this.noteObj.splice(index, 1);
+          this.nlength--;
+        } else {
+          console.log("no such note found...");
+        }
+
         if (this.noteObj.length == 1 && this.currentPage > 0) {
           this.currentPage = this.currentPage - 1;
           this.paginator.pageIndex = this.currentPage;
         }
-        this.loadNotes(this.searchTerm.value || '', this.currentPage + 1, this.pageSize);
+        }else{
+          this.loadNotes(this.searchTerm.value || '', this.currentPage + 1, this.pageSize);
+        }
       }
     })
   }

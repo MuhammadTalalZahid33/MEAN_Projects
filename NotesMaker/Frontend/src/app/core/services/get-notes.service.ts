@@ -32,9 +32,9 @@ export class GetNotesService {
   editNotes(Note: any): Observable<any> {
     this.note.title = Note.title;
     this.note.content = Note.content;
-    console.log("id:, title ", Note.id, this.note);
+    console.log("id:, title ", Note._id, this.note);
 
-    return this.http.put(`${this.url}/update/${Note.id}`, this.note)
+    return this.http.put(`${this.url}/update/${Note._id}`, this.note)
       .pipe(catchError((err) => {
         console.log("unable to edit note...");
         throw (err);

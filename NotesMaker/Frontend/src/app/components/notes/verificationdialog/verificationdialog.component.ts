@@ -31,9 +31,9 @@ export class VerificationdialogueComponent {
 
   DeleteNote(noteId: any) {
     if (noteId) {
-      this.noteObj.deleteNote(noteId).subscribe(deletedNote => {
+      this.noteObj.deleteNote(noteId).subscribe(() => {
         // console.log("deleted Note: ", deletedNote);
-        this.dialogRef.close({ deleted: true, note: deletedNote });
+        this.dialogRef.close({ deleted: true, dNoteId: noteId});
       })
       console.log("delete funciton called successfully...");
     } else {

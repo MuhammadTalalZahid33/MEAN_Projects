@@ -17,7 +17,7 @@ export class AddeditnoteComponent {
   IsEdit = false
 
   note = {
-    id: '',
+    _id: '',
     title: '',
     content: ''
   }
@@ -26,7 +26,7 @@ export class AddeditnoteComponent {
   private dialogRef = inject(MatDialogRef<AddeditnoteComponent>);
 
   ngOnInit() {
-    this.note.id = this.data.noteData?._id || null;
+    this.note._id = this.data.noteData?._id || null;
     this.note.title = this.data.noteData?.title || null;
     this.note.content = this.data.noteData?.content || null;
     if (this.data.mode == "edit") {
@@ -39,14 +39,15 @@ export class AddeditnoteComponent {
   onSave(form: any) {
     if (form.valid) {
       if (this.IsEdit == true) {
-        console.log("the id is: ", this.note.id);
+        console.log("the id is: ", this.note._id);
         this.noteObj.editNotes(this.note).subscribe(() => {
-          this.dialogRef.close({updated: true, note: this.note});
+          this.dialogRef.close({updated: true, updatedNote: this.note});
         });
         
       } else {
-        this.noteObj.saveNotes(this.note).subscribe((newNote) => {
-          this.dialogRef.close({added: true, note: newNote})
+        this.noteObj.saveNotes(this.note).subscribe(() => {
+          this.dialogRef.close({added: true, addedNote: this.note})
+          // console.log("added note from after dialog close: ", addedNote);
         })
       }
       console.log('Form submitted:', this.note);
