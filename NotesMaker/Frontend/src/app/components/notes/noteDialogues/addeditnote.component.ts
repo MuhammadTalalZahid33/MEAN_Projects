@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { GetNotesService } from '../../../core/services/get-notes.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Route, Router, RouterLink } from "@angular/router";
-import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-addeditnote',

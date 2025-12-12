@@ -12,13 +12,6 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class VerificationdialogueComponent {
   data = inject(MAT_DIALOG_DATA);
-  // userDeletion = false
-  // ngOnInit() {
-  //   if (this.data.mode == 'deleteUser') {
-  //     this.userDeletion = true
-  //   }
-
-  // }
 
   confirmDelete() {
     const mode = this.data.mode;
@@ -27,9 +20,9 @@ export class VerificationdialogueComponent {
       this.DeleteNote(this.data.noteData._id);
     }
 
-    // if (mode === 'deleteUser') {
-    //   this.DeleteUser(this.data.userData._id);
-    // }
+    if (mode === 'deleteUser') {
+      this.DeleteUser(this.data.userData._id);
+    }
   }
 
   noteObj = inject(GetNotesService);
@@ -37,10 +30,9 @@ export class VerificationdialogueComponent {
   private dialogRef = inject(MatDialogRef<VerificationdialogueComponent>);
 
   DeleteNote(noteId: any) {
-    // console.log("NoteId: ", noteId);
     if (noteId) {
       this.noteObj.deleteNote(noteId).subscribe(deletedNote => {
-        console.log("deleted Note: ", deletedNote);
+        // console.log("deleted Note: ", deletedNote);
         this.dialogRef.close({ deleted: true, note: deletedNote });
       })
       console.log("delete funciton called successfully...");
@@ -52,7 +44,7 @@ export class VerificationdialogueComponent {
   DeleteUser(userId: any){
     if(userId){
       this.userObj.deleteUser(userId).subscribe(deletedUser => {
-        console.log("deleted User is: ", deletedUser);
+        // console.log("deleted User is: ", deletedUser);
         this.dialogRef.close({deleted: true, user: deletedUser});
       })
       console.log("deleted note successfully...");
