@@ -91,4 +91,4 @@ const deleteUser = asyncHandler(async (req, res) => {
     )
 })  
 
-export { registerUser, loginUser, getAllUsers, logoutUser }
+export { registerUser, loginUser, getAllUsers, logoutUser, deleteUser }

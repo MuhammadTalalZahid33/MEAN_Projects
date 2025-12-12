@@ -50,11 +50,6 @@ export class AddeditnoteComponent {
           this.dialogRef.close({added: true, note: newNote})
         })
       }
-      // window.location.reload();
-      // this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=> this.router.navigate(['/'])).then(()=> {
-      //   console.log("navigating...")
-      // })
-      // this.router.navigate(['/']);
       console.log('Form submitted:', this.note);
     } else {
       alert('Please fill all required fields correctly.');

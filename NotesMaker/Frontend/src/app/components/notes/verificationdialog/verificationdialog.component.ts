@@ -12,24 +12,23 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class VerificationdialogueComponent {
   data = inject(MAT_DIALOG_DATA);
-  userDeletion = false
-  ngOnInit() {
-    if (this.data.mode == 'deleteUser') {
-      this.userDeletion = true
-    }
+  // userDeletion = false
+  // ngOnInit() {
+  //   if (this.data.mode == 'deleteUser') {
+  //     this.userDeletion = true
+  //   }
 
-  }
+  // }
 
   confirmDelete() {
     const mode = this.data.mode;
-    const payload = this.data.payload;
 
     if (mode === 'delete') {
       this.DeleteNote(this.data.noteData._id);
     }
 
-    // if (mode === 'delete-user') {
-    //   this.deleteUser(this.data.userData._id);
+    // if (mode === 'deleteUser') {
+    //   this.DeleteUser(this.data.userData._id);
     // }
   }
 
@@ -37,17 +36,28 @@ export class VerificationdialogueComponent {
   userObj = inject(AuthService);
   private dialogRef = inject(MatDialogRef<VerificationdialogueComponent>);
 
-  DeleteNote(id: any) {
-    console.log("NoteId: ", id);
-    if (id) {
-      this.noteObj.deleteNote(id).subscribe(result => {
-        this.dialogRef.close({ deleted: true, note: id });
+  DeleteNote(noteId: any) {
+    // console.log("NoteId: ", noteId);
+    if (noteId) {
+      this.noteObj.deleteNote(noteId).subscribe(deletedNote => {
+        console.log("deleted Note: ", deletedNote);
+        this.dialogRef.close({ deleted: true, note: deletedNote });
       })
-
-      console.log("delete funciton called successfully...")
-
+      console.log("delete funciton called successfully...");
     } else {
       console.log("Error getting note Id...");
+    }
+  }
+
+  DeleteUser(userId: any){
+    if(userId){
+      this.userObj.deleteUser(userId).subscribe(deletedUser => {
+        console.log("deleted User is: ", deletedUser);
+        this.dialogRef.close({deleted: true, user: deletedUser});
+      })
+      console.log("deleted note successfully...");
+    }else{
+      console.log("error getting user Id...");
     }
   }
 }

@@ -70,4 +70,12 @@ export class AuthService {
 
     this.router.navigate(['/']);
   }
+
+  deleteUser(userId: any): Observable<any>{
+    return this.http.delete(`${this.url}/deleteUser/${userId}`)
+    .pipe(catchError((err) => {
+      console.log("error deleting user...", err);
+      throw(err)
+    }))
+  }
 }

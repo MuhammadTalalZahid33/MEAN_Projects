@@ -1,0 +1,21 @@
+.button {
+  margin-bottom: 20px;
+  padding: 8px;
+  border-radius: 6px;
+  color: white;
+  background-color: #0c5b31;
+  border: none;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+
+  margin: 0.5rem;
+}
+
+h3{
+    text-align: center;
+    width: 80%;
+    margin: 2rem auto;
+}

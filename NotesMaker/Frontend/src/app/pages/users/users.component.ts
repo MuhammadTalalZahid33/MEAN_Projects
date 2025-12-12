@@ -12,7 +12,7 @@ import { VerificationdialogueComponent } from '../../components/notes/verificati
   styleUrl: './users.component.scss'
 })
 export class UsersComponent implements OnInit {
-  constructor(private dialogRef: MatDialog){}
+  constructor(private dialogRef: MatDialog) { }
   auth = inject(AuthService);
   userObj: Array<any> = []
 
@@ -20,15 +20,15 @@ export class UsersComponent implements OnInit {
     this.displayUsers();
   }
 
-  displayUsers(){
+  displayUsers() {
     this.auth.getUsers().subscribe(user => {
       this.userObj = user.data;
       console.log("user obj: ", this.userObj);
     })
   }
 
-  Delete(user: any){
-     console.log("user data: ", user);
+  Delete(user: any) {
+    console.log("user data: ", user);
     this.dialogRef.open(VerificationdialogueComponent, {
       data: {
         userData: user,
