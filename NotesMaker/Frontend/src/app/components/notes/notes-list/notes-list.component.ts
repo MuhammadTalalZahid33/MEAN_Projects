@@ -163,7 +163,7 @@ export class NotesListComponent implements OnInit {
     dialogref.afterClosed().subscribe(result => {
       console.log("delete after close..", result);
       if (result?.deleted) {
-        console.log("is last page", result);
+        console.log("is last page", result);  
         if(this.isLastPage()){
         const deletedNoteId = result.dNoteId
         console.log("deleted note id: ", deletedNoteId);

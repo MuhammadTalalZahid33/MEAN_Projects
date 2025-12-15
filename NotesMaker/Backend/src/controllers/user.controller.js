@@ -2,6 +2,7 @@ import asyncHandler from "../utils/asyncHandler.js"
 import { ApiError } from "../utils/ApiError.js"
 import { ApiResponse } from "../utils/ApiResponse.js"
 import User from "../models/user.model.js"
+import Note from "../models/note.model.js"
 
 const registerUser = asyncHandler(async (req, res) => {
     const { firstName, lastName, userName, password, role } = req.body;
@@ -85,10 +86,19 @@ const logoutUser = asyncHandler( async (req, res) => {  // Currently not using..
 })  
 
 const deleteUser = asyncHandler(async (req, res) => {
-    const user = await User.findByIdAndDelete(req.params.id)
+    const userId = req.params.id;
+    // deleting records first
+    if(userId){
+         console.log("user idis:",userId);
+        await Note.deleteMany({userId});
+    // deleting user
+    const user = await User.findByIdAndDelete(userId);
     return res.status(200).json(
         new ApiResponse(200, user, "user deleted successfully...")
     )
+    }else{
+        console.log("Couldn't get user Id...");
+    }
 })  
 
 export { registerUser, loginUser, getAllUsers, logoutUser, deleteUser }

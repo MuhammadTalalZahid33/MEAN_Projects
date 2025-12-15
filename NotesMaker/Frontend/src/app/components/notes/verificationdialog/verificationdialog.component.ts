@@ -43,9 +43,9 @@ export class VerificationdialogueComponent {
 
   DeleteUser(userId: any){
     if(userId){
-      this.userObj.deleteUser(userId).subscribe(deletedUser => {
+      this.userObj.deleteUser(userId).subscribe(() => {
         // console.log("deleted User is: ", deletedUser);
-        this.dialogRef.close({deleted: true, user: deletedUser});
+        this.dialogRef.close({deleted: true, dUserId: userId});
       })
       console.log("deleted note successfully...");
     }else{
