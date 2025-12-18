@@ -1,1 +1,27 @@
-<p>header works!</p>
+<header class="headers">
+    <div class="logo">
+        <h3>Omni Center</h3>
+    </div>
+    <div class="rightside">
+            <select >
+                <option value="ready" selected>Ready</option>
+                <option value="notready">Not Ready</option>
+            </select>
+            <label for="">Profile</label>
+            <button mat-menu-item [matMenuTriggerFor]="menu" appendTo="body"
+                aria-label="Example icon-button with a menu">
+                <mat-icon>keyboard_arrow_down</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+                <button mat-menu-item>
+                    <mat-icon>account_circle</mat-icon>
+                    <span>Manage Profile</span>
+                </button>
+                <button mat-menu-item>
+                    <mat-icon>logout</mat-icon>
+                    <span>Logout</span>
+                </button>
+            </mat-menu>
+
+    </div>
+</header>

@@ -1,0 +1,17 @@
+.headers{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: aquamarine;
+    padding: 0 1rem;
+}
+
+mat-menu{
+    display: inline;
+}
+
+.rightside{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
