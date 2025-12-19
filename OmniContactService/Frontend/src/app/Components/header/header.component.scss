@@ -8,6 +8,17 @@
     color: white;
 }
 
+.logo {
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+
+    &:hover {
+        transform: scale(1.03);
+    }
+}
+
+
 .rightside {
     display: flex;
     align-items: center;
