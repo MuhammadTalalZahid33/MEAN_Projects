@@ -3,13 +3,19 @@
         <h3>Omni Center</h3>
     </div>
     <div class="rightside">
-            <select >
-                <option value="ready" selected>Ready</option>
-                <option value="notready">Not Ready</option>
-            </select>
+        <button mat-menu-item>
+            <mat-icon>call</mat-icon>
+            <!-- <mat-icon class="dialpad">dialpad</mat-icon> -->
+        </button>
+
+        <select>
+            <option value="ready">Ready</option>
+            <option value="notready">Not Ready</option>
+        </select>
+
+        <div class="profile-block">
             <label for="">Profile</label>
-            <button mat-menu-item [matMenuTriggerFor]="menu" appendTo="body"
-                aria-label="Example icon-button with a menu">
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                 <mat-icon>keyboard_arrow_down</mat-icon>
             </button>
             <mat-menu #menu="matMenu" xPosition="before">
@@ -22,6 +28,6 @@
                     <span>Logout</span>
                 </button>
             </mat-menu>
-
+        </div>
     </div>
 </header>

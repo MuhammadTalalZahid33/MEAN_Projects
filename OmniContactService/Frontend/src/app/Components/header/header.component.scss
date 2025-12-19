@@ -1,17 +1,52 @@
-.headers{
+.headers {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: aquamarine;
-    padding: 0 1rem;
+    background: #3F5EFB;
+    background: radial-gradient(circle, rgba(63, 94, 251, 1) 0%, rgba(252, 70, 107, 1) 100%);
+    padding: 0.3rem 1rem;
+    color: white;
 }
 
-mat-menu{
-    display: inline;
-}
-
-.rightside{
+.rightside {
     display: flex;
     align-items: center;
     gap: 1rem;
+}
+
+select {
+    /* Basic styling */
+    //   background-color: rgb(6, 31, 57);
+    color: white;
+    padding: 10px;
+    border-radius: 3px;
+    background: #833AB4;
+    background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%);
+      border: none;
+}
+
+/* Style the select when it is hovered or focused */
+select:hover,
+select:focus {
+    border-color: #666;
+}
+
+/* Style the options within the dropdown (support is limited and inconsistent) */
+select option {
+    background-color: white;
+    color: black;
+}
+
+.profile-block {
+    display: flex;
+    align-items: center;
+}
+
+button mat-icon{
+    // font-size: 16px;
+    color: white;
+}
+
+.dialpad{
+    font-size: 12px;
 }
