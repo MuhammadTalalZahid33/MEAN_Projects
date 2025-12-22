@@ -1,0 +1,70 @@
+.example-container {
+    // width: 200px;
+    height: 100%;
+    // border: 1px solid rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.example-sidenav {
+    padding: 20px;
+    max-height: 91%;
+    // border: 1px solid black;
+    background: #a0abe8;
+    background: radial-gradient(circle, rgba(160, 171, 232, 1) 0%, rgba(230, 133, 152, 1) 100%);
+    width: 200px;
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.example-sidenav button {
+    width: 150px;
+    background: #020024;
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+    border-radius: 7px;
+    border: none;
+    display: flex;
+    padding: 7px;
+    align-items: center;
+    gap: 1rem;
+
+    &:hover{
+        cursor: pointer;
+         background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgb(2, 2, 82) 35%, rgb(16, 3, 73) 100%);
+    }
+}
+
+.example-sidenav mat-icon {
+    color: white;
+    font-size: 1.3rem;
+    height: 1.3rem;
+    width: 1.3rem;
+}
+
+.example-sidenav span {
+    color: white;
+}
+
+.upper{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.sidenav-button {
+    position: absolute;
+    top: 1rem;
+    z-index: 1000;
+}
+
+.sidenav-button button {
+    font-size: 10px;
+    height: 23px;
+    width: 23px;
+    border-radius: 3px;
+}
+
+mat-sidenav-content .main-content{
+    padding-left: 1.8rem;
+}

@@ -6,17 +6,19 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-
 }
 
+body{
+    height: 100vh;
+    width: 100vw;
+    // box-sizing: border-box;
+    overflow: hidden;
+}
 .my-menu-panel {
     background: #EEAECA;
     background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
     border-radius: 3px;
-    // padding: 0 1rem;
     position: absolute !important;
-    // right: 10px;
-    // width: 150px;
 }
 
 .my-menu-panel .mat-mdc-menu-item {
@@ -36,4 +38,10 @@
     background-color: unset;
     box-shadow: none;
     overflow: hidden;
+}
+
+.example-sidenav .mat-drawer-inner-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }

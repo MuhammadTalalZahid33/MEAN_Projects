@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { HeaderComponent } from "../../Components/header/header.component";
+import { SidebarComponent } from "../../Components/sidebar/sidebar.component";
 
 @Component({
   selector: 'app-main-layout',
   standalone: true,
-  imports: [],
+  imports: [HeaderComponent, SidebarComponent],
   templateUrl: './main-layout.component.html',
   styleUrl: './main-layout.component.scss'
 })
