@@ -16,6 +16,12 @@ export const routes: Routes = [
     {
         path:'main',
         component: MainLayoutComponent,
+    },
+    {
+        path: '',
+        loadComponent: () => {
+            return import('./Auth/login/login.component').then(m => m.LoginComponent);
+        }
     }
 
 ];
