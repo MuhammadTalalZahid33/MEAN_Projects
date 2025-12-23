@@ -4,6 +4,8 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { MatRipple } from "@angular/material/core";
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { LogoutComponent } from '../../Auth/logout/logout.component';
 
 @Component({
   selector: 'app-header',
@@ -13,5 +15,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-
+  constructor(private dialogRef: MatDialog){}
+  Logout(){
+    this.dialogRef.open(LogoutComponent);
+  }
 }
