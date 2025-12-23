@@ -8,7 +8,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MatIconModule, MatMenuModule, MatButtonModule],
+  imports: [MatIconModule, MatMenuModule, MatButtonModule, RouterLink],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })

@@ -14,9 +14,29 @@ export const routes: Routes = [
         component: SidebarComponent
     },
     {
-        path:'main',
+        path: 'main',
         component: MainLayoutComponent,
+        children: [
+            {
+                path: 'dashboard',
+                loadComponent: () => {
+                    return import('./Pages/dashboard/dashboard.component').then(m => m.DashboardComponent);
+                }
+            },
+            {
+                path: 'settings',
+                loadComponent: () => {
+                    return import('./Pages/settings/settings.component').then(m => m.SettingsComponent);
+                }
+            },
+            {
+                path: '',
+                redirectTo: 'dashboard',
+                pathMatch: 'full'
+            }
+        ]
     },
+
     {
         path: '',
         loadComponent: () => {
