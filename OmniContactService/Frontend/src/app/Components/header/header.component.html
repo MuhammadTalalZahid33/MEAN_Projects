@@ -10,15 +10,17 @@
             </span>
         </button>
 
-        <select>
-            <option value="ready">Ready</option>
-            <option value="notready">Not Ready</option>
+        <select [disabled]="isOnCall">
+            <option value="offline" [selected]="agentState === 'OFFLINE'">Offline</option>
+            <option value="ready" [selected]="agentState === 'READY'">Ready</option>
+            <option value="notready" [selected]="agentState === 'NOT_READY'">Not Ready</option>
         </select>
 
         <div class="profile-block">
-            <label for="">Profile</label>
-            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <button class="profile-main" mat-menu-item [matMenuTriggerFor]="menu"
+                aria-label="Example icon-button with a menu">
                 <mat-icon>keyboard_arrow_down</mat-icon>
+                <span>Profile</span>
             </button>
             <mat-menu #menu="matMenu" xPosition="before">
                 <button mat-menu-item routerLink="settings">

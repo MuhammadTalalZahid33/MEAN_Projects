@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import "amazon-connect-streams";
+import { ConnectService } from '../../services/connect.service';
 
 @Component({
   selector: 'app-logout',
@@ -12,7 +13,7 @@ import "amazon-connect-streams";
 })
 export class LogoutComponent {
   private dialogref = inject(MatDialogRef<LogoutComponent>)
-  constructor(private router: Router) { }
+  constructor(private router: Router, private connectService: ConnectService) { }
   
   confirmLogout() {
     const agent = new connect.Agent();
@@ -24,6 +25,27 @@ export class LogoutComponent {
         .catch(console.error);
     }
   }
+
+//   confirmLogout() {
+//   const agent = this.connectService.getAgentSync();
+
+//   // Agent never initialized → nothing to clean
+//   // if (!agent) {
+//   //   this.forceLogout();
+//   //   return;
+//   // }
+
+//   const state = agent.getState();
+
+//   if (state.type === connect.AgentStateType.OFFLINE) {
+//     this.logout();
+//   } else {
+//     this.setAgentOffline()
+//       .then(() => this.logout())
+//       .catch(console.error);
+//   }
+// }
+
 
   setAgentOffline() {
     return new Promise((resolve, reject) => {
@@ -49,7 +71,8 @@ export class LogoutComponent {
         connect.core.terminate()
         this.dialogref.close({ closed: true });
         // Navigate back to login page
-        this.router.navigate(['/']);
+        // this.router.navigate(['/']);
+        window.location.href = '/';
       });
   }
 }

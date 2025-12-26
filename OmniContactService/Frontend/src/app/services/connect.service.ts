@@ -16,6 +16,7 @@ export class ConnectService {
   agentLoggedIn = new EventEmitter<any>();
   agentLoggedOut = new EventEmitter<void>();
   agentError = new EventEmitter<any>();
+  private agentPromise: Promise<any> | null = null;
 
   constructor(private router: Router) { }
 
@@ -44,6 +45,7 @@ export class ConnectService {
     // Subscribe to agent events
     connect.agent((agent: any) => {
       this.agent = agent;
+      console.log("agent states are :", agent.getAgentStates());
       this.setupAgentListeners(agent);
       this.agentLoggedIn.emit(agent);
 
@@ -61,6 +63,11 @@ export class ConnectService {
     // });
   }
 
+  getAgentSync(): any | null {
+    console.log("agent is from getagentasync: ", this.agent.getName);
+    return this.agent;
+  }
+
   /**
    * Setup agent event listeners
    */
@@ -76,107 +83,8 @@ export class ConnectService {
         this.handleAutoLogout();
       }
     });
-
-    // Monitor errors
-    // agent.onError((error: any) => {
-    //   console.error('Agent error:', error);
-    //   if (error.type === 'AuthenticationError') {
-    //     this.handleAutoLogout();
-    //   }
-    // });
   }
 
-  /**
-   * Main logout functionality
-   */
-  async logout(): Promise<void> {
-    try {
-      console.log('Starting logout process...');
-
-      // 1. Set agent state to OFFLINE/LOGGED_OUT if possible
-      await this.setAgentStateOffline();
-
-      // 2. Terminate active connections
-      await this.terminateActiveConnections();
-
-      // 3. Terminate CCP
-      this.terminateCCP();
-
-      // 4. Cleanup resources
-      this.cleanupResources();
-
-      // 5. Clear Connect-related data
-      this.clearConnectData();
-
-      // 6. Emit logout event
-      this.agentLoggedOut.emit();
-
-      console.log('Logout completed successfully');
-
-    } catch (error) {
-      console.error('Error during logout:', error);
-      // Fallback to force logout
-      await this.forceLogout();
-    }
-  }
-
-  /**
-   * Set agent state to offline
-   */
-  private async setAgentStateOffline(): Promise<void> {
-    if (!this.agent || !this.agent.setState) return;
-
-    return new Promise((resolve, reject) => {
-      this.agent.setState('OFFLINE', {
-        success: () => {
-          console.log('Agent state set to OFFLINE');
-          resolve();
-        },
-        failure: (err: any) => {
-          console.warn('Could not set agent state:', err);
-          resolve(); // Don't reject, continue with logout
-        }
-      });
-    });
-  }
-
-  /**
-   * Terminate active connections
-   */
-  private async terminateActiveConnections(): Promise<void> {
-    if (!this.agent) return;
-
-    try {
-      const connections = this.agent.getConnections();
-
-      if (connections && connections.length > 0) {
-        console.log(`Found ${connections.length} active connections`);
-
-        for (const connection of connections) {
-          if (connection.destroy) {
-            await connection.destroy();
-            console.log('Connection terminated:', connection.connectionId);
-          }
-        }
-      }
-    } catch (err) {
-      console.warn('Error terminating connections:', err);
-    }
-  }
-
-  /**
-   * Terminate CCP instance
-   */
-  private terminateCCP(): void {
-    try {
-      if (connect.core && connect.core.terminate) {
-        connect.core.terminate();
-        console.log('CCP terminated');
-      }
-    } catch (error) {
-      console.warn('Error terminating CCP:', error);
-    }
-  }
 
   /**
    * Cleanup resources (media streams, etc.)
@@ -343,9 +251,21 @@ export class ConnectService {
    * Get current agent state
    */
   getAgentState(): string {
+    console.log("getting agent state", this.agent);
     return this.agent ? this.agent.getState()?.name || 'UNKNOWN' : 'LOGGED_OUT';
   }
 
+  getAgent(): Promise<any> {
+    if (!this.agentPromise) {
+      this.agentPromise = new Promise((resolve) => {
+        connect.agent((agent: any) => {
+          this.agent = agent;
+          resolve(agent);
+        });
+      });
+    }
+    return this.agentPromise;
+  }
   /**
    * Check if agent is logged in
    */
@@ -358,11 +278,11 @@ export class ConnectService {
   /**
    * Check if agent is on a call
    */
-  // isOnCall(): boolean {
-  //   if (!this.agent) return false;
-  //   const connections = this.agent.getConnections();
-  //   return connections && connections.length > 0;
-  // }
+  isOnCall(): boolean {
+    if (!this.agent) return false;
+    const connections = this.agent.getConnections();
+    return connections && connections.length > 0;
+  }
 
   /**
    * Get active call count
