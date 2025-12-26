@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import "amazon-connect-streams";
 import { ConnectService } from '../../services/connect.service';
+import { filter, take } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -78,15 +79,22 @@ export class LoginComponent {
       this.instanceURL
     );
 
-    // Subscribe to login success
-    this.connectService.agentLoggedIn.subscribe((agent: any) => {
-      console.log("Agent logged in:", agent.getName());
+    this.connectService.agent$
+    .pipe(filter(agent => !!agent), take(1))
+    .subscribe(agent => {
+      console.log("agent logged in: ", agent.getName());
       this.router.navigate(['/main']);
-    });
+    })
 
-    // Subscribe to errors
-    this.connectService.agentError.subscribe((error: any) => {
-      console.error('Login error:', error);
-    });
+    // // Subscribe to login success
+    // this.connectService.agentLoggedIn.subscribe((agent: any) => {
+    //   console.log("Agent logged in:", agent.getName());
+    //   this.router.navigate(['/main']);
+    // });
+
+    // // Subscribe to errors
+    // this.connectService.agentError.subscribe((error: any) => {
+    //   console.error('Login error:', error);
+    // });
   }
 }

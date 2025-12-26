@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
     //   const state = agent.getState();
     //    console.log("getting agent state", state);
     // });
-    console.log("agent state: ", this.connectService.getAgentState())
+    // console.log("agent state: ", this.connectService.getAgentState())
   }
   Logout() {
     this.dialogRef.open(LogoutComponent);
