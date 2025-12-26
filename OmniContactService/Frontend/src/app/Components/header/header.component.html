@@ -3,27 +3,31 @@
         <h3>Omni Centre</h3>
     </div>
     <div class="rightside">
-        <button mat-menu-item>
-            <mat-icon>call</mat-icon>
-            <!-- <mat-icon class="dialpad">dialpad</mat-icon> -->
+        <button mat-menu-item *ngIf="isOnCall" class="active-call-indicator">
+            <mat-icon style="color: #d32f2f;">call</mat-icon>
+            <!-- <span class="call-badge" *ngIf="connectService.getActiveCallCount() > 0">
+                {{ connectService.getActiveCallCount() }}
+            </span> -->
         </button>
 
-        <select>
-            <option value="ready">Ready</option>
-            <option value="notready">Not Ready</option>
+        <select  [disabled]="isOnCall">
+            <option value="offline" [selected]="agentState === 'OFFLINE'">Offline</option>
+            <option value="ready" [selected]="agentState === 'READY'">Ready</option>
+            <option value="notready" [selected]="agentState === 'NOT_READY'">Not Ready</option>
         </select>
 
         <div class="profile-block">
-            <label for="">Profile</label>
-            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <button class="profile-main" mat-menu-item [matMenuTriggerFor]="menu"
+                aria-label="Example icon-button with a menu">
                 <mat-icon>keyboard_arrow_down</mat-icon>
+                <span>Profile</span>
             </button>
             <mat-menu #menu="matMenu" xPosition="before">
-                <button mat-menu-item>
+                <button mat-menu-item routerLink="settings">
                     <mat-icon>account_circle</mat-icon>
                     <span>Manage Profile</span>
                 </button>
-                <button mat-menu-item>
+                <button mat-menu-item (click)="Logout()">
                     <mat-icon>logout</mat-icon>
                     <span>Logout</span>
                 </button>

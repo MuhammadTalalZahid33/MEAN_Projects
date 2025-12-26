@@ -22,7 +22,7 @@
 .rightside {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    // gap: 2rem;
 }
 
 select {
@@ -48,16 +48,20 @@ select option {
     color: black;
 }
 
-.profile-block {
+.profile-block button{
     display: flex;
+    flex-direction: row-reverse;
     align-items: center;
+}
+
+.profile-block span{
+    color: white;
+    // font-size: 15px;
 }
 
 button mat-icon{
     // font-size: 16px;
     color: white;
-}
-
-.dialpad{
-    font-size: 12px;
+    // width: 16px;
+    // height: 16px;
 }
