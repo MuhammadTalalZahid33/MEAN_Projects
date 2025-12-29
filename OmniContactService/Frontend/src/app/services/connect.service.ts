@@ -324,7 +324,7 @@ export class ConnectService {
     this.initialized = true;
 
     connect.core.initCCP(container, {
-       ccpUrl: instanceURL,
+      ccpUrl: instanceURL,
       loginPopup: true,
       loginPopupAutoClose: true,
       loginOptions: {
@@ -356,6 +356,7 @@ export class ConnectService {
 
       // Set initial state
       const initialState = agent.getState()?.name || 'LOGGED_OUT';
+      console.log("agent state is:", initialState);
       this.agentStateSubject.next(initialState);
     });
 
@@ -366,50 +367,54 @@ export class ConnectService {
   }
 
   logout(): void {
-    this.agent$
-      .pipe(filter(agent => !!agent), take(1))
-      .subscribe(agent => {
-        const state = agent.getState();
-        if (state.type === connect.AgentStateType.OFFLINE) {
-          this.performLogout();
-        } else {
-          this.setOfflineThenLogout(agent);
-        }
-      });
-  }
+    try {
+      connect.core.terminate();
+    } catch (e) {
+      console.warn('Terminate failed', e);
+    }
 
-  private setOfflineThenLogout(agent: any): void {
-    const offlineState = agent.getAgentStates().find(
-      (s: any) => s.type === connect.AgentStateType.OFFLINE
-    );
-
-    agent.setState(
-      offlineState,
-      {
-        success: () => {
-          console.log('Agent set to OFFLINE');
-          this.agentStateSubject.next('OFFLINE'); // update state subject
-          this.performLogout();
-        },
-        failure: (err: any) => {
-          console.error('Failed to set OFFLINE', err);
-          this.performLogout();
-        }
-      },
-      { enqueueNextState: true }
-    );
-  }
-
-  private performLogout(): void {
     fetch('https://ccs123.my.connect.aws/logout', {
       credentials: 'include',
       mode: 'no-cors'
     }).finally(() => {
-      connect.core.terminate();
       this.reset();
       window.location.href = '/';
     });
   }
+
+
+  // private setOfflineThenLogout(agent: any): void {
+  //   const offlineState = agent.getAgentStates().find(
+  //     (s: any) => s.type === connect.AgentStateType.OFFLINE
+  //   );
+
+  //   agent.setState(
+  //     offlineState,
+  //     {
+  //       success: () => {
+  //         console.log('Agent set to OFFLINE');
+  //         this.agentStateSubject.next('OFFLINE'); // update state subject
+  //         this.performLogout();
+  //       },
+  //       failure: (err: any) => {
+  //         console.error('Failed to set OFFLINE', err);
+  //         this.performLogout();
+  //       }
+  //     },
+  //     { enqueueNextState: true }
+  //   );
+  // }
+
+  // private performLogout(): void {
+  //   fetch('https://ccs123.my.connect.aws/logout', {
+  //     credentials: 'include',
+  //     mode: 'no-cors'
+  //   }).finally(() => {
+  //     connect.core.terminate();
+  //     this.reset();
+  //     window.location.href = '/';
+  //   });
+  // }
 
   private reset(): void {
     this.agent = null;
