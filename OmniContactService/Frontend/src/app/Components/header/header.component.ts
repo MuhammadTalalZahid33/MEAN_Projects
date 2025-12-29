@@ -34,14 +34,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     //    console.log("getting agent state", state);
     // });
     this.connectService.incomingCall$
-    .subscribe(contact => {
-      if(contact && !this.callDialog){
-        this.callDialog = this.dialogRef.open(IncomingCallComponent, {
-          disableClose: true,
-          width: '350px'
-        })
-      }
-    })
+      .subscribe(contact => {
+        if (contact && !this.callDialog) {
+          this.callDialog = this.dialogRef.open(IncomingCallComponent, {
+            disableClose: true,
+            width: '350px'
+          })
+        }
+      })
     this.connectService.onCall$
       .subscribe(onCall => {
         this.isOnCall = onCall;
@@ -51,6 +51,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
         }
       });
   }
+
+  onAgentStateChange(event: Event) {
+    const select = event.target as HTMLSelectElement;
+    const state = select.value;
+    this.connectService.setAgentState(state);
+  }
+
 
   Logout() {
     this.dialogRef.open(LogoutComponent);

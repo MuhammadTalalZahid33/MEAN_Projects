@@ -12,18 +12,21 @@
         </button>
     </div>
     <div class="rightside">
-        <button mat-menu-item *ngIf="isOnCall" class="active-call-indicator">
-            <mat-icon style="color: #d32f2f;">call</mat-icon>
-            <!-- <span class="call-badge" *ngIf="connectService.getActiveCallCount() > 0">
-                {{ connectService.getActiveCallCount() }}
-            </span> -->
+        <button mat-menu-item *ngIf="!isOnCall" class="active-call-indicator">
+            <mat-icon>call</mat-icon>
         </button>
 
-        <select [disabled]="isOnCall">
+        <!-- <select [disabled]="isOnCall">
             <option value="offline" [selected]="agentState === 'OFFLINE'">Offline</option>
             <option value="ready" [selected]="agentState === 'READY'">Ready</option>
             <option value="notready" [selected]="agentState === 'NOT_READY'">Not Ready</option>
+        </select> -->
+        <select [disabled]="isOnCall" [value]="agentState" (change)="onAgentStateChange($event)">
+            <option value="OFFLINE">Offline</option>
+            <option value="READY">Ready</option>
+            <option value="NOT_READY">Not Ready</option>
         </select>
+
 
         <div class="profile-block">
             <button class="profile-main" mat-menu-item [matMenuTriggerFor]="menu"

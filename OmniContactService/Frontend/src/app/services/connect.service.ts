@@ -1,4 +1,4 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ControlEvent } from '@angular/forms';
 import { BehaviorSubject, concatAll, retry } from 'rxjs';
 
@@ -8,8 +8,6 @@ declare const connect: any;
   providedIn: 'root'
 })
 export class ConnectService {
-
-  constructor(private zone: NgZone) { }
 
   private agent: any | null = null;
   private initialized = false;
@@ -83,28 +81,22 @@ export class ConnectService {
 
       // if there is incoming call
       contact.onConnecting(() => {
-        this.zone.run(() => {
-          console.log("incoming call");
-          this.incomingCallSubject.next(contact);
-        })
+        console.log("incoming call");
+        this.incomingCallSubject.next(contact);
       })
 
       // if agent accepts the call
       contact.onConnected(() => {
-        this.zone.run(() => {
-          console.log("call accepted...");
-          this.onCallSubject.next(true);
-          this.incomingCallSubject.next(null);
-        })
+        console.log("call accepted...");
+        this.onCallSubject.next(true);
+        this.incomingCallSubject.next(null);
       })
 
       // function to end the call
       contact.onEnded(() => {
-        this.zone.run(() => {
-          console.log("call has ended...");
-          this.onCallSubject.next(false);
-          this.activeContact = null;
-        })
+        console.log("call has ended...");
+        this.onCallSubject.next(false);
+        this.activeContact = null;
       })
     })
   }
@@ -136,6 +128,26 @@ export class ConnectService {
     })
   }
 
+  // Set agent state
+  setAgentState(stateType: string): void {
+    if (!this.agent) return;
+
+    const state = this.agent.getAgentStates().find((s: any) => s.type === stateType);
+    if (!state) {
+      console.warn(`Agent state ${stateType} not found`);
+      return;
+    }
+
+    this.agent.setState(state, {
+      success: () => {
+        console.log(`Agent state set to ${state.name}`);
+        this.agentStateSubject.next(state.name);
+      },
+      failure: (err: any) => {
+        console.error('Failed to set agent state', err);
+      }
+    }, { enqueueNextState: true });
+  }
 
   logout(): void {
     try {
