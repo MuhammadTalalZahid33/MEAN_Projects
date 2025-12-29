@@ -2,8 +2,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #3F5EFB;
-    background: radial-gradient(circle, rgba(63, 94, 251, 1) 0%, rgba(252, 70, 107, 1) 100%);
+    background: #EEAECA;
+    background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
     padding: 0.3rem 1rem;
     color: white;
 }
@@ -33,7 +33,7 @@ select {
     border-radius: 3px;
     background: #833AB4;
     background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%);
-      border: none;
+    border: none;
 }
 
 /* Style the select when it is hovered or focused */
@@ -48,18 +48,18 @@ select option {
     color: black;
 }
 
-.profile-block button{
+.profile-block button {
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
 }
 
-.profile-block span{
+.profile-block span {
     color: white;
     // font-size: 15px;
 }
 
-button mat-icon{
+button mat-icon {
     // font-size: 16px;
     color: white;
     // width: 16px;

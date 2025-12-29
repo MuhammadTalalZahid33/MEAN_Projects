@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { ControlEvent } from '@angular/forms';
 import { BehaviorSubject, concatAll, retry } from 'rxjs';
 
@@ -8,6 +8,8 @@ declare const connect: any;
   providedIn: 'root'
 })
 export class ConnectService {
+
+  constructor(private zone: NgZone) { }
 
   private agent: any | null = null;
   private initialized = false;
@@ -80,47 +82,53 @@ export class ConnectService {
       this.activeContact = contact;
 
       // if there is incoming call
-      contact.onIncoming(() => {
-        console.log("incoming call");
-        this.incomingCallSubject.next(contact);
+      contact.onConnecting(() => {
+        this.zone.run(() => {
+          console.log("incoming call");
+          this.incomingCallSubject.next(contact);
+        })
       })
 
       // if agent accepts the call
-      contact.onAccepted(() => {
-        console.log("call accepted...");
-        this.onCallSubject.next(true);
-        this.incomingCallSubject.next(null);
+      contact.onConnected(() => {
+        this.zone.run(() => {
+          console.log("call accepted...");
+          this.onCallSubject.next(true);
+          this.incomingCallSubject.next(null);
+        })
       })
 
       // function to end the call
       contact.onEnded(() => {
-        console.log("call has ended...");
-        this.onCallSubject.next(true);
-        this.activeContact = null;
+        this.zone.run(() => {
+          console.log("call has ended...");
+          this.onCallSubject.next(false);
+          this.activeContact = null;
+        })
       })
     })
   }
 
-  acceptCall(): void{
-    if(!this.activeContact) return;
+  acceptCall(): void {
+    if (!this.activeContact) return;
 
     this.activeContact.accept({
       success: () => console.log('Call accepted successfully'),
       failure: (error: any) => console.error("Error occured while accepting call: ", error)
-    }) 
+    })
   }
 
-  rejectCall(): void{
-    if(!this.activeContact) return;
-    
+  rejectCall(): void {
+    if (!this.activeContact) return;
+
     this.activeContact.reject({
       success: () => console.log("rejected call successfully..."),
       failure: (error: any) => console.error("Error on rejecting call: ", error)
     })
   }
 
-  endCall(): void{
-    if(!this.activeContact) return;
+  endCall(): void {
+    if (!this.activeContact) return;
 
     this.activeContact.getAgentConnection().destroy({
       success: () => console.log("call ended successfully..."),

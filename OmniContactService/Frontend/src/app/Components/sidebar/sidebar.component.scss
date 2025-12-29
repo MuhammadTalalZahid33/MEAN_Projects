@@ -9,8 +9,8 @@
     padding: 20px;
     max-height: 91%;
     // border: 1px solid black;
-    background: #a0abe8;
-    background: radial-gradient(circle, rgba(160, 171, 232, 1) 0%, rgba(230, 133, 152, 1) 100%);
+    background: #EEAECA;
+    background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
     width: 200px;
     border-radius: 0;
     display: flex;
@@ -28,9 +28,9 @@
     align-items: center;
     gap: 1rem;
 
-    &:hover{
+    &:hover {
         cursor: pointer;
-         background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgb(2, 2, 82) 35%, rgb(16, 3, 73) 100%);
+        background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgb(2, 2, 82) 35%, rgb(16, 3, 73) 100%);
     }
 }
 
@@ -45,7 +45,7 @@
     color: white;
 }
 
-.upper{
+.upper {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -64,6 +64,6 @@
     border-radius: 3px;
 }
 
-mat-sidenav-content .main-content{
+mat-sidenav-content .main-content {
     padding-left: 1.8rem;
 }
