@@ -112,7 +112,7 @@ export class ConnectService {
 
   rejectCall(): void{
     if(!this.activeContact) return;
-
+    
     this.activeContact.reject({
       success: () => console.log("rejected call successfully..."),
       failure: (error: any) => console.error("Error on rejecting call: ", error)
@@ -127,6 +127,7 @@ export class ConnectService {
       failure: (error: any) => console.error("error ending call: ", error)
     })
   }
+
 
   logout(): void {
     try {
