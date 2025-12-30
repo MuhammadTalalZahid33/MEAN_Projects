@@ -85,7 +85,7 @@ export class ConnectService {
       // if agent accepts the call
       contact.onConnected(() => {
         console.log("call accepted...");
-
+        
         this.onCallSubject.next(true);
         this.incomingCallSubject.next(null);
       })
@@ -112,16 +112,20 @@ export class ConnectService {
   rejectCall(): void {
     if (!this.activeContact) return;
 
-    this.activeContact.reject({
+    const rejected = this.activeContact.reject({
       success: () => console.log("rejected call successfully..."),
       failure: (error: any) => console.error("Error on rejecting call: ", error)
+    })
+    rejected.destroy({
+      success: () => console.log("call ended successfully..."),
+      failure: (error: any) => console.error("error ending call: ", error)
     })
   }
 
   endCall(): void {
     if (!this.activeContact) return;
 
-    this.activeContact.destroy({
+    this.activeContact.getAgentConnection().destroy({
       success: () => console.log("call ended successfully..."),
       failure: (error: any) => console.error("error ending call: ", error)
     })
