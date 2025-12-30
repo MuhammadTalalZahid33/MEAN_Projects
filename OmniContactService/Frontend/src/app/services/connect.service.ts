@@ -97,13 +97,6 @@ export class ConnectService {
         this.onCallSubject.next(false);
         this.activeContact = null;
       })
-
-      contact.reject(() => {
-        console.log("rejected call successfully...")
-        this.incomingCallSubject.next(null);
-        this.onCallSubject.next(false);
-        this.activeContact = null;
-      })
     })
   }
 
