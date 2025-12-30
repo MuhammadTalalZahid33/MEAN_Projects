@@ -19,10 +19,6 @@
         <select [ngModel]="agentState" (ngModelChange)="onAgentStateChange($event)">
             <option value="Offline">Not Ready</option>
             <option value="Available">Ready</option>
-            <!-- <option value="PendingBusy">Pending</option>
-            <option value="Busy">Busy</option>
-            <option value="AfterCallWork">Wrap Up</option>
-            <option value="FailedConnectAgent">Failed</option> -->
             <option *ngIf="agentState !== 'Offline' && agentState !== 'Available'" [value]="agentState" disabled>
                 {{ mapStateLabel(agentState) }}
             </option>
