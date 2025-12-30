@@ -20,7 +20,8 @@ import { FormsModule } from '@angular/forms';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   isOnCall = false
-  agentState: any
+  agentState!: any
+  selectValue!: any
   private callDialog?: MatDialogRef<IncomingCallComponent> | null = null;
 
 
@@ -36,9 +37,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     // });
     this.connectService.agentState$.subscribe(state => {
       this.agentState = state;
+      if (state === 'Offline' || state === 'Available') {
+        this.selectValue = state
+      }
+
+      console.log("header agent state: ", this.agentState);
     })
 
-    console.log("initial agent state: ", this.agentState);
     this.connectService.incomingCall$
       .subscribe(contact => {
         if (contact && !this.callDialog) {
@@ -58,20 +63,39 @@ export class HeaderComponent implements OnInit, OnDestroy {
       });
   }
 
-  onAgentStateChange(event: Event) {
-    const select = event.target as HTMLSelectElement;
-    const state = select.value;
-    console.log("changing state: ", state);
-    this.connectService.setAgentState(state);
+  onAgentStateChange(event: string) {
+    // const select = event.target as HTMLSelectElement;
+    // console.log("select :", event);
+    // const state = select.value;
+    // console.log("changing state: ", state);
+    // this.connectService.setAgentState(state);
+    if (event) {
+      this.selectValue = event
+      this.connectService.setAgentState(event);
+    }
   }
 
-
-  Logout() {
-    this.dialogRef.open(LogoutComponent);
+  mapStateLabel(state: string): string {
+    switch (state) {
+      case 'PendingBusy':
+        return 'Incoming Call';
+      case 'Busy':
+        return 'On Call';
+      case 'AfterCallWork':
+        return 'Wrap Up';
+      case 'FailedConnectAgent':
+        return 'Call Failed';
+      default:
+        return state;
+    }
   }
 
-  ngOnDestroy(): void {
-    this.callDialog?.close();
-    this.callDialog = null;
+    Logout() {
+      this.dialogRef.open(LogoutComponent);
+    }
+
+    ngOnDestroy(): void {
+      this.callDialog?.close();
+      this.callDialog = null;
+    }
   }
-}

@@ -16,27 +16,17 @@
             <mat-icon>call</mat-icon>
         </button>
 
-        <!-- <select [disabled]="isOnCall">
-            <option value="offline" [selected]="agentState === 'OFFLINE'">Offline</option>
-            <option value="ready" [selected]="agentState === 'READY'">Ready</option>
-            <option value="notready" [selected]="agentState === 'NOT_READY'">Not Ready</option>
-        </select> -->
-        <!-- <select [disabled]="isOnCall" [(ngModel)]="agentState" (ngModelChange)="connectService.setAgentState($event)">
-            <option value="offline">Offline</option>
-            <option value="routable">Ready</option>
-        </select> -->
-
-        <!-- <select *ngIf="agentState" [disabled]="isOnCall" [value]="agentState" (change)="onAgentStateChange($event)">
-            <option value="offline">Offline</option>
-            <option value="routable">Ready</option>
-        </select> -->
-        <select [disabled]="isOnCall" (change)="onAgentStateChange($event)">
-            <option value="offline" [selected]="agentState === 'offline'">Offline</option>
-            <option value="routable" [selected]="agentState === 'routable'">Ready</option>
+        <select [ngModel]="agentState" (ngModelChange)="onAgentStateChange($event)">
+            <option value="Offline">Not Ready</option>
+            <option value="Available">Ready</option>
+            <!-- <option value="PendingBusy">Pending</option>
+            <option value="Busy">Busy</option>
+            <option value="AfterCallWork">Wrap Up</option>
+            <option value="FailedConnectAgent">Failed</option> -->
+            <option *ngIf="agentState !== 'Offline' && agentState !== 'Available'" [value]="agentState" disabled>
+                {{ mapStateLabel(agentState) }}
+            </option>
         </select>
-
-
-
 
         <div class="profile-block">
             <button class="profile-main" mat-menu-item [matMenuTriggerFor]="menu"

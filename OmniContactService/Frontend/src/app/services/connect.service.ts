@@ -17,7 +17,7 @@ export class ConnectService {
   agent$ = this.agentSubject.asObservable();
 
   // Agent state subject stream 
-  private agentStateSubject = new BehaviorSubject<string>('LOGGED_OUT');
+  private agentStateSubject = new BehaviorSubject<string>('Offline');
   agentState$ = this.agentStateSubject.asObservable();
 
   private activeContact: any | null = null;
@@ -54,12 +54,12 @@ export class ConnectService {
       this.agent = agent;
       this.agentSubject.next(agent);
 
-      const initialType = agent.getState()?.type;
+      const initialType = agent.getState()?.name ?? 'Offline';
       console.log('Initial agent state:', initialType);
       this.agentStateSubject.next(initialType);
 
       agent.onStateChange(() => {
-        const currentType = agent.getState()?.type ?? 'offline';
+        const currentType = agent.getState()?.name ?? 'Offline';
         console.log('Agent state changed to:', currentType);
         this.agentStateSubject.next(currentType);
       });
@@ -85,6 +85,7 @@ export class ConnectService {
       // if agent accepts the call
       contact.onConnected(() => {
         console.log("call accepted...");
+
         this.onCallSubject.next(true);
         this.incomingCallSubject.next(null);
       })
@@ -92,6 +93,14 @@ export class ConnectService {
       // function to end the call
       contact.onEnded(() => {
         console.log("call has ended...");
+
+        this.onCallSubject.next(false);
+        this.activeContact = null;
+      })
+
+      contact.reject(() => {
+        console.log("rejected call successfully...")
+        this.incomingCallSubject.next(null);
         this.onCallSubject.next(false);
         this.activeContact = null;
       })
@@ -119,7 +128,7 @@ export class ConnectService {
   endCall(): void {
     if (!this.activeContact) return;
 
-    this.activeContact.getAgentConnection().destroy({
+    this.activeContact.destroy({
       success: () => console.log("call ended successfully..."),
       failure: (error: any) => console.error("error ending call: ", error)
     })
@@ -130,7 +139,7 @@ export class ConnectService {
     if (!this.agent) return;
 
     console.log("changing state in service: and agent: ", stateType, this.agent.getAgentStates());
-    const state = this.agent.getAgentStates().find((s: any) => s.type === stateType);
+    const state = this.agent.getAgentStates().find((s: any) => s.name === stateType);
     console.log("changing state after find: ", state);
     if (!state) {
       console.warn(`Agent state ${stateType} not found`);

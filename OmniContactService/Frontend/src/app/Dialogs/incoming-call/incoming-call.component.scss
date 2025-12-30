@@ -1,0 +1,29 @@
+.incoming-call {
+//   max-width: 320px;
+  margin: 40px auto;
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.incoming-call h2 {
+  margin-bottom: 8px;
+  font-size: 20px;
+}
+
+.incoming-call p {
+  margin-bottom: 20px;
+  color: #666;
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.actions button {
+  flex: 1;
+}
