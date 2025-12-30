@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
@@ -9,17 +9,18 @@ import { ConnectService } from '../../services/connect.service';
 import { NgIf } from '@angular/common';
 import 'amazon-connect-streams'
 import { IncomingCallComponent } from '../../Dialogs/incoming-call/incoming-call.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [MatIconModule, MatMenuModule, MatButtonModule, RouterLink, NgIf],
+  imports: [MatIconModule, MatMenuModule, MatButtonModule, RouterLink, NgIf, FormsModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   isOnCall = false
-  agentState = 'LOGGED_OUT';
+  agentState: any
   private callDialog?: MatDialogRef<IncomingCallComponent> | null = null;
 
 
@@ -33,6 +34,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     //   const state = agent.getState();
     //    console.log("getting agent state", state);
     // });
+    this.connectService.agentState$.subscribe(state => {
+      this.agentState = state;
+    })
+
+    console.log("initial agent state: ", this.agentState);
     this.connectService.incomingCall$
       .subscribe(contact => {
         if (contact && !this.callDialog) {
@@ -55,6 +61,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onAgentStateChange(event: Event) {
     const select = event.target as HTMLSelectElement;
     const state = select.value;
+    console.log("changing state: ", state);
     this.connectService.setAgentState(state);
   }
 

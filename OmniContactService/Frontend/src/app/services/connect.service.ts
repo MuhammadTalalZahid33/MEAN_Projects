@@ -51,23 +51,20 @@ export class ConnectService {
     });
 
     connect.agent((agent: any) => {
-      console.log('Agent initialized:', agent.getName());
-
       this.agent = agent;
       this.agentSubject.next(agent);
 
-      // Track agent state changes
-      agent.onStateChange((stateChange: any) => {
-        const stateName = stateChange.newState?.name || stateChange.newState?.type || 'UNKNOWN';
-        console.log('Agent state changed to:', stateName);
-        this.agentStateSubject.next(stateName);
-      });
+      const initialType = agent.getState()?.type;
+      console.log('Initial agent state:', initialType);
+      this.agentStateSubject.next(initialType);
 
-      // Set initial state
-      const initialState = agent.getState()?.name || 'LOGGED_OUT';
-      console.log("agent state is:", initialState);
-      this.agentStateSubject.next(initialState);
+      agent.onStateChange(() => {
+        const currentType = agent.getState()?.type ?? 'offline';
+        console.log('Agent state changed to:', currentType);
+        this.agentStateSubject.next(currentType);
+      });
     });
+
 
     connect.core.getEventBus().subscribe(
       connect.EventType.TERMINATED,
@@ -129,10 +126,12 @@ export class ConnectService {
   }
 
   // Set agent state
-  setAgentState(stateType: string): void {
+  setAgentState(stateType: any): void {
     if (!this.agent) return;
 
+    console.log("changing state in service: and agent: ", stateType, this.agent.getAgentStates());
     const state = this.agent.getAgentStates().find((s: any) => s.type === stateType);
+    console.log("changing state after find: ", state);
     if (!state) {
       console.warn(`Agent state ${stateType} not found`);
       return;
