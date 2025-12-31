@@ -12,7 +12,12 @@
         </button>
     </div>
     <div class="rightside">
-        <button mat-menu-item *ngIf="!isOnCall" class="active-call-indicator">
+        <button 
+        mat-menu-item 
+        [disabled]="isOnCall || agentState !== 'Available'" 
+        class="active-call-indicator"
+        (click)="openDialer()"
+        >
             <mat-icon>call</mat-icon>
         </button>
 

@@ -85,7 +85,7 @@ export class ConnectService {
       // if agent accepts the call
       contact.onConnected(() => {
         console.log("call accepted...");
-        
+
         this.onCallSubject.next(true);
         this.incomingCallSubject.next(null);
       })
@@ -153,6 +153,38 @@ export class ConnectService {
       }
     }, { enqueueNextState: true });
   }
+
+  makeOutboundCall(phoneNumber: string): void {
+    if (!this.agent) {
+      console.warn('Agent not initialized');
+      return;
+    }
+
+    // Agent must be available
+    const stateName = this.agent.getState()?.name;
+    if (stateName !== 'Available') {
+      console.warn('Agent must be Available to place outbound calls');
+      return;
+    }
+
+    const endpoint = connect.Endpoint.byPhoneNumber(phoneNumber);
+
+    console.log('Dialing outbound:', phoneNumber);
+    var queueArn = "arn:aws:connect:eu-west-2:547576598746:instance/e5becbb8-c2f7-40c8-aec4-d40f0e6ff035/queue/e33104db-9590-4de1-b604-fe91987715b4";
+    this.agent.connect(
+      endpoint,
+      {
+        queueARN: queueArn, // optional but recommended
+        success: () => {
+          console.log('Outbound call successfully initiated');
+        },
+        failure: (err: any) => {
+          console.error('Outbound call failed', err);
+        }
+      }
+    );
+  }
+
 
   logout(): void {
     try {

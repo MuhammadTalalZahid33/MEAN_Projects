@@ -1,0 +1,29 @@
+<!-- <button (click)="callCustomer('+442046321742')">click to call</button> -->
+
+<h2 mat-dialog-title>Dial Number</h2>
+
+<mat-dialog-content class="dialer-content">
+
+    <div class="number-input">
+        <input matInput [(ngModel)]="phoneNumber" placeholder="+441234567890" />
+        <button mat-button (click)="backspace()">
+            <mat-icon>backspace</mat-icon>
+        </button>
+    </div>
+
+
+    <div class="keypad">
+        <button mat-raised-button *ngFor="let key of keys" (click)="pressKey(key)">
+            {{ key }}
+        </button>
+    </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <span class="spacer"></span>
+    <button mat-button (click)="cancel()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="call()">
+        Call
+    </button>
+</mat-dialog-actions>

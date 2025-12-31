@@ -10,6 +10,7 @@ import { NgIf } from '@angular/common';
 import 'amazon-connect-streams'
 import { IncomingCallComponent } from '../../Dialogs/incoming-call/incoming-call.component';
 import { FormsModule } from '@angular/forms';
+import { DialerComponent } from '../../Dialogs/dialer/dialer.component';
 
 @Component({
   selector: 'app-header',
@@ -24,17 +25,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   selectValue!: any
   private callDialog?: MatDialogRef<IncomingCallComponent> | null = null;
 
-
   constructor(
     private dialogRef: MatDialog,
     public connectService: ConnectService
   ) { }
 
   ngOnInit(): void {
-    // connect.agent((agent) => {
-    //   const state = agent.getState();
-    //    console.log("getting agent state", state);
-    // });
     this.connectService.agentState$.subscribe(state => {
       this.agentState = state;
       if (state === 'Offline' || state === 'Available') {
@@ -90,12 +86,20 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
-    Logout() {
-      this.dialogRef.open(LogoutComponent);
-    }
-
-    ngOnDestroy(): void {
-      this.callDialog?.close();
-      this.callDialog = null;
-    }
+  openDialer() {
+    const dialogref = this.dialogRef.open(DialerComponent);
+    dialogref.afterClosed().subscribe((phoneNum) => {
+      if (phoneNum)
+        this.connectService.makeOutboundCall(phoneNum);
+    })
   }
+
+  Logout() {
+    this.dialogRef.open(LogoutComponent);
+  }
+
+  ngOnDestroy(): void {
+    this.callDialog?.close();
+    this.callDialog = null;
+  }
+}
