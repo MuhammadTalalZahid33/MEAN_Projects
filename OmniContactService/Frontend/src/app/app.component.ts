@@ -13,10 +13,10 @@ export class AppComponent {
   title = 'Frontend';
    constructor(private connectService: ConnectService) {}
 
-  ngOnInit(): void {
-    this.connectService.initCCP(
-      document.getElementById('ccp-root')!,
-      'https://ccs123.my.connect.aws/connect/ccp-v2'
-    );
-  }
+  // ngOnInit(): void {
+  //   this.connectService.initCCP(
+  //     document.getElementById('ccp-root')!,
+  //     'https://ccs123.my.connect.aws/connect/ccp-v2'
+  //   );
+  // }
 }

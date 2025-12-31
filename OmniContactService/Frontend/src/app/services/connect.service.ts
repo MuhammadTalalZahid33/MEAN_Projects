@@ -240,6 +240,6 @@ export class ConnectService {
     this.agent = null;
     this.initialized = false;
     this.agentSubject.next(null);
-    this.agentStateSubject.next('LOGGED_OUT');
+    this.agentStateSubject.next('Offline');
   }
 }

@@ -20,10 +20,10 @@ export class LoginComponent {
 
 
     Login() {
-    // this.connectService.initCCP(
-    //   this.ccpContainer.nativeElement,
-    //   this.instanceURL
-    // );
+    this.connectService.initCCP(
+      this.ccpContainer.nativeElement,
+      this.instanceURL
+    );
 
     this.connectService.agent$
     .pipe(filter(agent => !!agent), take(1))
