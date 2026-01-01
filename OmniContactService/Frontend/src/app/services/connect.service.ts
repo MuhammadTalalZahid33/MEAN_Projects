@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ControlEvent } from '@angular/forms';
-import { BehaviorSubject, concatAll, retry } from 'rxjs';
+import { BehaviorSubject, combineLatest, filter, shareReplay, take } from 'rxjs';
 
 declare const connect: any;
 
@@ -28,6 +28,18 @@ export class ConnectService {
   private onCallSubject = new BehaviorSubject<boolean>(false);
   onCall$ = this.onCallSubject.asObservable();
 
+  private ccpInitializedSubject = new BehaviorSubject<boolean>(false);
+  ccpInitialized$ = this.ccpInitializedSubject.asObservable();
+
+  authenticated$ = combineLatest([
+    this.ccpInitialized$,
+    this.agent$
+  ]).pipe(
+    filter(([ccpReady, agent]) => ccpReady && !!agent),
+    take(1),
+    shareReplay(1)
+  );
+
   initCCP(container: HTMLElement, instanceURL: string): void {
     if (this.initialized) return;
     this.initialized = true;
@@ -50,6 +62,17 @@ export class ConnectService {
       }
     });
 
+    connect.core.onInitialized(() => {
+      console.log('CCP iframe initialized and authenticated');
+      this.ccpInitializedSubject.next(true);
+    });
+
+    connect.core.onAuthFail(() => {
+      console.warn('Amazon Connect authentication failed');
+      this.ccpInitializedSubject.next(false);
+    });
+
+
     connect.agent((agent: any) => {
       this.agent = agent;
       this.agentSubject.next(agent);
@@ -66,10 +89,10 @@ export class ConnectService {
     });
 
 
-    connect.core.getEventBus().subscribe(
-      connect.EventType.TERMINATED,
-      () => this.reset()
-    );
+    // connect.core.getEventBus().subscribe(
+    //   connect.EventType.TERMINATED,
+    //   () => this.reset()
+    // );
 
     // Connect Call Functionality
     connect.contact((contact: any) => {
@@ -99,6 +122,7 @@ export class ConnectService {
       })
     })
   }
+
 
   acceptCall(): void {
     if (!this.activeContact) return;
