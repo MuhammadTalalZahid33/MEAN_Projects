@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import "amazon-connect-streams";
 import { ConnectService } from '../../services/connect.service';
 import { filter, take } from 'rxjs';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-login',
@@ -12,25 +13,29 @@ import { filter, take } from 'rxjs';
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  constructor(private router: Router, private connectService: ConnectService){}
+  constructor(
+    private router: Router,
+    private sessionService: SessionService,
+    private connectService: ConnectService
+  ) { }
   // containerDiv = document.getElementById("container-div");
   @ViewChild('ccpContainer', { static: false })
   ccpContainer !: ElementRef<HTMLDivElement>;
   instanceURL = "https://ccs123.my.connect.aws/connect/ccp-v2";
 
 
-    Login() {
+  Login() {
     this.connectService.initCCP(
       this.ccpContainer.nativeElement,
       this.instanceURL
     );
 
     this.connectService.agent$
-    .pipe(filter(agent => !!agent), take(1))
-    .subscribe(agent => {
-      console.log("agent logged in: ", agent.getName());
-      this.router.navigate(['/main']);
-    })
+      .pipe(filter(agent => !!agent), take(1))
+      .subscribe(agent => {
+        console.log("agent logged in: ", agent.getName());
+        this.router.navigate(['/main']);
+      })
 
   }
 }

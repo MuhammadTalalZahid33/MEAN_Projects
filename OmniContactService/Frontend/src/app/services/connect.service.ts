@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ControlEvent } from '@angular/forms';
 import { BehaviorSubject, combineLatest, filter, shareReplay, take } from 'rxjs';
+import { SessionService } from './session.service';
 
 declare const connect: any;
 
@@ -11,6 +12,8 @@ export class ConnectService {
 
   private agent: any | null = null;
   private initialized = false;
+  constructor(private sessionService: SessionService) { }
+
 
   // Agent subject stream
   private agentSubject = new BehaviorSubject<any | null>(null);
@@ -44,10 +47,16 @@ export class ConnectService {
     if (this.initialized) return;
     this.initialized = true;
 
+    const hasAppSession = this.sessionService.hasSession();
+
+    console.log('[CCP] App session exists:', hasAppSession);
+
     connect.core.initCCP(container, {
       ccpUrl: instanceURL,
-      loginPopup: true,
+
+      loginPopup: !hasAppSession,
       loginPopupAutoClose: true,
+
       loginOptions: {
         autoClose: true,
         height: 600,
@@ -56,23 +65,33 @@ export class ConnectService {
         left: 0,
         disableAuthPopupAfterLogout: true
       },
+
       softphone: {
         allowFramedSoftphone: true,
         disableRingtone: false
       }
     });
 
+    // CCP iframe ready & authenticated
     connect.core.onInitialized(() => {
-      console.log('CCP iframe initialized and authenticated');
+      console.log('[CCP] Initialized');
+
       this.ccpInitializedSubject.next(true);
+
+      // Confirm app session AFTER successful CCP init
+      if (!hasAppSession) {
+        this.sessionService.createSession();
+      }
     });
 
+    // Authentication failed
     connect.core.onAuthFail(() => {
-      console.warn('Amazon Connect authentication failed');
+      console.warn('[CCP] Authentication failed');
       this.ccpInitializedSubject.next(false);
+      this.sessionService.clearSession();
     });
 
-
+    // 👤 Agent lifecycle
     connect.agent((agent: any) => {
       this.agent = agent;
       this.agentSubject.next(agent);
@@ -88,13 +107,7 @@ export class ConnectService {
       });
     });
 
-
-    // connect.core.getEventBus().subscribe(
-    //   connect.EventType.TERMINATED,
-    //   () => this.reset()
-    // );
-
-    // Connect Call Functionality
+    // Contact lifecycle
     connect.contact((contact: any) => {
       console.log("new contact: ", contact);
       this.activeContact = contact;
@@ -122,6 +135,7 @@ export class ConnectService {
       })
     })
   }
+
 
 
   acceptCall(): void {
@@ -198,7 +212,7 @@ export class ConnectService {
     this.agent.connect(
       endpoint,
       {
-        queueARN: queueArn, // optional but recommended
+        queueARN: queueArn,
         success: () => {
           console.log('Outbound call successfully initiated');
         },

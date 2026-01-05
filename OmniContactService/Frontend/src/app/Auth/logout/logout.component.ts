@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import "amazon-connect-streams";
 import { ConnectService } from '../../services/connect.service';
+import { SessionService } from '../../services/session.service';
 
 @Component({
   selector: 'app-logout',
@@ -13,7 +14,9 @@ import { ConnectService } from '../../services/connect.service';
 })
 export class LogoutComponent {
   private dialogref = inject(MatDialogRef<LogoutComponent>)
-  constructor(private router: Router, private connectService: ConnectService) { }
+  constructor(private router: Router, private connectService: ConnectService, 
+    private sessionService: SessionService
+  ) { }
 
 
   // USING PROMISES
@@ -96,6 +99,8 @@ export class LogoutComponent {
 
 confirmLogout() {
   this.connectService.logout();
+  this.sessionService.clearSession();
+  // window.location.href = '/';
 }
 
 }
