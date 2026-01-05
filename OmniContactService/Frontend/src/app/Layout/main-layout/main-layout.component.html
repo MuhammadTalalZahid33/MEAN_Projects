@@ -1,2 +1,7 @@
-<app-header/>
-<app-sidebar/>
+<!-- 🔵 LOADER OVERLAY -->
+  <div class="loader-overlay" *ngIf="loading$ | async">
+    <app-loader></app-loader>
+  </div>
+
+<app-header></app-header>
+<app-sidebar></app-sidebar>

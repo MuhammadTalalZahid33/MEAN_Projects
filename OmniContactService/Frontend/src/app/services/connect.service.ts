@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ControlEvent } from '@angular/forms';
-import { BehaviorSubject, combineLatest, filter, shareReplay, take } from 'rxjs';
+import { BehaviorSubject, combineLatest, filter, map, shareReplay, startWith, take } from 'rxjs';
 import { SessionService } from './session.service';
 
 declare const connect: any;
@@ -42,6 +42,13 @@ export class ConnectService {
     take(1),
     shareReplay(1)
   );
+
+  loading$ = this.authenticated$.pipe(
+  map(() => false),
+  startWith(true),
+  shareReplay(1)
+);
+  
 
   initCCP(container: HTMLElement, instanceURL: string): void {
     if (this.initialized) return;

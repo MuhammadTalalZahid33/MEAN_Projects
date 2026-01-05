@@ -2,12 +2,12 @@ import { Routes } from '@angular/router';
 import { HeaderComponent } from './Components/header/header.component';
 import { SidebarComponent } from './Components/sidebar/sidebar.component';
 import { MainLayoutComponent } from './Layout/main-layout/main-layout.component';
+import { connectAuthGuard } from './core/guards/connect-auth.guard';
 
 export const routes: Routes = [
     {
         path: 'header',
         component: HeaderComponent,
-        // loadChildren: 
     },
     {
         path: 'sidebar',
@@ -41,7 +41,9 @@ export const routes: Routes = [
         path: '',
         loadComponent: () => {
             return import('./Auth/login/login.component').then(m => m.LoginComponent);
-        }
+        },
+        canActivate: [connectAuthGuard]
+        
     }
 
 ];
