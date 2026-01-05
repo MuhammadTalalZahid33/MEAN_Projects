@@ -15,9 +15,10 @@ import { ConnectService } from '../../services/connect.service';
 })
 export class MainLayoutComponent {
   loading$: any;
-
+  async = AsyncPipe
   constructor(private connectService: ConnectService) {
     this.loading$ = this.connectService.loading$;
+    console.log("loading in main layout:", this.loading$);
   }
 
 }
