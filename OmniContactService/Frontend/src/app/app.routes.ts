@@ -3,6 +3,7 @@ import { HeaderComponent } from './Components/header/header.component';
 import { SidebarComponent } from './Components/sidebar/sidebar.component';
 import { MainLayoutComponent } from './Layout/main-layout/main-layout.component';
 import { connectAuthGuard } from './core/guards/connect-auth.guard';
+import { loginAuthGuard } from './core/guards/login-auth.guard';
 
 export const routes: Routes = [
     {
@@ -16,6 +17,7 @@ export const routes: Routes = [
     {
         path: 'main',
         component: MainLayoutComponent,
+        canActivate: [loginAuthGuard],
         children: [
             {
                 path: 'dashboard',

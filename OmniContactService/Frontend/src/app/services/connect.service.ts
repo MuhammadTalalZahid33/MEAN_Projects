@@ -54,8 +54,7 @@ export class ConnectService {
     if (this.initialized) return;
     this.initialized = true;
 
-    const hasAppSession = this.sessionService.hasSession();
-
+    const hasAppSession = this.sessionService.isSessionValid();
     console.log('[CCP] App session exists:', hasAppSession);
 
     connect.core.initCCP(container, {

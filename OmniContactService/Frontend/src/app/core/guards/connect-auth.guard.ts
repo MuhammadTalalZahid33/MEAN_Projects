@@ -8,7 +8,7 @@ export const connectAuthGuard: CanActivateFn = (route, state) => {
 
   // const token = localStorage.getItem("token")
 
-  const IsExisting = sessionService.hasSession();
+  const IsExisting = sessionService.isSessionValid();
 
   if (IsExisting) {
     router.navigate(['/main']);
