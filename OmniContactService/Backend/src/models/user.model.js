@@ -1,11 +1,11 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-    agentId: {
-        type: String,
-        required: true,
-        unique: true,
-        index: true
+    agentARN: {
+      type: String,
+      required: true,
+      unique: true,
+      index: true
     },
 
     userName: {
@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema({
         type: String
     },
 
-    queues: {
+    permissions: {
         type: [String],
         default: []
     }

@@ -103,7 +103,7 @@ export class ConnectService {
       this.agentSubject.next(agent);
 
       const initialType = agent.getState()?.name ?? 'Offline';
-      console.log('Initial agent state:', initialType);
+      console.log('Initial agent state:', this.agent.getConfiguration());
       this.agentStateSubject.next(initialType);
 
       agent.onStateChange(() => {
