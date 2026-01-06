@@ -2,19 +2,22 @@ import dotenv from "dotenv"
 import connectDB from "./configs/db.js" 
 import { app } from "./app.js"
 
-dotenv.config({path: './.env'})
-const PORT = process.env.PORT
+// dotenv.config({path: './.env'})
+// const PORT = process.env.PORT
 
-connectDB()
-.then(() => {
-    app.on("error", (error) => {
-        console.log("db connection established but express unable to talk", error);
-        throw(error)
-    })
-    app.listen(PORT || 5000, () => {
-        console.log(`Server is running at port http://localhost:${PORT}`);
-    }) 
-})
-.catch((error) => {
-    console.log("db connection error: ", error);
-})
+// connectDB()
+// .then(() => {
+//     app.on("error", (error) => {
+//         console.log("db connection established but express unable to talk", error);
+//         throw(error)
+//     })
+//     app.listen(PORT || 5000, () => {
+//         console.log(`Server is running at port http://localhost:${PORT}`);
+//     }) 
+// })
+// .catch((error) => {
+//     console.log("db connection error: ", error);
+// })
+
+export { handler as addUser } from './lambda_functions/addUser.js';
+export { handler as getUser } from './lambda_functions/getUser.js';
