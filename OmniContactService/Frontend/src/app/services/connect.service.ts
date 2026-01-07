@@ -246,40 +246,6 @@ export class ConnectService {
     });
   }
 
-
-  // private setOfflineThenLogout(agent: any): void {
-  //   const offlineState = agent.getAgentStates().find(
-  //     (s: any) => s.type === connect.AgentStateType.OFFLINE
-  //   );
-
-  //   agent.setState(
-  //     offlineState,
-  //     {
-  //       success: () => {
-  //         console.log('Agent set to OFFLINE');
-  //         this.agentStateSubject.next('OFFLINE'); // update state subject
-  //         this.performLogout();
-  //       },
-  //       failure: (err: any) => {
-  //         console.error('Failed to set OFFLINE', err);
-  //         this.performLogout();
-  //       }
-  //     },
-  //     { enqueueNextState: true }
-  //   );
-  // }
-
-  // private performLogout(): void {
-  //   fetch('https://ccs123.my.connect.aws/logout', {
-  //     credentials: 'include',
-  //     mode: 'no-cors'
-  //   }).finally(() => {
-  //     connect.core.terminate();
-  //     this.reset();
-  //     window.location.href = '/';
-  //   });
-  // }
-
   private reset(): void {
     this.agent = null;
     this.initialized = false;

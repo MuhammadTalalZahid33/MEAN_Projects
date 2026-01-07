@@ -1,5 +1,5 @@
 import connectDB from '../configs/db.js';
-import User from '../models/user.model.js';
+import ConnectUsers from '../models/user.model.js';
 
 export const handler = async (event) => {
     try {
@@ -17,7 +17,7 @@ export const handler = async (event) => {
             };
         }
 
-        const user = await User.findOne({ userName });
+        const user = await ConnectUsers.findOne({ userName });
 
         if (!user) {
             return {

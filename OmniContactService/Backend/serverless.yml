@@ -14,6 +14,7 @@ provider:
 functions:
   addUser:
     handler: src/index.addUser
+    timeout: 10
     events:
       - httpApi:
           path: /addUser
@@ -21,6 +22,7 @@ functions:
 
   getUser:
     handler: src/index.getUser
+    timeout: 10
     events:
       - httpApi:
           path: /getUser
