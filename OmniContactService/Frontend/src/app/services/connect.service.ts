@@ -122,7 +122,12 @@ export class ConnectService {
       // console.log('Agent payload:', payload);
       this.userService.addUser(payload).subscribe({
         next: (res) => {
-          console.log('User added/verified successfully:', res);
+          localStorage.setItem(
+            'USER_DATA',
+            JSON.stringify(res.data)
+          );
+
+          console.log('User cached successfully');
         },
         error: (err) => {
           console.error('Error adding user:', err);
@@ -276,6 +281,8 @@ export class ConnectService {
   private reset(): void {
     this.agent = null;
     localStorage.removeItem('username');
+    localStorage.removeItem('USER_DATA');
+    localStorage.removeItem('ConnectUserData');
     this.initialized = false;
     this.agentSubject.next(null);
     this.agentStateSubject.next('Offline');
