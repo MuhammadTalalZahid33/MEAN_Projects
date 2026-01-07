@@ -1,0 +1,27 @@
+service: connect-backend
+
+frameworkVersion: '4'
+
+provider:
+  name: aws
+  runtime: nodejs24.x
+  region: eu-west-2
+
+  environment:
+    MONGODB_URI: ${env:MONGODB_URI}
+    DB_NAME: ${env:DB_NAME}
+
+functions:
+  addUser:
+    handler: src/index.addUser
+    events:
+      - httpApi:
+          path: /addUser
+          method: post
+
+  getUser:
+    handler: src/index.getUser
+    events:
+      - httpApi:
+          path: /getUser
+          method: get
