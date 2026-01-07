@@ -5,19 +5,19 @@ export const handler = async (event) => {
     try {
         await connectDB();
 
-        const agentId = event.queryStringParameters?.agentId;
+        const userName = event.queryStringParameters?.userName;
 
-        if (!agentId) {
+        if (!userName) {
             return {
                 statusCode: 400,
                 body: JSON.stringify({
                     success: false,
-                    message: 'agentId is required'
+                    message: 'userName is required'
                 })
             };
         }
 
-        const user = await User.findOne({ agentId });
+        const user = await User.findOne({ userName });
 
         if (!user) {
             return {
@@ -31,8 +31,10 @@ export const handler = async (event) => {
 
         return {
             statusCode: 200,
-            success: true,
-            body: JSON.stringify(user)
+            body: JSON.stringify({
+                success: true,
+                data: user
+            })
         };
 
     } catch (error) {
@@ -42,7 +44,7 @@ export const handler = async (event) => {
             statusCode: 500,
             body: JSON.stringify({
                 success: false,
-                message: 'Internal Server Error'
+                message: 'Internal Server Error',
             })
         };
     }

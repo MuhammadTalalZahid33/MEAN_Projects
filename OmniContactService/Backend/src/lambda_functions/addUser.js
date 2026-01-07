@@ -8,41 +8,53 @@ export const handler = async (event) => {
         const body = JSON.parse(event.body || '{}');
 
         const {
-            agentId,
-            username,
+            agentARN,
+            userName,
             firstName,
             lastName,
             routingProfile,
-            queues
+            permissions
         } = body;
 
-        if (!agentId || !username) {
+        if (!agentARN || !userName) {
             return {
                 statusCode: 400,
                 body: JSON.stringify({
                     success: false,
-                    message: 'agentId and username are required'
+                    message: 'agentARN and userName are required'
                 })
             };
         }
 
-        let user = await User.findOne({ agentId });
+        let user = await User.findOne({ agentARN });
 
         if (!user) {
             user = await User.create({
-                agentId,
-                username,
+                agentARN,
+                userName,
                 firstName,
                 lastName,
                 routingProfile,
-                queues
+                permissions
             });
+
+            return {
+                statusCode: 201,
+                body: JSON.stringify({
+                    success: true,
+                    message: 'User created successfully',
+                    data: user
+                })
+            };
         }
 
         return {
             statusCode: 200,
-            success: true,
-            body: JSON.stringify(user)
+            body: JSON.stringify({
+                success: true,
+                message: 'User already exists',
+                data: user
+            })
         };
 
     } catch (error) {
@@ -52,7 +64,7 @@ export const handler = async (event) => {
             statusCode: 500,
             body: JSON.stringify({
                 success: false,
-                message: 'Internal Server Error'
+                message: 'Internal Server Error',
             })
         };
     }
