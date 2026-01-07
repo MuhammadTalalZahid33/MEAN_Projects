@@ -1,5 +1,6 @@
 import connectDB from '../configs/db.js';
 import ConnectUsers from '../models/user.model.js';
+import corsHeaders from '../utils/corsHeaders.js';
 
 export const handler = async (event) => {
     try {
@@ -19,6 +20,7 @@ export const handler = async (event) => {
         if (!agentARN || !userName) {
             return {
                 statusCode: 400,
+                headers:corsHeaders,
                 body: JSON.stringify({
                     success: false,
                     message: 'agentARN and userName are required'
@@ -40,6 +42,7 @@ export const handler = async (event) => {
 
             return {
                 statusCode: 201,
+                headers: corsHeaders,
                 body: JSON.stringify({
                     success: true,
                     message: 'User created successfully',
@@ -50,6 +53,7 @@ export const handler = async (event) => {
 
         return {
             statusCode: 200,
+            headers: corsHeaders,
             body: JSON.stringify({
                 success: true,
                 message: 'User already exists',
@@ -62,6 +66,7 @@ export const handler = async (event) => {
 
         return {
             statusCode: 500,
+            headers: corsHeaders,
             body: JSON.stringify({
                 success: false,
                 message: 'Internal Server Error',

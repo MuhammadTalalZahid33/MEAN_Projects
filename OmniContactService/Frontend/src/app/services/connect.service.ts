@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ControlEvent } from '@angular/forms';
 import { BehaviorSubject, combineLatest, filter, map, shareReplay, startWith, take } from 'rxjs';
 import { SessionService } from './session.service';
+import { UserApiService } from './user-api.service';
 
 declare const connect: any;
 
@@ -12,7 +13,10 @@ export class ConnectService {
 
   private agent: any | null = null;
   private initialized = false;
-  constructor(private sessionService: SessionService) { }
+  constructor(
+    private sessionService: SessionService,
+    private userService: UserApiService,
+  ) { }
 
 
   // Agent subject stream
@@ -44,11 +48,11 @@ export class ConnectService {
   );
 
   loading$ = this.authenticated$.pipe(
-  map(() => false),
-  startWith(true),
-  shareReplay(1)
-);
-  
+    map(() => false),
+    startWith(true),
+    shareReplay(1)
+  );
+
 
   initCCP(container: HTMLElement, instanceURL: string): void {
     if (this.initialized) return;
@@ -102,6 +106,29 @@ export class ConnectService {
       this.agent = agent;
       this.agentSubject.next(agent);
 
+      const config = agent.getConfiguration();
+      // console.log('Agent Config:', config.username);
+      localStorage.setItem('username', config.username);
+      console.log('Agent: ', localStorage.getItem('username'));
+      const payload = {
+        agentARN: config.agentARN,
+        userName: config.username,
+        firstName: config.firstName,
+        lastName: config.lastName,
+        routingProfile: config.routingProfile?.name,
+        permissions: config.permissions || []
+      };
+
+      // console.log('Agent payload:', payload);
+      this.userService.addUser(payload).subscribe({
+        next: (res) => {
+          console.log('User added/verified successfully:', res);
+        },
+        error: (err) => {
+          console.error('Error adding user:', err);
+        }
+      });
+
       const initialType = agent.getState()?.name ?? 'Offline';
       console.log('Initial agent state:', this.agent.getConfiguration());
       this.agentStateSubject.next(initialType);
@@ -142,7 +169,7 @@ export class ConnectService {
     })
   }
 
-
+  //Functions called from components
 
   acceptCall(): void {
     if (!this.activeContact) return;

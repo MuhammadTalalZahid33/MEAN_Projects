@@ -1,1 +1,46 @@
-<p>settings works!</p>
+<div class="settings-container" *ngIf="userData; else loading">
+
+  <h2>User Profile</h2>
+
+  <div class="info-row">
+    <label>Username</label>
+    <span>{{ userData.userName }}</span>
+  </div>
+
+  <div class="info-row">
+    <label>First Name</label>
+    <span>{{ userData.firstName || '-' }}</span>
+  </div>
+
+  <div class="info-row">
+    <label>Last Name</label>
+    <span>{{ userData.lastName || '-' }}</span>
+  </div>
+
+  <div class="info-row">
+    <label>Agent ARN</label>
+    <span class="mono">{{ userData.agentARN }}</span>
+  </div>
+
+  <div class="info-row">
+    <label>Routing Profile</label>
+    <span>{{ userData.routingProfile || '-' }}</span>
+  </div>
+
+  <div class="info-row">
+    <label>Permissions</label>
+    <div class="chips">
+      <span class="chip" *ngFor="let perm of userData.permissions">
+        {{ perm }}
+      </span>
+    </div>
+  </div>
+
+</div>
+
+<!-- Loading State -->
+<ng-template #loading>
+  <div class="loading">
+    Loading user information...
+  </div>
+</ng-template>

@@ -4,9 +4,11 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { MAT_MENU_DEFAULT_OPTIONS } from '@angular/material/menu';
 
 import { routes } from './app.routes';
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideHttpClient(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimationsAsync(),

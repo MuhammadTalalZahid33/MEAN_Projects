@@ -1,5 +1,6 @@
 import connectDB from '../configs/db.js';
 import ConnectUsers from '../models/user.model.js';
+import corsHeaders from '../utils/corsHeaders.js';
 
 export const handler = async (event) => {
     try {
@@ -10,6 +11,7 @@ export const handler = async (event) => {
         if (!userName) {
             return {
                 statusCode: 400,
+                headers: corsHeaders,
                 body: JSON.stringify({
                     success: false,
                     message: 'userName is required'
@@ -22,6 +24,7 @@ export const handler = async (event) => {
         if (!user) {
             return {
                 statusCode: 404,
+                headers: corsHeaders,
                 body: JSON.stringify({
                     success: false,
                     message: 'User not found'
@@ -31,6 +34,7 @@ export const handler = async (event) => {
 
         return {
             statusCode: 200,
+            headers: corsHeaders,
             body: JSON.stringify({
                 success: true,
                 data: user
@@ -42,6 +46,7 @@ export const handler = async (event) => {
 
         return {
             statusCode: 500,
+            headers: corsHeaders,
             body: JSON.stringify({
                 success: false,
                 message: 'Internal Server Error',

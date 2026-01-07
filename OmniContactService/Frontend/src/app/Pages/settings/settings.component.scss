@@ -1,0 +1,47 @@
+.settings-container {
+  max-width: 600px;
+  padding: 24px;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.info-row {
+  display: flex;
+  margin-bottom: 12px;
+
+  label {
+    width: 160px;
+    font-weight: 600;
+    color: #555;
+  }
+
+  span {
+    flex: 1;
+  }
+}
+
+.mono {
+  font-family: monospace;
+  font-size: 12px;
+  word-break: break-all;
+}
+
+.chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.chip {
+  background: #e0e0e0;
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 12px;
+}
+
+.loading {
+  padding: 24px;
+  color: #777;
+}
