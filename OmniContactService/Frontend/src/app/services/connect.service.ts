@@ -275,6 +275,7 @@ export class ConnectService {
 
   private reset(): void {
     this.agent = null;
+    localStorage.removeItem('username');
     this.initialized = false;
     this.agentSubject.next(null);
     this.agentStateSubject.next('Offline');

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { UserApiService } from '../../services/user-api.service';
-import { ConnectService } from '../../services/connect.service';
 import { catchError } from 'rxjs';
 import { NgFor, NgIf } from '@angular/common';
 
@@ -14,7 +13,6 @@ import { NgFor, NgIf } from '@angular/common';
 export class SettingsComponent {
   constructor(
     private userApiService: UserApiService,
-    private connectService: ConnectService,
   ){}
 
   userName: any;
