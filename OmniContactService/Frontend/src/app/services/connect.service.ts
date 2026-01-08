@@ -101,13 +101,13 @@ export class ConnectService {
       this.sessionService.clearSession();
     });
 
-    // 👤 Agent lifecycle
+    // Agent lifecycle
     connect.agent((agent: any) => {
       this.agent = agent;
       this.agentSubject.next(agent);
 
       const config = agent.getConfiguration();
-      // console.log('Agent Config:', config.username);
+      console.log('Agent Config:', config);
       localStorage.setItem('username', config.username);
       console.log('Agent: ', localStorage.getItem('username'));
       const payload = {
@@ -119,12 +119,7 @@ export class ConnectService {
         permissions: config.permissions || []
       };
 
-      // this.userService.addUser(payload).subscribe({
-      //   error: (err) => {
-      //     console.error('Error adding user:', err);
-      //   }
-      // });
-
+      // Add user only if not already registered
       if (!localStorage.getItem('userRegisteredKey')) {
         this.userService.addUser(payload).subscribe({
           next: () => {
