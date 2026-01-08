@@ -3,7 +3,7 @@ import { UserApiService } from '../../services/user-api.service';
 import { catchError } from 'rxjs';
 import { NgFor, NgIf } from '@angular/common';
 
-const USER_DATA = 'ConnectUserData';
+// const USER_DATA = 'ConnectUserData';
 
 @Component({
   selector: 'app-settings',
@@ -22,10 +22,10 @@ export class SettingsComponent {
 
   ngOnInit() {
 
-    const cachedUser = localStorage.getItem(USER_DATA);
+    const cachedUser = localStorage.getItem('USER_DATA');
 
     if(cachedUser) {
-      this.userData = JSON.parse(localStorage.getItem(USER_DATA) || '{}');
+      this.userData = JSON.parse(localStorage.getItem('USER_DATA') || '{}');
       return;
     }
 
@@ -48,7 +48,7 @@ export class SettingsComponent {
           this.userData = response.data;
 
           localStorage.setItem(
-            USER_DATA,
+            'USER_DATA',
             JSON.stringify(response.data)
           );
         },

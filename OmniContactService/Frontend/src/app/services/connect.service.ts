@@ -119,20 +119,25 @@ export class ConnectService {
         permissions: config.permissions || []
       };
 
-      // console.log('Agent payload:', payload);
-      this.userService.addUser(payload).subscribe({
-        next: (res) => {
-          localStorage.setItem(
-            'USER_DATA',
-            JSON.stringify(res.data)
-          );
+      // this.userService.addUser(payload).subscribe({
+      //   error: (err) => {
+      //     console.error('Error adding user:', err);
+      //   }
+      // });
 
-          console.log('User cached successfully');
-        },
-        error: (err) => {
-          console.error('Error adding user:', err);
-        }
-      });
+      if (!localStorage.getItem('userRegisteredKey')) {
+        this.userService.addUser(payload).subscribe({
+          next: () => {
+            console.log('User added for the first time');
+            localStorage.setItem('userRegisteredKey', 'true');
+          },
+          error: (err) => {
+            console.error('Error adding user:', err);
+          }
+        });
+      } else {
+        console.log('User already registered, skipping addUser API');
+      }
 
       const initialType = agent.getState()?.name ?? 'Offline';
       console.log('Initial agent state:', this.agent.getConfiguration());
@@ -282,7 +287,7 @@ export class ConnectService {
     this.agent = null;
     localStorage.removeItem('username');
     localStorage.removeItem('USER_DATA');
-    localStorage.removeItem('ConnectUserData');
+    localStorage.removeItem('userRegisteredKey');
     this.initialized = false;
     this.agentSubject.next(null);
     this.agentStateSubject.next('Offline');
