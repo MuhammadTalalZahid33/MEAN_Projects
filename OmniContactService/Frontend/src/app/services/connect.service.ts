@@ -38,6 +38,9 @@ export class ConnectService {
   private ccpInitializedSubject = new BehaviorSubject<boolean>(false);
   ccpInitialized$ = this.ccpInitializedSubject.asObservable();
 
+  private mutedSubject = new BehaviorSubject<boolean>(false);
+  muted$ = this.mutedSubject.asObservable();
+
   authenticated$ = combineLatest([
     this.ccpInitialized$,
     this.agent$
@@ -205,6 +208,34 @@ export class ConnectService {
       success: () => console.log("call ended successfully..."),
       failure: (error: any) => console.error("error ending call: ", error)
     })
+  }
+
+  toggleMute(): void {
+    if(!this.activeContact) return;
+    
+    const connection = this.activeContact.getAgentConnection();
+    if(!connection){
+      console.warn("No active connection found...")
+      return;
+    }
+    const isMuted = this.mutedSubject.value;
+    if(isMuted){
+      connection.unmute({
+        success: () => {
+          console.log("Call unmuted successfully...");
+          this.mutedSubject.next(false);
+        },
+        failure: (error: any) => console.error("Error unmuting call: ", error)
+      })
+    }else{
+      connection.mute({
+        success: () => {
+          console.log("Call muted successfully...");
+          this.mutedSubject.next(true);
+        },
+        failure: (error: any) => console.error("Error muting call: ", error)
+      })
+    }
   }
 
   // Set agent state
