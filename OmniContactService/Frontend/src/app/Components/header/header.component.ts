@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   isOnCall = false
   agentState!: any
   selectValue!: any
+  isMute = false
   private callDialog?: MatDialogRef<IncomingCallComponent> | null = null;
 
   constructor(
@@ -38,6 +39,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
       }
 
       console.log("header agent state: ", this.agentState);
+    })
+
+    this.connectService.muted$.subscribe(muted => {
+      this.isMute = muted;
     })
 
     this.connectService.incomingCall$

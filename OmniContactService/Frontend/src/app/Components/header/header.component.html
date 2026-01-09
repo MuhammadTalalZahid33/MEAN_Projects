@@ -7,8 +7,8 @@
             <mat-icon>call_end</mat-icon>
         </button>
 
-        <button mat-icon-button>
-            <mat-icon>mic_off</mat-icon>
+        <button mat-icon-button (click)="connectService.toggleMute()">
+            <mat-icon>{{isMute ? 'mic_off' : 'mic'}}</mat-icon>
         </button>
     </div>
     <div class="rightside">

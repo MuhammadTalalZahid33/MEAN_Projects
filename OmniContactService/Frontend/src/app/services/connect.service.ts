@@ -83,7 +83,7 @@ export class ConnectService {
         allowFramedSoftphone: true,
         disableRingtone: false
       }
-    });
+    }); 
 
     // CCP iframe ready & authenticated
     connect.core.onInitialized(() => {
@@ -145,6 +145,11 @@ export class ConnectService {
         const currentType = agent.getState()?.name ?? 'Offline';
         console.log('Agent state changed to:', currentType);
         this.agentStateSubject.next(currentType);
+      });
+
+      agent.onMuteToggle((muted: boolean) => {
+        console.log('Mute toggled, isMuted:', muted);
+        this.mutedSubject.next(muted);
       });
     });
 
@@ -211,32 +216,25 @@ export class ConnectService {
   }
 
   toggleMute(): void {
-    if(!this.activeContact) return;
-    
-    const connection = this.activeContact.getAgentConnection();
-    if(!connection){
-      console.warn("No active connection found...")
-      return;
-    }
-    const isMuted = this.mutedSubject.value;
-    if(isMuted){
-      connection.unmute({
-        success: () => {
-          console.log("Call unmuted successfully...");
-          this.mutedSubject.next(false);
-        },
-        failure: (error: any) => console.error("Error unmuting call: ", error)
-      })
-    }else{
-      connection.mute({
-        success: () => {
-          console.log("Call muted successfully...");
-          this.mutedSubject.next(true);
-        },
-        failure: (error: any) => console.error("Error muting call: ", error)
-      })
-    }
+  if (!this.agent) {
+    console.warn('Agent not initialized');
+    return;
   }
+
+  const isMuted = this.mutedSubject.value;
+  if (isMuted) {
+    this.agent.unmute({
+      success: () => console.log('Unmute requested'),
+      failure: (err: any) => console.error('Unmute failed', err)
+    });
+  } else {
+    this.agent.mute({
+      success: () => console.log('Mute requested'),
+      failure: (err: any) => console.error('Mute failed', err)
+    });
+  }
+}
+
 
   // Set agent state
   setAgentState(stateType: any): void {
@@ -316,6 +314,7 @@ export class ConnectService {
     localStorage.removeItem('userRegisteredKey');
     this.initialized = false;
     this.agentSubject.next(null);
-    this.agentStateSubject.next('Offline');
+    this.agentStateSubject.next('Offline');0
+    this.mutedSubject.next(false);
   }
 }
