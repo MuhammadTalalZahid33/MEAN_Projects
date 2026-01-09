@@ -170,8 +170,14 @@ export class ConnectService {
 
         this.onCallSubject.next(true);
         this.incomingCallSubject.next(null);
-        // Reset mute state when call connects
-        this.mutedSubject.next(false);
+        // Listen to mute state changes on the connection
+        const connection = contact.getAgentConnection();
+        if (connection) {
+          connection.onMuteToggle((obj: any) => {
+            console.log('Connection mute state changed:', obj.muted);
+            this.mutedSubject.next(obj.muted);
+          });
+        }
       })
 
       // function to end the call
@@ -219,58 +225,87 @@ export class ConnectService {
     })
   }
 
-  //   toggleMute(): void {
+
+
+  // toggleMute(): void {
   //   if (!this.agent) {
   //     console.warn('Agent not initialized');
   //     return;
   //   }
 
-  //   const isMuted = this.mutedSubject.value;
-  //   if (isMuted) {
+  //   const currentMuteState = this.mutedSubject.value;
+
+  //   if (currentMuteState) {
+  //     // Unmute
   //     this.agent.unmute({
-  //       success: () => console.log('Unmute requested'),
-  //       failure: (err: any) => console.error('Unmute failed', err)
+  //       success: () => {
+  //         console.log('Unmuted successfully');
+  //         this.mutedSubject.next(false);
+  //       },
+  //       failure: (err: any) => {
+  //         console.error('Unmute failed', err);
+  //       }
   //     });
   //   } else {
+  //     // Mute
   //     this.agent.mute({
-  //       success: () => console.log('Mute requested'),
-  //       failure: (err: any) => console.error('Mute failed', err)
+  //       success: () => {
+  //         console.log('Muted successfully');
+  //         this.mutedSubject.next(true);
+  //       },
+  //       failure: (err: any) => {
+  //         console.error('Mute failed', err);
+  //       }
   //     });
   //   }
   // }
 
+
   toggleMute(): void {
-    if (!this.agent) {
-      console.warn('Agent not initialized');
-      return;
-    }
-
-    const currentMuteState = this.mutedSubject.value;
-
-    if (currentMuteState) {
-      // Unmute
-      this.agent.unmute({
-        success: () => {
-          console.log('Unmuted successfully');
-          this.mutedSubject.next(false);
-        },
-        failure: (err: any) => {
-          console.error('Unmute failed', err);
-        }
-      });
-    } else {
-      // Mute
-      this.agent.mute({
-        success: () => {
-          console.log('Muted successfully');
-          this.mutedSubject.next(true);
-        },
-        failure: (err: any) => {
-          console.error('Mute failed', err);
-        }
-      });
-    }
+  if (!this.agent) {
+    console.warn('Agent not initialized');
+    return;
   }
+
+  if (!this.activeContact) {
+    console.warn('No active contact to mute');
+    return;
+  }
+
+  const connection = this.activeContact.getAgentConnection();
+  
+  if (!connection) {
+    console.warn('No active connection');
+    return;
+  }
+
+  const currentMuteState = this.mutedSubject.value;
+  console.log('Current mute state:', currentMuteState);
+  
+  if (currentMuteState) {
+    // Unmute
+    connection.unmute({
+      success: () => {
+        console.log('Unmuted successfully');
+        // Don't manually update - let onMuteToggle handle it
+      },
+      failure: (err: any) => {
+        console.error('Unmute failed:', err);
+      }
+    });
+  } else {
+    // Mute
+    connection.mute({
+      success: () => {
+        console.log('Muted successfully');
+        // Don't manually update - let onMuteToggle handle it
+      },
+      failure: (err: any) => {
+        console.error('Mute failed:', err);
+      }
+    });
+  }
+}
 
 
   // Set agent state
