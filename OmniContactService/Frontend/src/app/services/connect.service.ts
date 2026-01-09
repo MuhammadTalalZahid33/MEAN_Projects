@@ -83,7 +83,7 @@ export class ConnectService {
         allowFramedSoftphone: true,
         disableRingtone: false
       }
-    }); 
+    });
 
     // CCP iframe ready & authenticated
     connect.core.onInitialized(() => {
@@ -170,6 +170,8 @@ export class ConnectService {
 
         this.onCallSubject.next(true);
         this.incomingCallSubject.next(null);
+        // Reset mute state when call connects
+        this.mutedSubject.next(false);
       })
 
       // function to end the call
@@ -178,6 +180,8 @@ export class ConnectService {
 
         this.onCallSubject.next(false);
         this.activeContact = null;
+        // Reset mute state when call ends
+        this.mutedSubject.next(false);
       })
     })
   }
@@ -215,25 +219,58 @@ export class ConnectService {
     })
   }
 
-  toggleMute(): void {
-  if (!this.agent) {
-    console.warn('Agent not initialized');
-    return;
-  }
+  //   toggleMute(): void {
+  //   if (!this.agent) {
+  //     console.warn('Agent not initialized');
+  //     return;
+  //   }
 
-  const isMuted = this.mutedSubject.value;
-  if (isMuted) {
-    this.agent.unmute({
-      success: () => console.log('Unmute requested'),
-      failure: (err: any) => console.error('Unmute failed', err)
-    });
-  } else {
-    this.agent.mute({
-      success: () => console.log('Mute requested'),
-      failure: (err: any) => console.error('Mute failed', err)
-    });
+  //   const isMuted = this.mutedSubject.value;
+  //   if (isMuted) {
+  //     this.agent.unmute({
+  //       success: () => console.log('Unmute requested'),
+  //       failure: (err: any) => console.error('Unmute failed', err)
+  //     });
+  //   } else {
+  //     this.agent.mute({
+  //       success: () => console.log('Mute requested'),
+  //       failure: (err: any) => console.error('Mute failed', err)
+  //     });
+  //   }
+  // }
+
+  toggleMute(): void {
+    if (!this.agent) {
+      console.warn('Agent not initialized');
+      return;
+    }
+
+    const currentMuteState = this.mutedSubject.value;
+
+    if (currentMuteState) {
+      // Unmute
+      this.agent.unmute({
+        success: () => {
+          console.log('Unmuted successfully');
+          this.mutedSubject.next(false);
+        },
+        failure: (err: any) => {
+          console.error('Unmute failed', err);
+        }
+      });
+    } else {
+      // Mute
+      this.agent.mute({
+        success: () => {
+          console.log('Muted successfully');
+          this.mutedSubject.next(true);
+        },
+        failure: (err: any) => {
+          console.error('Mute failed', err);
+        }
+      });
+    }
   }
-}
 
 
   // Set agent state
@@ -314,7 +351,7 @@ export class ConnectService {
     localStorage.removeItem('userRegisteredKey');
     this.initialized = false;
     this.agentSubject.next(null);
-    this.agentStateSubject.next('Offline');0
+    this.agentStateSubject.next('Offline'); 0
     this.mutedSubject.next(false);
   }
 }
