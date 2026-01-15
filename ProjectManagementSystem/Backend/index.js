@@ -8,7 +8,7 @@ import { app } from "./src/app.js";
 (async () => {
     try {
         const db = connectDB();
-        await db.query('SELECT * from employees LIMIT 1');
+        await db.query('SELECT * from roles');
         console.log('✅ Database connected: ', process.env.DB_NAME);
 
         app.listen(PORT, () => {
