@@ -8,9 +8,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // routes
-import router from './routes/user.routes.js';
+import userRouter from './routes/user.routes.js';
 
-app.use('/api/v1/users', router);
+app.use('/api/v1/users', userRouter);
 
 app.use(express.static('public'));
 export { app };
