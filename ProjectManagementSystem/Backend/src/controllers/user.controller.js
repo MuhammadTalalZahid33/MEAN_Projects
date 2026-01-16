@@ -7,7 +7,7 @@ const register = AsyncHandler(async (req, res, next) => {
     const { username, email, password, role } = req.body;
 
     if (!username || !email || !password || !role) {
-        return next(new ApiError(400, 'All fields are required'));
+        throw new ApiError(400, 'All fields are required');
     }
 
     const user = await registerUser({ username, email, password, role });
