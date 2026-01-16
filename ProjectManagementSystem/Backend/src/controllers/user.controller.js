@@ -37,7 +37,7 @@ const getUsers = AsyncHandler(async (req, res) => {
 });
 
 const getUser = AsyncHandler(async (req, res) => {
-    console.log("coming into the function...");
+    // console.log("coming into the function...");
     const { id } = req.params;
     if (!id) {
         throw new ApiError(400, 'User ID not provided in request params');
