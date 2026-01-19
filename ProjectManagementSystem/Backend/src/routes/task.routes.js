@@ -6,13 +6,15 @@ import {
   updateTask,
   deleteTask
 } from '../controllers/task.controller.js';
+import authorize from '../middleware/authorize.middleware.js';
+import { canAccessTask } from '../middleware/taskAccess.middleware.js';
 
 const router = express.Router();
 
-router.post('/createTask', createTask);
-router.get('/getAllTasks/:projectId', getTasksByProject);
-router.get('/getTask/:id', getTask);
-router.put('/updateTask/:id', updateTask);
-router.delete('/deleteTask/:id', deleteTask);
+router.post('/createTask', authorize('admin', 'manager'), createTask);
+router.get('/getAllTasks/:projectId', authorize('admin', 'manager', 'member'), getTasksByProject);
+router.get('/getTask/:id', authorize('admin', 'manager', 'member'), canAccessTask, getTask);
+router.put('/updateTask/:id', authorize('admin', 'manager', 'member'), canAccessTask, updateTask);
+router.delete('/deleteTask/:id', authorize('admin', 'manager'), deleteTask);
 
 export default router;

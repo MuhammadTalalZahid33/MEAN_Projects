@@ -5,7 +5,7 @@ import authenticate from "../middleware/auth.middleware.js";
 
 const router = Router();
 
-router.get('/allUsers', authorize('admin', 'manager'), getUsers);
-router.get('/user/:id', authorize('admin', 'manager', 'member'), getUser);
+router.post('/register', register);
+router.post('/login', login);
 
 export default router;

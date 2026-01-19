@@ -8,13 +8,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // routes
+import authRouter from './routes/auth.routes.js';
 import userRouter from './routes/user.routes.js';
 import projectRouter from './routes/project.routes.js';
 import taskRouter from './routes/task.routes.js';
+import authenticate from './middleware/auth.middleware.js';
 
-app.use('/api/v1/users', userRouter);
-app.use('/api/v1/projects', projectRouter);
-app.use('/api/v1/tasks', taskRouter);
+//Public route
+app.use('/api/v1/auth', authRouter);
+
+//Protected routes
+
+app.use('/api/v1/users', authenticate, userRouter);
+app.use('/api/v1/projects', authenticate, projectRouter);
+app.use('/api/v1/tasks', authenticate, taskRouter);
 
 app.use(express.static('public'));
 export { app };
