@@ -26,8 +26,8 @@ export const fetchProject = async (id) => {
 
 export const editProject = async (id, data) => {
     //   await fetchProject(id);
-    const id = await projectModel.getProjectById(id);
-    if(!id){
+    const project = await projectModel.getProjectById(id);
+    if(!project){
         throw new ApiError(404, 'Project with such id is not found');
     }
     const result = await projectModel.updateProject(id, data);
@@ -35,8 +35,8 @@ export const editProject = async (id, data) => {
 };
 
 export const removeProject = async (id) => {
-     const id = await projectModel.getProjectById(id);
-    if(!id){
+    const project = await projectModel.getProjectById(id);
+    if(!project){
         throw new ApiError(404, 'Project with such id is not found');
     }
     const deletedProject = await projectModel.deleteProject(id);

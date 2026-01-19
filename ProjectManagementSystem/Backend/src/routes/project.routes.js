@@ -3,7 +3,7 @@ import { createProject, getProjects, getProject, updateProject, deleteProject } 
 const router = Router();
 
 router.post('/createProject', createProject);
-router.get('/allprojects', getProjects);
+router.get('/allProjects', getProjects);
 router.get('/project/:id', getProject);
 router.put('/updateProject/:id', updateProject);
 router.delete('/deleteProject/:id', deleteProject);
