@@ -21,7 +21,6 @@ export const createNewTask = async (data) => {
 
 export const fetchTasksByProject = async (projectId) => {
   const tasks = await taskModel.getTasksByProject(projectId);
-  console.log('Fetched tasks:', tasks);
   return tasks;
 };
 
