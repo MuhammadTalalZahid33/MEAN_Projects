@@ -52,4 +52,16 @@ export class AuthService {
         })
       );
   }
+
+  logoutUser(){
+    console.log("Logging out...");
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("role");
+
+    this.isLoggedIn.set(false);
+    // this.userRole.set("agent");
+
+    this.router.navigate(['/']);
+  }
 }

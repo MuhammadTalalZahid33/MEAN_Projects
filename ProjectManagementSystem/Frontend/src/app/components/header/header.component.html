@@ -1,1 +1,26 @@
-<p>header works!</p>
+<header class="headers">
+    <div class="logo">
+        <!-- <h3>PMS</h3> -->
+        <img class="pmslogo" src="images/pmslogo.png" alt="PMS Logo">
+    </div>
+
+    <div class="rightside">
+        <div class="profile-block">
+            <button class="profile-main" mat-menu-item [matMenuTriggerFor]="menu"
+                aria-label="Example icon-button with a menu">
+                <mat-icon>keyboard_arrow_down</mat-icon>
+                <span>Profile</span>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+                <button mat-menu-item routerLink="settings">
+                    <mat-icon>account_circle</mat-icon>
+                    <span>Manage Profile</span>
+                </button>
+                <button mat-menu-item (click)="Logout()">
+                    <mat-icon>logout</mat-icon>
+                    <span>Logout</span>
+                </button>
+            </mat-menu>
+        </div>
+    </div>
+</header>

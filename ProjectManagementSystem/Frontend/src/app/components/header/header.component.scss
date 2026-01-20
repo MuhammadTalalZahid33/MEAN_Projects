@@ -1,0 +1,78 @@
+.headers {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #EEAECA;
+    background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
+    padding: 0.3rem 1rem;
+    color: white;
+}
+
+.logo {
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    padding-left: 1rem;
+
+    &:hover {
+        transform: scale(1.03);
+    }
+}
+
+.pmslogo{
+    height: 3rem;
+    width: 3rem;
+}
+
+
+.rightside {
+    display: flex;
+    align-items: center;
+    // gap: 2rem;
+}
+
+select {
+    /* Basic styling */
+    //   background-color: rgb(6, 31, 57);
+    color: white;
+    padding: 10px;
+    border-radius: 3px;
+    background: #833AB4;
+    background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%);
+    border: none;
+}
+
+/* Style the select when it is hovered or focused */
+select:hover,
+select:focus {
+    border-color: #666;
+}
+
+/* Style the options within the dropdown (support is limited and inconsistent) */
+select option {
+    background-color: white;
+    color: black;
+}
+
+.profile-block button {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+
+.profile-block span {
+    color: white;
+    // font-size: 15px;
+}
+
+button mat-icon {
+    // font-size: 16px;
+    color: white;
+    // width: 16px;
+    // height: 16px;
+}
+
+.call-controls{
+    border: 2px solid red;
+    border-radius: 3px;
+}

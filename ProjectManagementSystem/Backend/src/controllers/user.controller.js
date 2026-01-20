@@ -5,7 +5,7 @@ import { getAllUsers, getUserById, loginUser, registerUser } from "../services/u
 
 const register = AsyncHandler(async (req, res, next) => {
     const { username, email, password, role } = req.body;
-    console.log('all fields: ', req.body);
+    // console.log('all fields: ', req.body);
     if (!username || !email || !password || !role) {
         throw new ApiError(400, 'All fields are required');
     }
@@ -19,7 +19,7 @@ const register = AsyncHandler(async (req, res, next) => {
 
 const login = AsyncHandler(async (req, res, next) => {
     const { email, password } = req.body;
-    console.log('Login request received:', { email, password });
+    // console.log('Login request received:', { email, password });
     if (!email || !password) {
         throw new ApiError(400, 'Both email and password are required');
     }

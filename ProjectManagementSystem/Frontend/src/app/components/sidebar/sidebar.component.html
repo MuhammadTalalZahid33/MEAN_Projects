@@ -1,1 +1,29 @@
-<p>sidebar works!</p>
+<mat-sidenav-container class="example-container" autosize>
+    <mat-sidenav #drawer class="example-sidenav" mode="side" opened>
+        <div class="upper">
+            <button mat-menu-item routerLink="dashboard">
+                <mat-icon>dashboard</mat-icon>
+                <span>Dashboard</span>
+            </button>
+            
+        </div>
+        <div class="lower">
+            <button mat-menu-item routerLink="settings">
+                <mat-icon>settings</mat-icon>
+                <span>Settings</span>
+            </button>
+        </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <div class="sidenav-button">
+            <button type="button" mat-mini-fab (click)="drawer.toggle()">
+                <mat-icon>keyboard_arrow_right</mat-icon>
+            </button>
+        </div>
+        <div class="main-content">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-sidenav-content>
+
+</mat-sidenav-container>
