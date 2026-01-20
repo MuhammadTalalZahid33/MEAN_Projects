@@ -1,12 +1,49 @@
-import { Component } from '@angular/core';
+import { NgIf } from '@angular/common';
+import { Component, inject } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule, NgIf],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+  constructor(private router: Router) { }
+
+  loginForm = new FormGroup({
+    email: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(8)])
+  })
+
+  get f() {
+    return this.loginForm.controls;
+  }
+
+  auth = inject(AuthService);
+
+  onSubmit() {
+    if (this.loginForm.valid) {
+      const loginData = this.loginForm.value
+      this.auth.loginUser(loginData).subscribe();
+    }
+  }
+
+  toRegister() {
+    this.router.navigateByUrl('/', { skipLocationChange: true })
+      .then(() => this.router.navigate(['/register']))
+      .then(() => {
+        console.log("navigating...")
+      })
+  }
+
+  showPassword = false;
+
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }
 
 }

@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { loginGuard } from './core/guards/login.guard';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
     {
@@ -9,11 +10,22 @@ export const routes: Routes = [
         canActivate: [loginGuard]
     },
     {
+        path: 'register',
+        loadComponent: () => import('./auth/register/register.component')
+            .then(m => m.RegisterComponent),
+    },
+    {
+        path: 'confirmRegistered',
+        loadComponent: () => import('./auth/confirmed-register/confirmed-register.component')
+            .then(m => m.ConfirmedRegisterComponent),
+    },
+    {
         path: 'main',
         loadComponent: () => {
             return import('./layout/main-layout/main-layout.component')
                 .then(m => m.MainLayoutComponent)
         },
+        canActivate: [authGuard],
         children: [
             {
                 path: 'dashboard',
