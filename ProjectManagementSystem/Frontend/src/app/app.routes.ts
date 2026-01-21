@@ -35,6 +35,34 @@ export const routes: Routes = [
                 }
             },
             {
+                path: 'projects',
+                loadComponent: () => {
+                    return import('./pages/projects/projects.component')
+                    .then(m => m.ProjectsComponent)
+                }
+            },
+            {
+                path: 'tasks',
+                loadComponent: () => {
+                    return import('./pages/tasks/tasks.component')
+                    .then(m => m.TasksComponent)
+                }
+            },
+            {
+                path: 'team',
+                loadComponent: () => {
+                    return import('./pages/team/team.component')
+                    .then(m => m.TeamComponent)
+                }
+            },
+            {
+                path: 'users',
+                loadComponent: () => {
+                    return import('./pages/users/users.component')
+                    .then(m => m.UsersComponent)
+                }
+            },
+            {
                 path: 'settings',
                 loadComponent: () => {
                     return import('./pages/settings/settings.component')
@@ -46,7 +74,6 @@ export const routes: Routes = [
                 redirectTo: 'dashboard',
                 pathMatch: 'full'
             }
-
         ]
     }
 ];

@@ -5,7 +5,25 @@
                 <mat-icon>dashboard</mat-icon>
                 <span>Dashboard</span>
             </button>
-            
+            <button mat-menu-item routerLink="projects">
+                <mat-icon>business_center</mat-icon>
+                <span>Projects</span>
+            </button>
+            <button mat-menu-item routerLink="tasks">
+                <mat-icon>task</mat-icon>
+                <span>Tasks</span>
+            </button>
+            <button mat-menu-item routerLink="team">
+                <mat-icon>people_outline</mat-icon>
+                <span>Team</span>
+            </button>
+            @if (this.role() !== 'MEMBER') {
+            <button mat-menu-item routerLink="users">
+                <mat-icon>people</mat-icon>
+                <span>Users</span>
+            </button>
+            }
+
         </div>
         <div class="lower">
             <button mat-menu-item routerLink="settings">
