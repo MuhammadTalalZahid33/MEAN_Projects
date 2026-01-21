@@ -1,1 +1,51 @@
-<p>projects works!</p>
+<div class="topbar">
+    <h2 class="title">Project Board</h2>
+
+    <button class="add-btn" (click)="addProject()">
+        + Add Project
+    </button>
+</div>
+
+
+<div class="projects">
+
+    @if (Project.length === 0) {
+    <p>No projects available.</p>
+    }
+
+    @for (p of Project; track p.id) {
+    <div class="project-card">
+
+        <div class="leftside">
+            <h3>{{ p.name }}</h3>
+
+            <p class="description">
+                {{ p.description || 'No description provided' }}
+            </p>
+
+            <!-- <p>
+        <strong>Start Date:</strong>
+        {{ p.start_date | date:'mediumDate' }}
+      </p>
+
+      <p>
+        <strong>End Date:</strong>
+        {{ p.end_date | date:'mediumDate' }}
+      </p> -->
+
+            <p>
+                <strong>Status:</strong>
+                {{ p.status }}
+            </p>
+        </div>
+        <div class="rightside">
+            <button class="edit-button" (click)="editProject(p)">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+            </button>
+        </div>
+        <!-- <hr> -->
+    </div>
+    }
+
+</div>
