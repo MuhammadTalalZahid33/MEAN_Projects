@@ -26,7 +26,7 @@
         <textarea matInput rows="3" formControlName="description" placeholder="Enter description"></textarea>
     </mat-form-field>
 
-    <!-- <mat-form-field appearance="outline" class="full-width">
+    <mat-form-field appearance="outline" class="full-width">
     <mat-label>Manager</mat-label>
     <mat-select formControlName="manager_id" placeholder="Select manager">
       <mat-option *ngFor="let user of data.managers" [value]="user.id">
@@ -36,7 +36,7 @@
     <div class="error" *ngIf="f['manager_id'].invalid && f['manager_id'].touched">
       <small>Manager selection is required</small>
     </div>
-  </mat-form-field> -->
+  </mat-form-field>
 
     <div class="date-row">
         <mat-form-field appearance="outline" class="date-field">

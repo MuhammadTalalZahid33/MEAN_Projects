@@ -35,7 +35,7 @@ export class AddEditProjectComponent implements OnInit{
   projectForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(30)]),
     description: new FormControl(''),
-    // manager_id: new FormControl(null, [Validators.required]),
+    manager_id: new FormControl(null, [Validators.required]),
     start_date: new FormControl(null),
     end_date: new FormControl(null),
     status: new FormControl('active', [Validators.required])
