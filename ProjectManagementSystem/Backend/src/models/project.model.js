@@ -3,13 +3,12 @@ import connectDB from '../config/db.js';
 export const createProject = async ({
     name,
     description,
-    managerId,
-    startDate,
-    endDate,
+    manager_id,
+    start_date,
+    end_date,
     status
 }) => {
     const db = connectDB();
-
     const [result] = await db.execute(
         `INSERT INTO projects
      (name, description, manager_id, start_date, end_date, status)
@@ -17,10 +16,10 @@ export const createProject = async ({
         [
             name,
             description || null,
-            managerId,
-            startDate || null,
-            endDate || null,
-            status || 'active'
+            manager_id,
+            start_date || null,
+            end_date || null,
+            status || 'active' 
         ]
     );
 
@@ -79,9 +78,9 @@ export const updateProject = async (id, data) => {
         [
             data.name,
             data.description,
-            data.managerId,
-            data.startDate,
-            data.endDate,
+            data.manager_id,
+            data.start_date,
+            data.end_date,
             data.status,
             id
         ]

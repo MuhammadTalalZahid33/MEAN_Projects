@@ -4,11 +4,11 @@ import { ApiError } from "../utils/ApiError.js";
 import { createNewProject, editProject, fetchProject, fetchProjects, removeProject } from "../services/project.service.js";
 
 const createProject = AsyncHandler(async (req, res, next) => {
-    const { name, description, managerId, startDate, endDate, status } = req.body;
-    if (!name || !managerId) {
+    const { name, description, manager_id, start_date, end_date, status } = req.body;
+    if (!name || !manager_id) {
         throw new ApiError(400, 'Project name and manager ID are required');
     }
-    const projectId = await createNewProject({ name, description, managerId, startDate, endDate, status });
+    const projectId = await createNewProject({ name, description, manager_id, start_date, end_date, status });
     res.status(201)
         .json(new ApiResponse(201, { projectId }, 'Project created successfully'));
 });
@@ -40,11 +40,12 @@ const updateProject = AsyncHandler(async (req, res, next) => {
     if (!id) {
         throw new ApiError(404, 'Couldn\'t receive project id from request params');
     }
-    const { name, description, managerId, startDate, endDate, status } = req.body;
-    if (!name || !managerId) {
+    console.log("req body: and id", req.body, id);
+    const { name, description, manager_id, start_date, end_date, status } = req.body;
+    if (!name || !manager_id) {
         throw new ApiError(400, 'Project name and manager ID are required');
     }
-    const result = await editProject(id, { name, description, managerId, startDate, endDate, status });
+    const result = await editProject(id, { name, description, manager_id, start_date, end_date, status });
     res.status(200)
         .json(new ApiResponse(200, result, 'Project updated successfully'));
 });

@@ -1,7 +1,7 @@
 import AsyncHandler from "../utils/AsyncHandler.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/ApiError.js";
-import { getAllUsers, getUserById, loginUser, registerUser } from "../services/user.service.js";
+import { getAllUserByRole, getAllUsers, getUserById, loginUser, registerUser } from "../services/user.service.js";
 
 const register = AsyncHandler(async (req, res, next) => {
     const { username, email, password, role } = req.body;
@@ -37,6 +37,15 @@ const getUsers = AsyncHandler(async (req, res) => {
     res.json(new ApiResponse(200, users));
 });
 
+const getUsersByRole = AsyncHandler(async (req, res) => {
+    const role = req.params.role;
+    if(!role){
+        throw new ApiError(400, 'user role is required...');
+    }
+    const users = await getAllUserByRole(role);
+    res.json(new ApiResponse(200, users, 'All managers fetched successfully'));
+})
+
 const getUser = AsyncHandler(async (req, res) => {
     // console.log("coming into the function...");
     const { id } = req.params;
@@ -48,4 +57,4 @@ const getUser = AsyncHandler(async (req, res) => {
         .json(new ApiResponse(200, user));
 });
 
-export { register, login, getUser, getUsers };
+export { register, login, getUser, getUsers, getUsersByRole };

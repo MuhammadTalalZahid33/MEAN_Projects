@@ -4,11 +4,11 @@ import * as userModel from '../models/user.model.js';
 
 export const createNewProject = async (data) => {
     // Ensure manager exists
-    const manager = await userModel.findUserById(data.managerId);
+    const manager = await userModel.findUserById(data.manager_id);
     if (!manager) {
         throw new ApiError(400, 'Invalid manager_id');
     }
-
+    console.log('data is: ', data);
     return await projectModel.createProject(data);
 };
 

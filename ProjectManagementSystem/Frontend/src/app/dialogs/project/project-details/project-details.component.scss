@@ -1,0 +1,36 @@
+h2[mat-dialog-title] {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #1f2937; // dark slate
+  padding: 1rem;
+  
+}
+
+.details-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.detail-row {
+  display: grid;
+  grid-template-columns: 120px 1fr; /* fixed label width */
+  gap: 12px;
+  align-items: start;
+}
+
+.label {
+  font-weight: 600;
+  color: #555;
+}
+
+
+.status.active {
+  color: green;
+  font-weight: 600;
+}
+
+.status.inactive {
+  color: red;
+  font-weight: 600;
+}

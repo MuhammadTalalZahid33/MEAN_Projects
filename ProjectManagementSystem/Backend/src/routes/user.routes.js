@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { getUser, getUsers, login, register } from "../controllers/user.controller.js";
+import { getUser, getUsers, getUsersByRole, login, register } from "../controllers/user.controller.js";
 import authorize from "../middleware/authorize.middleware.js";
-import authenticate from "../middleware/auth.middleware.js";
 
 const router = Router();
 
 router.get('/allUsers', authorize('admin', 'manager'), getUsers);
 router.get('/user/:id', authorize('admin', 'manager', 'member'), getUser);
+router.get('/byRole/:role', authorize('admin', 'manager'), getUsersByRole);
 
 export default router;

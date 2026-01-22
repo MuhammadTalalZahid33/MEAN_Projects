@@ -1,14 +1,16 @@
 import { Component, inject, model, OnInit } from '@angular/core';
 import { ProjectsService } from '../../services/projects.service';
-import { DatePipe } from '@angular/common';
+import { DatePipe, SlicePipe } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddEditProjectComponent } from '../../dialogs/project/add-edit-project/add-edit-project.component';
 import { MatIcon } from '@angular/material/icon';
+import { AuthService } from '../../services/auth.service';
+import { ProjectDetailsComponent } from '../../dialogs/project/project-details/project-details.component';
 
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [DatePipe, MatDialogModule, MatIcon],
+  imports: [SlicePipe, MatDialogModule, MatIcon],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss'
 })
@@ -17,7 +19,8 @@ export class ProjectsComponent implements OnInit {
   Project: Array<any> = []
 
   constructor(private dialogRef: MatDialog) { }
-
+  private authService = inject(AuthService);
+  role = this.authService.userRole
   ngOnInit(): void {
     this.loadProjects();
   }
@@ -38,26 +41,40 @@ export class ProjectsComponent implements OnInit {
       }
     })
 
-     dialogref.afterClosed().subscribe(result => {
+    dialogref.afterClosed().subscribe(result => {
       if (result.success) {
         // this.projectService.addProject(result).subscribe();
       }
     });
   }
 
-  editProject(pData: any){
+  editProject(pData: any) {
     // console.log('project data: ', pData)
     const dialogref = this.dialogRef.open(AddEditProjectComponent, {
       width: '600px',
-      data:{
+      data: {
         mode: 'edit',
         projectData: pData
       }
     })
     dialogref.afterClosed().subscribe(result => {
-      if(result.success){
+      if (result.success) {
 
       }
     })
+  }
+
+  ViewDetails(pData: any){
+    console.log("project details: ", pData);
+    this.dialogRef.open(ProjectDetailsComponent, {
+      width: '600px',
+      data:{
+        projectData: pData
+      }
+    })
+  }
+
+  StartWork(){
+
   }
 }

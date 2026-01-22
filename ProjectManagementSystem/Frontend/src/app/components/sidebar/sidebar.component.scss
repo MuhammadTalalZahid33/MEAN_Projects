@@ -68,4 +68,7 @@
 
 mat-sidenav-content .main-content {
     padding-left: 1rem;
+    height: calc(100% - 4rem);
+    overflow: auto;
+
 }

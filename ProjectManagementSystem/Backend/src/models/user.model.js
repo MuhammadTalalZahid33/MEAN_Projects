@@ -49,6 +49,19 @@ export const findUserById = async (id) => {
     return rows[0];
 };
 
+export const findUserByRole = async (role) => {
+    const db = connectDB();
+    const [rows] = await db.execute(
+        `SELECT u.id, u.name, u.email
+        from users u 
+        JOIN roles r ON u.role_id = r.id
+        WHERE r.name = ?`,
+        [role]
+    );
+    return rows;
+};
+    
+
 export const findAllUsers = async () => {
     const db = connectDB();
     const [rows] = await db.execute(

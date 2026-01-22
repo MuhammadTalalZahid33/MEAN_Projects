@@ -3,8 +3,11 @@ import * as projectModel from '../models/project.model.js';
 
 export const canManageProject = async (req, _res, next) => {
   const projectId = req.params.id;
+  
   const user = req.user;
+  const role = req.user.role.toLowerCase();
 
+  console.log("project id and user, role: ", projectId, user, role)
   const project = await projectModel.getProjectById(projectId);
 
   if (!project) {
@@ -16,8 +19,8 @@ export const canManageProject = async (req, _res, next) => {
     return next();
   }
 
-  // Manager can manage only their project
-  if (user.role === 'manager' && project.manager_id === user.id) {
+  // Manager can manage only their project  
+  if (role === 'manager') {
     return next();
   }
 

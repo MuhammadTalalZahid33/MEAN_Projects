@@ -1,0 +1,46 @@
+<h2 mat-dialog-title>Project Details</h2>
+
+<mat-dialog-content class="details-container">
+
+  <div class="detail-row">
+    <span class="label">Project Name:</span>
+    <span>{{ project.name }}</span>
+  </div>
+
+  <div class="detail-row">
+    <span class="label">Description:</span>
+    <span>{{ project.description }}</span>
+  </div>
+
+  <div class="detail-row">
+    <span class="label">Status:</span>
+    <span class="status" [ngClass]="project.status">
+      {{ project.status | titlecase }}
+    </span>
+  </div>
+
+  <div class="detail-row">
+    <span class="label">Manager:</span>
+    <span>{{ project.manager_name }}</span>
+  </div>
+
+  <div class="detail-row">
+    <span class="label">Created At:</span>
+    <span>{{ project.created_at | date:'medium' }}</span>
+  </div>
+
+  <div class="detail-row">
+    <span class="label">Start Date:</span>
+    <span>{{ project.start_date ? (project.start_date | date) : 'N/A' }}</span>
+  </div>
+
+  <div class="detail-row">
+    <span class="label">End Date:</span>
+    <span>{{ project.end_date ? (project.end_date | date) : 'N/A' }}</span>
+  </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button color="primary" (click)="close()">Close</button>
+</mat-dialog-actions>

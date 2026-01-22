@@ -29,7 +29,7 @@
     <mat-form-field appearance="outline" class="full-width">
     <mat-label>Manager</mat-label>
     <mat-select formControlName="manager_id" placeholder="Select manager">
-      <mat-option *ngFor="let user of data.managers" [value]="user.id">
+      <mat-option *ngFor="let user of managers" [value]="user.id">
         {{ user.name }}
       </mat-option>
     </mat-select>

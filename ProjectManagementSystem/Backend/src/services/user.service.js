@@ -79,3 +79,13 @@ export const getUserById = async (id) => {
     if (!user) throw new ApiError(404, 'User not found');
     return user;
 };
+
+export const getAllUserByRole = async (role) => {
+    //check if role exists
+    const roleRecord = await roleModel.findRoleByName(role);
+    if(!roleRecord){
+        throw new ApiError(404, 'User Role not Found');
+    }
+    const Users = await userModel.findUserByRole(role);
+    return Users;
+}
