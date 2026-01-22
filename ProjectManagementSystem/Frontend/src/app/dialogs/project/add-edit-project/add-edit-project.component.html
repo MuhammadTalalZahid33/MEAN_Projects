@@ -12,7 +12,7 @@
         </mat-error>
 
         <mat-error *ngIf="f['name'].hasError('minlength')">
-            Project name must be at least 3 characters
+            Project name must be at least 5 characters
         </mat-error>
 
         <mat-error *ngIf="f['name'].hasError('maxlength')">
@@ -23,7 +23,7 @@
 
     <mat-form-field appearance="outline" class="full-width">
         <mat-label>Description</mat-label>
-        <textarea matInput rows="3" formControlName="description" placeholder="Enter description"></textarea>
+        <textarea matInput rows="5" formControlName="description" placeholder="Enter description"></textarea>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">

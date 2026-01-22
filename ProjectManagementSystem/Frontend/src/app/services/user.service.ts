@@ -18,4 +18,14 @@ export class UserService {
       })
     )
   }
+
+  getYourData(id: any){
+    return this.http.get(`${this.url}/user/${id}`)
+    .pipe(
+      catchError((error) => {
+        console.log("error getting your data...");
+        throw error;
+      })
+    )
+  }
 }

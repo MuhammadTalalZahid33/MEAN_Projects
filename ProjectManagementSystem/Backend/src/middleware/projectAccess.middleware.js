@@ -6,8 +6,7 @@ export const canManageProject = async (req, _res, next) => {
   
   const user = req.user;
   const role = req.user.role.toLowerCase();
-
-  console.log("project id and user, role: ", projectId, user, role)
+  
   const project = await projectModel.getProjectById(projectId);
 
   if (!project) {

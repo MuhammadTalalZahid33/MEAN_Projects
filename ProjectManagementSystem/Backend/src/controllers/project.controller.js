@@ -40,7 +40,6 @@ const updateProject = AsyncHandler(async (req, res, next) => {
     if (!id) {
         throw new ApiError(404, 'Couldn\'t receive project id from request params');
     }
-    console.log("req body: and id", req.body, id);
     const { name, description, manager_id, start_date, end_date, status } = req.body;
     if (!name || !manager_id) {
         throw new ApiError(400, 'Project name and manager ID are required');

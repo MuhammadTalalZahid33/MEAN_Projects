@@ -1,0 +1,49 @@
+<form [formGroup]="userForm" class="user-form">
+    <h2>User Form</h2>
+
+    <label for="name"></label>
+    <input type="text" id="name" placeholder="Enter user name" formControlName="name">
+    <div class="error" *ngIf="f['name'].invalid && f['name'].touched">
+        <small *ngIf="f['name'].errors?.['required']">User Name is required</small>
+        <small *ngIf="f['name'].errors?.['minlength']">user name should have minimum length of 6</small>
+    </div>
+
+    <label for="email"></label>
+    <input type="text" id="email" placeholder="Enter email" formControlName="email">
+    <div class="error" *ngIf="f['email'].invalid && f['email'].touched">
+        <small *ngIf="f['email'].errors?.['required']">Email is required</small>
+    </div>
+
+    @if(this.userRole() !== 'MEMBER' && isEdit === false ){
+    <label for="password"></label>
+    <div class="password-wrapper">
+        <input [type]="showPassword ? 'text' : 'password'" id="password" placeholder="Enter password"
+            formControlName="password">
+
+        <span class="toggle-eye" (click)="togglePassword()">
+            {{ showPassword ? '😑' : '👀' }}
+        </span>
+    </div>
+
+    <div class="error" *ngIf="f['password'].invalid && f['password'].touched">
+        <small *ngIf="f['password'].errors?.['required']">password is required</small>
+        <small *ngIf="f['password'].errors?.['minlength']">password should have minimum length of 4</small>
+        <small *ngIf="f['password'].errors?.['maxlength']">password should have maximum length of 15</small>
+    </div>
+    }
+
+    <label for="role"></label>
+    <select name="role" id="role" formControlName="role">
+        <option value="">Select role</option>
+        <option value="admin">Admin</option>
+        <option value="manager">Manager</option>
+        <option value="member">Member</option>
+    </select>
+    <div class="error" *ngIf="f['role'].invalid && f['role'].touched">
+        <small>Please select role...</small>
+    </div>
+
+    <button type="submit" [disabled]="userForm.invalid" (click)="submit(userForm)">
+        Submit
+    </button>
+</form>
