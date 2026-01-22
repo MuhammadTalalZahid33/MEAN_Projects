@@ -18,7 +18,6 @@ export class AddEditUserComponent {
   data = inject(MAT_DIALOG_DATA)
 
   //Services 
-  // private projectService = inject(ProjectsService);
   private userService = inject(UserService);
   private authService = inject(AuthService);
   userRole = this.authService.userRole;
@@ -54,30 +53,8 @@ export class AddEditUserComponent {
     this.showPassword = !this.showPassword;
   }
 
-  // private formatDate(date: Date | string | null): string | null {
-  //   if (!date) return null;
-
-  //   // If already formatted string
-  //   if (typeof date === 'string') {
-  //     return date.split('T')[0];
-  //   }
-
-  //   const year = date.getFullYear();
-  //   const month = String(date.getMonth() + 1).padStart(2, '0');
-  //   const day = String(date.getDate()).padStart(2, '0');
-
-  //   return `${year}-${month}-${day}`;
-  // }
-
-
-
   submit(uData: any) {
     if (this.userForm.valid) {
-      // const payload = {
-      //   ...pData.value,
-      //   start_date: this.formatDate(pData.value.start_date),
-      //   end_date: this.formatDate(pData.value.end_date)
-      // };
       if (this.isEdit) {
         console.log("project data: ", uData.value);
         // this.userService.editUser(payload, this.data.projectData.id).subscribe();
