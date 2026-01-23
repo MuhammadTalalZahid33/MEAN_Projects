@@ -24,6 +24,10 @@ export const fetchTasksByProject = async (projectId) => {
   return tasks;
 };
 
+export const fetchTasks = async () => {
+  return await taskModel.getAllTasks();
+}
+
 export const fetchTask = async (id) => {
   const task = await taskModel.getTaskById(id);
   if (!task) {

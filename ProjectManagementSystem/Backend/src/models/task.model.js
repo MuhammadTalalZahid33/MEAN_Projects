@@ -45,6 +45,22 @@ export const getTasksByProject = async (projectId) => {
   return rows;
 };
 
+
+export const getAllTasks = async () => {
+  const db = connectDB();
+
+    const [rows] = await db.execute(
+        `SELECT 
+        t.*,
+        u.id AS user_id,
+        u.name AS user_name
+     FROM tasks t
+     JOIN users u ON t.assigned_to = u.id`
+    );
+
+    return rows;
+}
+
 export const getTaskById = async (id) => {
   const db = connectDB();
 
