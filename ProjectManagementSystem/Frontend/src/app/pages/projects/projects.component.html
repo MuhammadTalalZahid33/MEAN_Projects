@@ -71,6 +71,7 @@
       <tr>
         <th>Project</th>
         <th>Description</th>
+        <th>Manager</th>
         <th>Status</th>
         <th class="actions-col">Actions</th>
       </tr>
@@ -86,6 +87,9 @@
             {{ p.description?.length > 40 ? '...' : '' }}
           </td>
 
+          <td class="manager">
+            {{p.manager_name}}
+          </td>
           <td>
             <span class="status-badge" [class.active]="p.status === 'active'">
               {{ p.status | titlecase }}
