@@ -33,6 +33,7 @@ export class SettingsComponent implements OnInit {
 
   editProfile(){
     this.dialogRef.open(AddEditUserComponent, {
+      width: '400px',
       data: {
         mode: 'edit',
         userData: this.userObj

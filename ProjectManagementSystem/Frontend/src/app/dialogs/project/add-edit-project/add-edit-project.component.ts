@@ -35,7 +35,7 @@ export class AddEditProjectComponent implements OnInit {
 
   //infile variables
   isEdit = false
-  managers: any
+  managers: any = null
 
   constructor() { }
 
@@ -44,7 +44,7 @@ export class AddEditProjectComponent implements OnInit {
     description: new FormControl(''),
     manager_id: new FormControl(null, [Validators.required]),
     start_date: new FormControl<Date | null>(null),
-  end_date: new FormControl<Date | null>(null),
+    end_date: new FormControl<Date | null>(null),
     status: new FormControl('active', [Validators.required])
   });
 
