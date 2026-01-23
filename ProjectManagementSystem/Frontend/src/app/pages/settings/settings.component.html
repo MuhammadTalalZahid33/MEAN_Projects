@@ -1,29 +1,32 @@
 <div class="about">
-<div class="topbar">
-    <h2 class="title">About Yourself</h2>
-    <button class="add-btn" (click)="editProfile()">
-        Edit Profile
-    </button>
-</div>
+    <div class="topbar">
+        <h2 class="title">About Yourself</h2>
+        <button class="edit-btn" (click)="editProfile()">
+            Edit Profile
+        </button>
+    </div>
+
     <div class="user-details">
         <div class="detail-row">
             <span class="label">Id:</span>
             <span>{{ this.userObj.id }}</span>
         </div>
+        <hr>
         <div class="detail-row">
             <span class="label">Name:</span>
             <span>{{ this.userObj.name }}</span>
         </div>
-
+        <hr>
         <div class="detail-row">
             <span class="label">Email:</span>
             <span>{{ this.userObj.email }}</span>
         </div>
-
+        <hr>
         <div class="detail-row">
             <span class="label">Role:</span>
             <span>{{ this.userObj.role | titlecase }}</span>
         </div>
+        <hr>
     </div>
 
 </div>

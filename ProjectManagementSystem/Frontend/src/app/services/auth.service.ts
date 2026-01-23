@@ -37,7 +37,7 @@ export class AuthService {
               localStorage.setItem("token", res.data.token);
               localStorage.setItem("userId", res.data.user.id);
               localStorage.setItem("role", res.data.user.role);
-              // console.log("logged In user: ",res.data.user);
+              console.log("logged In user: ",res.data);
               // get role to decide whether to show the User tab or not...
               this.userRole.set(res.data.user.role);
               // console.log("user role:",this.userRole);

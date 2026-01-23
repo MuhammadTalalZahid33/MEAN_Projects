@@ -35,9 +35,9 @@
     <label for="role"></label>
     <select name="role" id="role" formControlName="role">
         <option value="">Select role</option>
-        <option value="admin">Admin</option>
-        <option value="manager">Manager</option>
-        <option value="member">Member</option>
+        <option value="ADMIN">Admin</option>
+        <option value="MANAGER">Manager</option>
+        <option value="MEMBER">Member</option>
     </select>
     <div class="error" *ngIf="f['role'].invalid && f['role'].touched">
         <small>Please select role...</small>

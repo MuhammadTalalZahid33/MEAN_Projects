@@ -1,4 +1,4 @@
-<div class="topbar">
+<!-- <div class="topbar">
     <h2 class="title">Project Board</h2>
     @if(this.role() !== 'MEMBER'){
     <button class="add-btn" (click)="addProject()">
@@ -21,7 +21,6 @@
             <h3>{{ p.name }}</h3>
 
             <p class="description">
-                <!-- {{ p.description || 'No description provided' }} -->
                 {{ p.description || 'No description provided' | slice:0:40 }}{{ p.description?.length > 120 ? '...' : ''
                 }}
             </p>
@@ -49,8 +48,67 @@
             </button>
 
         </div>
-        <!-- <hr> -->
     </div>
     }
 
+</div> -->
+
+<div class="topbar">
+  <h2 class="title">Project Board</h2>
+
+  @if (this.role() !== 'MEMBER') {
+    <button class="add-btn" (click)="addProject()">+ Add Project</button>
+  }
 </div>
+
+@if (Project.length === 0) {
+  <p>No projects available.</p>
+}
+
+@if (Project.length > 0) {
+  <table class="project-table">
+    <thead>
+      <tr>
+        <th>Project</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th class="actions-col">Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (p of Project; track p.id) {
+        <tr>
+          <td class="project-name">{{ p.name }}</td>
+
+          <td class="description">
+            {{ p.description || 'No description provided' | slice:0:40 }}
+            {{ p.description?.length > 40 ? '...' : '' }}
+          </td>
+
+          <td>
+            <span class="status-badge" [class.active]="p.status === 'active'">
+              {{ p.status | titlecase }}
+            </span>
+          </td>
+
+          <td class="actions-cell">
+            <div class="kebab-wrapper">
+              <button class="kebab-btn" (click)="toggleMenu(p.id, $event)">
+                ⋮
+              </button>
+
+              <div class="dropdown" *ngIf="openMenuId === p.id">
+                @if (this.role() !== 'MEMBER') {
+                  <button (click)="editProject(p)">✏️ Edit</button>
+                } 
+                <button (click)="StartWork()">🧑‍💻 Start Work</button>
+                <button (click)="ViewDetails(p)">ℹ️ View Details</button>
+              </div>
+            </div>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}

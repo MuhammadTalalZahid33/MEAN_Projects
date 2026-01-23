@@ -9,6 +9,14 @@ export class UserService {
   url = userApi
   constructor(private http: HttpClient) { }
 
+  getAllUsers(){
+    return this.http.get(`${this.url}/allUsers`)
+    .pipe(catchError((error) => {
+      console.log("error getting all users: ", error);
+      throw error;
+    }))
+  }
+
   getUsersByRole(role: any){
     return this.http.get(`${this.url}/byRole/${role}`)
     .pipe(

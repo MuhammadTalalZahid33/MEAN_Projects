@@ -1,6 +1,6 @@
-import { Component, inject, model, OnInit } from '@angular/core';
+import { Component, HostListener, inject, model, OnInit } from '@angular/core';
 import { ProjectsService } from '../../services/projects.service';
-import { DatePipe, SlicePipe } from '@angular/common';
+import { DatePipe, NgIf, SlicePipe, TitleCasePipe } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AddEditProjectComponent } from '../../dialogs/project/add-edit-project/add-edit-project.component';
 import { MatIcon } from '@angular/material/icon';
@@ -10,7 +10,7 @@ import { ProjectDetailsComponent } from '../../dialogs/project/project-details/p
 @Component({
   selector: 'app-projects',
   standalone: true,
-  imports: [SlicePipe, MatDialogModule, MatIcon],
+  imports: [SlicePipe, MatDialogModule, TitleCasePipe, NgIf],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss'
 })
@@ -64,17 +64,31 @@ export class ProjectsComponent implements OnInit {
     })
   }
 
-  ViewDetails(pData: any){
+  ViewDetails(pData: any) {
     console.log("project details: ", pData);
     this.dialogRef.open(ProjectDetailsComponent, {
       width: '600px',
-      data:{
+      data: {
         projectData: pData
       }
     })
   }
 
-  StartWork(){
+  StartWork() {
 
   }
+
+
+  openMenuId: number | null = null;
+
+  toggleMenu(id: number, event: Event) {
+    event.stopPropagation();
+    this.openMenuId = this.openMenuId === id ? null : id;
+  }
+
+  @HostListener('document:click')
+  closeMenu() {
+    this.openMenuId = null;
+  }
+
 }

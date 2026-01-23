@@ -38,6 +38,7 @@ export class AddEditUserComponent {
   ngOnInit(): void {
     if (this.data.mode == 'edit') {
       this.isEdit = true;
+      this.userForm.get('password')?.disable();
       this.userForm.patchValue(this.data.userData);
       console.log("user data: ", this.data.userData);
     }
@@ -67,8 +68,6 @@ export class AddEditUserComponent {
     } else {
       alert("please fill all required fields...")
     }
-
-
   }
 
   cancel() {

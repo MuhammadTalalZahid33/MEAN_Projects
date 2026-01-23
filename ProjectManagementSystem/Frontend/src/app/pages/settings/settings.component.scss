@@ -1,9 +1,10 @@
-
 .topbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
+    // max-width: 460px;
+    // gap: 3rem;
+    // overflow: ;
     padding: 1rem 1rem;
 }
 
@@ -14,7 +15,8 @@
     color: #1f2937; // dark slate
 }
 
-.add-btn {
+.edit-btn {
+    margin-left: 3rem;
     display: flex;
     align-items: center;
     gap: 0.4rem;
@@ -47,19 +49,34 @@
 
 
 .user-details {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 1rem 3rem;
 }
 
 .detail-row {
-  display: grid;
-  grid-template-columns: 100px 1fr;
-  gap: 12px;
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 12px;
 }
 
 .label {
-  font-weight: 600;
-  color: #555;
+    font-weight: 600;
+    color: #555;
+}
+
+hr {
+    width: 400px;
+    /* any value: px, %, rem */
+}
+
+@media (max-width: 680px) {
+    hr {
+        width: 300px;
+    }
+    .user-details {
+    margin: 1rem 1rem;
+}
+
 }
