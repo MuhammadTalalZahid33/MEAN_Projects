@@ -40,25 +40,6 @@ export const createTask = AsyncHandler(async (req, res) => {
   );
 });
 
-// export const getTasksByProject = AsyncHandler(async (req, res) => {
-//   const { projectId } = req.params;
-//   if (!projectId) {
-//     // throw new ApiError(400, 'projectId is required');
-//     try {
-//       const tasks = await fetchTasks();
-//       res.status(200)
-//         .json(new ApiResponse(200, { tasks }, 'Tasks fetched successfully'));
-//     } catch (error) {
-//       console.log("Error in fetching Tasks: ", error);
-//       throw new ApiError(400, 'Failed to fetch Tasks');
-//     }
-//   } else {
-//     const tasks = await fetchTasksByProject(projectId);
-//     res.json(new ApiResponse(200, tasks, 'Tasks fetched successfully'));
-//   }
-
-// });
-
 export const getTasksByProject = AsyncHandler(async (req, res) => {
   const { projectId } = req.query;
 
@@ -70,18 +51,6 @@ export const getTasksByProject = AsyncHandler(async (req, res) => {
     .status(200)
     .json(new ApiResponse(200, { tasks }, 'Tasks fetched successfully'));
 });
-
-
-// export const getAllTasks = AsyncHandler(async (req, res) => {
-//   try {
-//     const tasks = await fetchTasks();
-//     res.status(200)
-//       .json(new ApiResponse(200, { tasks }, 'Tasks fetched successfully'));
-//   } catch (error) {
-//     console.log("Error in fetching Tasks: ", error);
-//     throw new ApiError(400, 'Failed to fetch Tasks');
-//   }
-// });
 
 export const getTask = AsyncHandler(async (req, res) => {
   const { id } = req.params;
