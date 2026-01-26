@@ -9,8 +9,8 @@ export class TasksService {
   url = taskApi
   constructor(private http: HttpClient) { }
 
-  getAllTasks(){
-    
+  getTasks() {
+    return this.http.get<any>(`${this.url}/getAllTasks`)
   }
 
 }
