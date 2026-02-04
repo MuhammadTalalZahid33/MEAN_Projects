@@ -42,7 +42,7 @@ export class ProjectsComponent implements OnInit {
     })
 
     dialogref.afterClosed().subscribe(result => {
-      if (result.success) {
+      if (result?.success) {
         // this.projectService.addProject(result).subscribe();
       }
     });
@@ -58,7 +58,7 @@ export class ProjectsComponent implements OnInit {
       }
     })
     dialogref.afterClosed().subscribe(result => {
-      if (result.success) {
+      if (result?.success) {
 
       }
     })

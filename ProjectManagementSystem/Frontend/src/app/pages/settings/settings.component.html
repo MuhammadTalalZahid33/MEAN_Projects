@@ -9,22 +9,22 @@
     <div class="user-details">
         <div class="detail-row">
             <span class="label">Id:</span>
-            <span>{{ this.userObj.id }}</span>
+            <span>{{ this.userObj?.id }}</span>
         </div>
         <hr>
         <div class="detail-row">
             <span class="label">Name:</span>
-            <span>{{ this.userObj.name }}</span>
+            <span>{{ this.userObj?.name }}</span>
         </div>
         <hr>
         <div class="detail-row">
             <span class="label">Email:</span>
-            <span>{{ this.userObj.email }}</span>
+            <span>{{ this.userObj?.email }}</span>
         </div>
         <hr>
         <div class="detail-row">
             <span class="label">Role:</span>
-            <span>{{ this.userObj.role | titlecase }}</span>
+            <span>{{ this.userObj?.role | titlecase }}</span>
         </div>
         <hr>
     </div>
