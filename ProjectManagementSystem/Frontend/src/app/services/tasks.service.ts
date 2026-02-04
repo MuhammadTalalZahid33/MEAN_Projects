@@ -20,4 +20,12 @@ export class TasksService {
     )
   }
 
+  addTask(payload: any): Observable<any>{
+    return this.http.post<any>(`${this.url}/`, payload);
+  }
+
+  updateTask(payload: any, id: any){
+    return this.http.post<any>(`${this.url}/id?=${id}`, payload);
+  }
+
 }

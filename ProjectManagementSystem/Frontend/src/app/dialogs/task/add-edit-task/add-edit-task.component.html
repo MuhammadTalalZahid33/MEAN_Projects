@@ -1,0 +1,86 @@
+<h2 mat-dialog-title>
+  {{ isEdit ? 'Edit Task' : 'Add Task' }}
+</h2>
+
+<mat-dialog-content class="dialog-content">
+  <form [formGroup]="taskForm" mat-dialog-content>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Task Title</mat-label>
+      <input matInput formControlName="title" placeholder="Enter task title" />
+
+      <mat-error *ngIf="f['title'].hasError('required')">
+        Task title is required
+      </mat-error>
+
+      <mat-error *ngIf="f['title'].hasError('minlength')">
+        Minimum 5 characters required
+      </mat-error>
+
+      <mat-error *ngIf="f['title'].hasError('maxlength')">
+        Maximum 30 characters allowed
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Description</mat-label>
+      <textarea matInput rows="4"
+                formControlName="description"
+                placeholder="Enter task description"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Assign To</mat-label>
+      <mat-select formControlName="assigned_to">
+        <mat-option *ngFor="let user of users" [value]="user.id">
+          {{ user.name }}
+        </mat-option>
+      </mat-select>
+
+      <div class="error" *ngIf="f['assigned_to'].invalid && f['assigned_to'].touched">
+        <small>Task must be assigned</small>
+      </div>
+    </mat-form-field>
+
+    <div class="date-row">
+      <mat-form-field appearance="outline" class="date-field">
+        <mat-label>Priority</mat-label>
+        <mat-select formControlName="priority">
+          <mat-option value="low">Low</mat-option>
+          <mat-option value="medium">Medium</mat-option>
+          <mat-option value="high">High</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="date-field">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="todo">To Do</mat-option>
+          <mat-option value="in_progress">In Progress</mat-option>
+          <mat-option value="completed">Completed</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Due Date</mat-label>
+      <input matInput
+             [matDatepicker]="duePicker"
+             formControlName="due_date"
+             placeholder="Choose due date">
+      <mat-datepicker-toggle matSuffix [for]="duePicker"></mat-datepicker-toggle>
+      <mat-datepicker #duePicker></mat-datepicker>
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancel</button>
+  <button mat-flat-button
+          color="primary"
+          (click)="submit(taskForm)"
+          [disabled]="taskForm.invalid">
+    {{ isEdit ? 'Update' : 'Create' }}
+  </button>
+</mat-dialog-actions>

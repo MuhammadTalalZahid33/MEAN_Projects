@@ -1,8 +1,11 @@
-import { Component, inject, model, OnInit } from '@angular/core';
+import { Component, HostListener, inject, model, OnInit } from '@angular/core';
 import { TasksService } from '../../services/tasks.service';
 import { Task } from '../../core/models/task.model';
 import { AuthService } from '../../services/auth.service';
 import { DatePipe, SlicePipe, TitleCasePipe } from '@angular/common';
+import { DialogRef } from '@angular/cdk/dialog';
+import { AddEditTaskComponent } from '../../dialogs/task/add-edit-task/add-edit-task.component';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-tasks',
   standalone: true,
@@ -16,6 +19,7 @@ export class TasksComponent implements OnInit {
   role = this.authService.userRole;
   constructor(
     private taskService: TasksService,
+    private dialogRef: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -29,19 +33,41 @@ export class TasksComponent implements OnInit {
     })
   }
 
-  addTask(){
+  addTask() {
+    const dialogref = this.dialogRef.open(AddEditTaskComponent, {
+      width: '600px',
+      data: {
+        mode: 'add'
+      }
+    })
+
+    dialogref.afterClosed().subscribe(result => {
+      if (result?.success) {
+        // this.projectService.addProject(result).subscribe();
+      }
+    });
+  }
+
+  editTask(tData: Task) {
+    const dialogref = this.dialogRef.open(AddEditTaskComponent, {
+      width: '600px',
+      data: {
+        mode: 'edit',
+        taskData: tData
+      }
+    })
+    dialogref.afterClosed().subscribe(result => {
+      if (result?.success) {
+
+      }
+    })
+  }
+
+  viewTask(task: Task) {
 
   }
 
-  editTask(task: Task){
-
-  }
-
-  viewTask(task: Task){
-
-  }
-
-  deleteTask(taskId: any){
+  deleteTask(taskId: any) {
 
   }
 
@@ -50,5 +76,9 @@ export class TasksComponent implements OnInit {
     event.stopPropagation();
     this.openMenuId = this.openMenuId === id ? null : id;
   }
-  
+
+  @HostListener('document:click')
+  closeMenu() {
+    this.openMenuId = null;
+  }
 }

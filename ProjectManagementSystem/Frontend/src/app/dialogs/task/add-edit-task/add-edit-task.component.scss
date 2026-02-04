@@ -1,0 +1,86 @@
+/* Dialog container spacing */
+:host {
+  display: block;
+}
+
+/* Title */
+h2[mat-dialog-title] {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #1f2937; // dark slate
+}
+
+/* Form layout */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Full width fields */
+.full-width {
+  width: 100%;
+}
+
+/* Date row */
+.date-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.date-field {
+  flex: 1;
+}
+
+/* Material form field spacing */
+mat-form-field {
+  margin-bottom: 1rem;
+}
+
+/* Error messages (same vibe as login form) */
+.error {
+  margin-top: 0.25rem;
+
+  small {
+    color: #e53935; // Material red
+    font-size: 0.75rem;
+    display: block;
+  }
+}
+
+/* Dialog action buttons */
+mat-dialog-actions {
+  gap: 0.5rem;
+}
+
+/* Cancel button */
+button[mat-button] {
+  color: #6b7280; // gray-500
+}
+
+/* Primary action button */
+button[mat-flat-button] {
+  min-width: 110px;
+  font-weight: 500;
+  border-radius: 6px;
+}
+
+/* Improve overall dialog look */
+::ng-deep .mat-mdc-dialog-container {
+  border-radius: 12px;
+}
+
+::ng-deep .mat-mdc-dialog-surface {
+  overflow: hidden;
+}
+
+.dialog-content {
+  padding: 0;
+}
+
+/* Responsive tweak */
+@media (max-width: 600px) {
+  .date-row {
+    flex-direction: column;
+  }
+}
