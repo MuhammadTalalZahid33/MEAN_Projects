@@ -1,1 +1,78 @@
-<p>tasks works!</p>
+<div class="topbar">
+    <h2 class="title">Task Board</h2>
+
+    @if (this.role() !== 'MEMBER') {
+    <button class="add-btn" (click)="addTask()">+ Add Task</button>
+    }
+</div>
+
+@if (tasks.length === 0) {
+<p>No tasks available.</p>
+}
+
+@if (tasks.length > 0) {
+<table class="task-table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Priority</th>
+            <th>Status</th>
+            <th>Due Date</th>
+            <th class="actions-col">Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @for (t of tasks; track t.id) {
+        <tr>
+            <td class="task-title">
+                {{ t.title }}
+            </td>
+
+            <td class="description">
+                {{ t.description || 'No description provided' | slice:0:40 }}
+                {{ t.description.length > 40 ? '...' : '' }}
+            </td>
+
+            <td>
+                <span class="priority-badge" [class.low]="t.priority === 'low'" [class.medium]="t.priority === 'medium'"
+                    [class.high]="t.priority === 'high'">
+                    {{ t.priority | titlecase }}
+                </span>
+            </td>
+
+            <td>
+                <span class="status-badge" [class.todo]="t.status === 'todo'"
+                    [class.in-progress]="t.status === 'in_progress'" [class.completed]="t.status === 'completed'">
+                    {{ t.status.replace('_', ' ') | titlecase }}
+                </span>
+            </td>
+
+            <td>
+                {{ t.due_date | date:'mediumDate' }}
+            </td>
+
+            <td class="actions-cell">
+                <div class="kebab-wrapper">
+                    <button class="kebab-btn" (click)="toggleMenu(t.id, $event)">
+                        ⋮
+                    </button>
+                    @if(openMenuId === t.id){
+                    <div class="dropdown">
+                        @if (this.role() !== 'MEMBER') {
+                        <button (click)="editTask(t)">✏️ Edit</button>
+                        }
+                        <button (click)="viewTask(t)">ℹ️ View Details</button>
+                        @if (this.role() !== 'MEMBER') {
+                        <button (click)="deleteTask(t.id)">🗑️ Delete</button>
+                        }
+                    </div>
+                    }
+                </div>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+}

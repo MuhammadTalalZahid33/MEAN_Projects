@@ -75,7 +75,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   StartWork() {
-
+      
   }
 
 
