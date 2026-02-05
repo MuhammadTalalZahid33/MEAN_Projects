@@ -24,98 +24,6 @@
     width: 15rem;
 }
 
-
-// .rightside {
-//     display: flex;
-//     align-items: center;
-//     // gap: 2rem;
-// }
-
-// select {
-//     /* Basic styling */
-//     //   background-color: rgb(6, 31, 57);
-//     color: white;
-//     padding: 10px;
-//     border-radius: 3px;
-//     background: #833AB4;
-//     background: linear-gradient(90deg, rgba(131, 58, 180, 1) 0%, rgba(253, 29, 29, 1) 50%, rgba(252, 176, 69, 1) 100%);
-//     border: none;
-// }
-
-// /* Style the select when it is hovered or focused */
-// select:hover,
-// select:focus {
-//     border-color: #666;
-// }
-
-// /* Style the options within the dropdown (support is limited and inconsistent) */
-// select option {
-//     background-color: white;
-//     color: black;
-// }
-
-// .profile-block button {
-//     display: flex;
-//     flex-direction: row-reverse;
-//     align-items: center;
-// }
-
-// .profile-block span {
-//     color: white;
-//     // font-size: 15px;
-// }
-
-// button mat-icon {
-//     // font-size: 16px;
-//     color: white;
-//     // width: 16px;
-//     // height: 16px;
-// }
-
-// .call-controls{
-//     border: 2px solid red;
-//     border-radius: 3px;
-// }
-
-
-
-// /* HEADER CONTAINER */
-// .header {
-//     display: flex;
-//     justify-content: space-between;
-//     align-items: center;
-//     background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
-//     padding: 0.8rem 2rem;
-//     color: white;
-//     box-shadow: 0 4px 20px rgba(99, 102, 241, 0.2);
-//     position: relative;
-//     z-index: 100;
-//     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-// }
-
-// /* LOGO SECTION */
-// .logo {
-//     cursor: pointer;
-//     transition: all 0.3s ease;
-//     padding-left: 0.5rem;
-// }
-
-// .logo:hover {
-//     transform: translateY(-1px);
-// }
-
-// .pms-logo {
-//     height: 2.8rem;
-//     width: auto;
-//     max-width: 180px;
-//     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-//     transition: filter 0.3s ease;
-// }
-
-// .pms-logo:hover {
-//     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.15));
-// }
-
 /* RIGHT SIDE SECTION */
 .right-side {
     display: flex;
@@ -176,6 +84,7 @@
     height: 20px;
     font-size: 20px;
     transition: transform 0.3s ease;
+    margin: 0 auto;
 }
 
 .profile-main[aria-expanded="true"] mat-icon {
