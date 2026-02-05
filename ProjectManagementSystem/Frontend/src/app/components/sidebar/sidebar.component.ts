@@ -22,7 +22,7 @@ export class SidebarComponent {
   //Sidebar Auto Close
   private breakpointObserver = inject(BreakpointObserver);
 
-   constructor() {
+  constructor() {
     this.breakpointObserver
       .observe(['(max-width: 900px)'])
       .subscribe(result => {
