@@ -12,27 +12,27 @@ import {
 
 export const createTask = AsyncHandler(async (req, res) => {
   const {
-    projectId,
-    assignedTo,
+    project_id,
+    assigned_to,
     title,
     description,
     priority,
     status,
-    dueDate
+    due_date
   } = req.body;
 
-  if (!projectId || !assignedTo || !title) {
-    throw new ApiError(400, 'projectId, assignedTo and title are required');
+  if (!project_id || !assigned_to || !title) {
+    throw new ApiError(400, 'project_id, assigned_to and title are required');
   }
 
   const id = await createNewTask({
-    projectId,
-    assignedTo,
+    project_id,
+    assigned_to,
     title,
     description,
     priority,
     status,
-    dueDate
+    due_date
   });
 
   res.status(201).json(
@@ -41,10 +41,10 @@ export const createTask = AsyncHandler(async (req, res) => {
 });
 
 export const getTasksByProject = AsyncHandler(async (req, res) => {
-  const { projectId } = req.query;
+  const { project_id } = req.query;
 
-  const tasks = projectId
-    ? await fetchTasksByProject(projectId)
+  const tasks = project_id
+    ? await fetchTasksByProject(project_id)
     : await fetchTasks();
 
   return res

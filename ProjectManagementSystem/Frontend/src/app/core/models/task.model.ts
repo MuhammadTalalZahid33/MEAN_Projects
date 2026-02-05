@@ -7,4 +7,8 @@ export interface Task {
   priority: 'low' | 'medium' | 'high';
   status: 'todo' | 'in_progress' | 'completed';
   due_date: string;      // ISO date string (YYYY-MM-DD)
+  created_at?: string;         // auto-generated
+  updated_at?: string;         // auto-updated
+  user_id?: number;
+  user_name?: string;
 }

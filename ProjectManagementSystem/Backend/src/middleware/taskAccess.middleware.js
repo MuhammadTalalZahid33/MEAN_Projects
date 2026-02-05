@@ -4,7 +4,9 @@ import * as taskModel from '../models/task.model.js';
 export const canAccessTask = async (req, _res, next) => {
   const taskId = req.params.id;
   const user = req.user;
+  const role = req.user?.role?.toLowerCase()
 
+  console.log("taskid, user: ", taskId, user);
   const task = await taskModel.getTaskById(taskId);
 
   if (!task) {
@@ -22,7 +24,7 @@ export const canAccessTask = async (req, _res, next) => {
   }
 
   // Member can access only assigned tasks
-  if (user.role === 'member' && task.assigned_to === user.id) {
+  if (role === 'member' && task.assigned_to === user.id) {
     return next();
   }
 

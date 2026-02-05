@@ -5,13 +5,13 @@ import * as userModel from '../models/user.model.js';
 
 export const createNewTask = async (data) => {
   // Validate project
-  const project = await projectModel.getProjectById(data.projectId);
+  const project = await projectModel.getProjectById(data.project_id);
   if (!project) {
     throw new ApiError(400, 'Invalid project_id');
   }
 
   // Validate assigned user
-  const user = await userModel.findUserById(data.assignedTo);
+  const user = await userModel.findUserById(data.assigned_to);
   if (!user) {
     throw new ApiError(400, 'Invalid assigned_to user');
   }
@@ -19,8 +19,8 @@ export const createNewTask = async (data) => {
   return await taskModel.createTask(data);
 };
 
-export const fetchTasksByProject = async (projectId) => {
-  const tasks = await taskModel.getTasksByProject(projectId);
+export const fetchTasksByProject = async (project_id) => {
+  const tasks = await taskModel.getTasksByProject(project_id);
   return tasks;
 };
 

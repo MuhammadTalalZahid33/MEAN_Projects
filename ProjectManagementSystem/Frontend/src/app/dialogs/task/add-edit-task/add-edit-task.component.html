@@ -24,10 +24,22 @@
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Description</mat-label>
-      <textarea matInput rows="4"
-                formControlName="description"
-                placeholder="Enter task description"></textarea>
+      <textarea matInput rows="4" formControlName="description" placeholder="Enter task description"></textarea>
     </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Project</mat-label>
+      <mat-select formControlName="project_id">
+        <mat-option *ngFor="let project of projects" [value]="project.id">
+          {{ project.name }}
+        </mat-option>
+      </mat-select>
+
+      <div class="error" *ngIf="f['project_id'].invalid && f['project_id'].touched">
+        <small>Project selection is required</small>
+      </div>
+    </mat-form-field>
+
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Assign To</mat-label>
@@ -64,10 +76,7 @@
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Due Date</mat-label>
-      <input matInput
-             [matDatepicker]="duePicker"
-             formControlName="due_date"
-             placeholder="Choose due date">
+      <input matInput [matDatepicker]="duePicker" formControlName="due_date" placeholder="Choose due date">
       <mat-datepicker-toggle matSuffix [for]="duePicker"></mat-datepicker-toggle>
       <mat-datepicker #duePicker></mat-datepicker>
     </mat-form-field>
@@ -77,10 +86,7 @@
 
 <mat-dialog-actions align="end">
   <button mat-button (click)="cancel()">Cancel</button>
-  <button mat-flat-button
-          color="primary"
-          (click)="submit(taskForm)"
-          [disabled]="taskForm.invalid">
+  <button mat-flat-button color="primary" (click)="submit(taskForm)" [disabled]="taskForm.invalid">
     {{ isEdit ? 'Update' : 'Create' }}
   </button>
 </mat-dialog-actions>

@@ -1,13 +1,13 @@
 import connectDB from '../config/db.js';
 
 export const createTask = async ({
-  projectId,
-  assignedTo,
+  project_id,
+  assigned_to,
   title,
   description,
   priority,
   status,
-  dueDate
+  due_date
 }) => {
   const db = connectDB();
 
@@ -16,20 +16,20 @@ export const createTask = async ({
      (project_id, assigned_to, title, description, priority, status, due_date)
      VALUES (?, ?, ?, ?, ?, ?, ?)`,
     [
-      projectId,
-      assignedTo,
+      project_id,
+      assigned_to,
       title,
       description || null,
       priority || 'medium',
       status || 'todo',
-      dueDate || null
+      due_date || null
     ]
   );
 
   return result.insertId;
 };
 
-export const getTasksByProject = async (projectId) => {
+export const getTasksByProject = async (project_id) => {
   const db = connectDB();
 
   const [rows] = await db.execute(
@@ -39,7 +39,7 @@ export const getTasksByProject = async (projectId) => {
      FROM tasks t
      JOIN users u ON t.assigned_to = u.id
      WHERE t.project_id = ?`,
-    [projectId]
+    [project_id]
   );
 
   return rows;
@@ -85,8 +85,8 @@ export const updateTask = async (id, data) => {
       data.description,
       data.priority,
       data.status,
-      data.assignedTo,
-      data.dueDate,
+      data.assigned_to,
+      data.due_date,
       id
     ]
   );

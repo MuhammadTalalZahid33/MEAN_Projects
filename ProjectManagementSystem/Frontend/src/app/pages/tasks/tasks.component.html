@@ -16,6 +16,7 @@
         <tr>
             <th>Title</th>
             <th>Description</th>
+            <th>Assigned To</th>
             <th>Priority</th>
             <th>Status</th>
             <th>Due Date</th>
@@ -33,6 +34,10 @@
             <td class="description">
                 {{ t.description || 'No description provided' | slice:0:40 }}
                 {{ t.description.length > 40 ? '...' : '' }}
+            </td>
+
+            <td>
+                {{ t.user_name || 'Unassigned' }} <!-- Render Assigned To -->
             </td>
 
             <td>
@@ -60,9 +65,9 @@
                     </button>
                     @if(openMenuId === t.id){
                     <div class="dropdown">
-                        @if (this.role() !== 'MEMBER') {
+                        <!-- @if (this.role() !== 'MEMBER') { -->
                         <button (click)="editTask(t)">✏️ Edit</button>
-                        }
+                        <!-- } -->
                         <button (click)="viewTask(t)">ℹ️ View Details</button>
                         @if (this.role() !== 'MEMBER') {
                         <button (click)="deleteTask(t.id)">🗑️ Delete</button>

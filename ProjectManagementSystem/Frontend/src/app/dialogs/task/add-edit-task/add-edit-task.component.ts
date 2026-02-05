@@ -8,6 +8,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { TasksService } from '../../../services/tasks.service';
 import { UserService } from '../../../services/user.service';
+import { Project } from '../../../core/models/project.model';
+import { ProjectsService } from '../../../services/projects.service';
 
 @Component({
   selector: 'app-add-edit-task',
@@ -32,9 +34,11 @@ export class AddEditTaskComponent implements OnInit {
 
   private taskService = inject(TasksService);
   private userService = inject(UserService);
+  private projectService = inject(ProjectsService);
 
   isEdit = false;
   users: any[] = [];
+  projects: Project[] = []
 
   taskForm = new FormGroup({
     title: new FormControl('', [
@@ -43,6 +47,7 @@ export class AddEditTaskComponent implements OnInit {
       Validators.maxLength(30)
     ]),
     description: new FormControl(''),
+    project_id: new FormControl(null, Validators.required), 
     assigned_to: new FormControl(null, Validators.required),
     priority: new FormControl('medium', Validators.required),
     status: new FormControl('todo', Validators.required),
@@ -50,12 +55,8 @@ export class AddEditTaskComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.userService.getUsersByRole('member')
-      .subscribe(res => {
-        const response = res as { data: any[] };
-        this.users = response.data;
-      });
-
+    this.loadProjectData();
+    this.loadMemberData();
     if (this.data?.mode === 'edit') {
       this.isEdit = true;
       this.taskForm.patchValue({
@@ -65,6 +66,21 @@ export class AddEditTaskComponent implements OnInit {
           : null
       });
     }
+  }
+
+  loadMemberData(){
+     this.userService.getUsersByRole('member')
+      .subscribe(res => {
+        const response = res as { data: any[] };
+        this.users = response.data;
+      });
+  }
+
+  loadProjectData() {
+    this.projectService.getAllProjects().subscribe(res => {
+      this.projects = res.data.projects;
+      // console.log("project res: ", this.projects)
+    })
   }
 
   get f() {
@@ -92,6 +108,7 @@ export class AddEditTaskComponent implements OnInit {
         due_date: this.formatDate(form.value.due_date)
       };
 
+      console.log("payload is: ", payload);
       if (this.isEdit) {
         this.taskService.updateTask(payload, this.data.taskData.id).subscribe();
       } else {

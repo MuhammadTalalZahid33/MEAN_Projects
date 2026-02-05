@@ -31,7 +31,13 @@ export class TasksService {
   }
 
   updateTask(payload: any, id: any){
-    return this.http.post<any>(`${this.url}/id?=${id}`, payload);
+    return this.http.put<any>(`${this.url}/updateTask/${id}`, payload)
+    .pipe(
+      catchError((error) => {
+        console.log("error updating task: ", error);
+        throw error;
+      })
+    )
   }
 
 }
