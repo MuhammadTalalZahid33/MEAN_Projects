@@ -1,9 +1,6 @@
 <div class="topbar">
     <h2 class="title">Task Board</h2>
-
-    @if (this.role() !== 'MEMBER') {
     <button class="add-btn" (click)="addTask()">+ Add Task</button>
-    }
 </div>
 
 @if (tasks.length === 0) {

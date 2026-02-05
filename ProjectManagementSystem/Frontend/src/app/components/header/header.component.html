@@ -1,15 +1,15 @@
 <header class="headers">
     <div class="logo">
-        <!-- <h3>PMS</h3> -->
         <img class="pmslogo" src="images/pmlogo.png" alt="PMS Logo">
     </div>
 
-    <div class="rightside">
+    <div class="right-side">
         <div class="profile-block">
             <button class="profile-main" mat-menu-item [matMenuTriggerFor]="menu"
                 aria-label="Example icon-button with a menu">
                 <mat-icon>keyboard_arrow_down</mat-icon>
                 <span>Profile</span>
+                
             </button>
             <mat-menu #menu="matMenu" xPosition="before">
                 <button mat-menu-item routerLink="settings">

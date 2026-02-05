@@ -10,15 +10,15 @@
       <input matInput formControlName="title" placeholder="Enter task title" />
 
       <mat-error *ngIf="f['title'].hasError('required')">
-        Task title is required
+        <small> Task title is required</small>
       </mat-error>
 
       <mat-error *ngIf="f['title'].hasError('minlength')">
-        Minimum 5 characters required
+        <small>Minimum 5 characters required</small>
       </mat-error>
 
       <mat-error *ngIf="f['title'].hasError('maxlength')">
-        Maximum 30 characters allowed
+        <small>Maximum 30 characters allowed</small>
       </mat-error>
     </mat-form-field>
 
@@ -35,9 +35,9 @@
         </mat-option>
       </mat-select>
 
-      <div class="error" *ngIf="f['project_id'].invalid && f['project_id'].touched">
+      <mat-error *ngIf="f['project_id'].invalid && f['project_id'].touched">
         <small>Project selection is required</small>
-      </div>
+      </mat-error>
     </mat-form-field>
 
 
@@ -49,9 +49,9 @@
         </mat-option>
       </mat-select>
 
-      <div class="error" *ngIf="f['assigned_to'].invalid && f['assigned_to'].touched">
+      <mat-error *ngIf="f['assigned_to'].invalid && f['assigned_to'].touched">
         <small>Task must be assigned</small>
-      </div>
+      </mat-error>
     </mat-form-field>
 
     <div class="date-row">

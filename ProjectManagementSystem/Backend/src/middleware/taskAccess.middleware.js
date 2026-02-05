@@ -14,12 +14,12 @@ export const canAccessTask = async (req, _res, next) => {
   }
 
   // Admin can do anything
-  if (user.role === 'admin') {
+  if (role === 'admin') {
     return next();
   }
 
   // Manager can manage tasks of their projects (optional enhancement later)
-  if (user.role === 'manager') {
+  if (role === 'manager') {
     return next();
   }
 
