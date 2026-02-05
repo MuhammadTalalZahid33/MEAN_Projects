@@ -41,4 +41,14 @@ export class ProjectsService {
       }) 
     )
   }
+
+  deleteProject(projectId: any): Observable<any>{
+    return this.http.delete<any>(`${this.url}/deleteProject/${projectId}`)
+    .pipe(
+      catchError((error) => {
+        console.log("error deleting project...");
+        throw error
+      }) 
+    )
+  }
 }

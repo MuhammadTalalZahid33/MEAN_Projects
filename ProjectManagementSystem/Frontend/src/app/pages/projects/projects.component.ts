@@ -30,7 +30,6 @@ export class ProjectsComponent implements OnInit {
       .subscribe(p =>
         this.Project = p.data.projects
       )
-    console.log("the projects are: ", this.Project);
   }
 
   addProject() {
@@ -76,6 +75,13 @@ export class ProjectsComponent implements OnInit {
 
   StartWork() {
       
+  }
+
+  deleteProject(pId: any){
+    console.log("project id: ", pId);
+    this.projectService.deleteProject(pId).subscribe(res => {
+      console.log("deletion response: ", res);
+    })
   }
 
 

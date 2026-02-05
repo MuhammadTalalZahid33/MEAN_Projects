@@ -2,8 +2,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #EEAECA;
-    background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
+    // background: hsl(252, 71%, 72%);
+    background: linear-gradient(90deg, rgb(83, 76, 235) 0%, rgb(0, 212, 255) 100%);
+    // background: radial-gradient(circle, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
     padding: 0.3rem 1rem;
     color: white;
 }
