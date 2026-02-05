@@ -1,5 +1,5 @@
 <mat-sidenav-container class="example-container" autosize>
-    <mat-sidenav #drawer class="example-sidenav" mode="side" opened>
+    <mat-sidenav #drawer class="example-sidenav" mode= "side" [opened]="!isMobile()">
         <div class="upper">
             <button mat-menu-item routerLink="dashboard">
                 <mat-icon>dashboard</mat-icon>
