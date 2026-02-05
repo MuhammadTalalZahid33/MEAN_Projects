@@ -14,10 +14,9 @@ export const addTeamMember = AsyncHandler(async (req, res) => {
     throw new ApiError(400, 'project_id and user_id are required');
   }
 
-  await addTeamMemberService({
+  const result = await addTeamMemberService({
     projectId: project_id,
     userId: user_id,
-    currentUser: req.user
   });
 
   res.status(201).json(

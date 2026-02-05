@@ -21,7 +21,13 @@ export class TasksService {
   }
 
   addTask(payload: any): Observable<any>{
-    return this.http.post<any>(`${this.url}/`, payload);
+    return this.http.post<any>(`${this.url}/createTask`, payload)
+    .pipe(
+      catchError((error) => {
+        console.log("error creating task: ", error);
+        throw error;
+      })
+    )
   }
 
   updateTask(payload: any, id: any){

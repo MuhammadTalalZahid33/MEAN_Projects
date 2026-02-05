@@ -11,7 +11,7 @@ import { canAccessTask } from '../middleware/taskAccess.middleware.js';
 
 const router = express.Router();
 
-router.post('/createTask', authorize('admin', 'manager'), createTask);
+router.post('/createTask', authorize('admin', 'manager', 'member'), createTask);
 router.get('/getAllTasks', authorize('admin', 'manager', 'member'), getTasksByProject);
 router.get('/getTask/:id', authorize('admin', 'manager', 'member'), canAccessTask, getTask);
 router.put('/updateTask/:id', authorize('admin', 'manager', 'member'), canAccessTask, updateTask);
