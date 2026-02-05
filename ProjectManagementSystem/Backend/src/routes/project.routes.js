@@ -9,6 +9,6 @@ router.post('/createProject', authorize('admin', 'manager'), createProject);
 router.get('/allProjects', authorize('admin', 'manager', 'member'), getProjects);
 router.get('/project/:id', authorize('admin', 'manager', 'member'), getProject);
 router.put('/updateProject/:id', authorize('admin', 'manager'), canManageProject, updateProject);
-router.delete('/deleteProject/:id', authorize('admin', 'manager'), deleteProject);
+router.delete('/deleteProject/:id', authorize('admin', 'manager'), canManageProject, deleteProject);
 
 export default router;

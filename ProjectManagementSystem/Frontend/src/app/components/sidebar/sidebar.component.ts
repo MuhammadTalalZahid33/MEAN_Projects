@@ -24,7 +24,7 @@ export class SidebarComponent {
 
   constructor() {
     this.breakpointObserver
-      .observe(['(max-width: 900px)'])
+      .observe(['(max-width: 850px)'])
       .subscribe(result => {
         this.isMobile.set(result.matches);
       });

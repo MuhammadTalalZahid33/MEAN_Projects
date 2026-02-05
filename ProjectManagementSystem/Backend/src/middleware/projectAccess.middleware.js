@@ -14,12 +14,12 @@ export const canManageProject = async (req, _res, next) => {
   }
 
   // Admin can do anything
-  if (user.role === 'admin') {
+  if (role === 'admin') {
     return next();
   }
 
   // Manager can manage only their project  
-  if (role === 'manager') {
+  if (role === 'manager' && project.manager_id === user.id) {
     return next();
   }
 
