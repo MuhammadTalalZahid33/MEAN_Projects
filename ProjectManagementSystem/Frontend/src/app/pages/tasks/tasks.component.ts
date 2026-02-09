@@ -68,7 +68,12 @@ export class TasksComponent implements OnInit {
   }
 
   deleteTask(taskId: any) {
-
+    if (taskId) {
+      this.taskService.deleteTask(taskId).subscribe(res => {
+        console.log("del response: ", res);
+      })
+    }else
+      console.log("Couldn't get task Id...");
   }
 
   openMenuId: number | null = null;

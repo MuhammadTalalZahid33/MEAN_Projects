@@ -12,32 +12,42 @@ export class TasksService {
 
   getTasks(): Observable<any> {
     return this.http.get<any>(`${this.url}/getAllTasks`)
-    .pipe(
-      catchError((error) => {
-        console.log("error getting tasks: ", error);
-        throw error;
-      })
-    )
+      .pipe(
+        catchError((error) => {
+          console.log("error getting tasks: ", error);
+          throw error;
+        })
+      )
   }
 
-  addTask(payload: any): Observable<any>{
+  addTask(payload: any): Observable<any> {
     return this.http.post<any>(`${this.url}/createTask`, payload)
-    .pipe(
-      catchError((error) => {
-        console.log("error creating task: ", error);
-        throw error;
-      })
-    )
+      .pipe(
+        catchError((error) => {
+          console.log("error creating task: ", error);
+          throw error;
+        })
+      )
   }
 
-  updateTask(payload: any, id: any){
+  updateTask(payload: any, id: any) {
     return this.http.put<any>(`${this.url}/updateTask/${id}`, payload)
-    .pipe(
-      catchError((error) => {
-        console.log("error updating task: ", error);
-        throw error;
-      })
-    )
+      .pipe(
+        catchError((error) => {
+          console.log("error updating task: ", error);
+          throw error;
+        })
+      )
+  }
+
+  deleteTask(tId: any): Observable<any> {
+    return this.http.delete<any>(`${this.url}/deleteTask/${tId}`)
+      .pipe(
+        catchError((error) => {
+          console.log("error deleting task: ", error);
+          throw error;
+        })
+      )
   }
 
 }

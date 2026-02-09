@@ -66,9 +66,7 @@
                         <button (click)="editTask(t)">✏️ Edit</button>
                         <!-- } -->
                         <button (click)="viewTask(t)">ℹ️ View Details</button>
-                        @if (this.role() !== 'MEMBER') {
                         <button (click)="deleteTask(t.id)">🗑️ Delete</button>
-                        }
                     </div>
                     }
                 </div>
